@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+openai = "0.11.5"
+
+[dev-packages]
+black = "21.12b0"
+isort="5.10.1"
+
+[scripts]
+install-dev = "pipenv install --dev"
+format = "black ."
+run = "python ./src/main.py"
+
+[requires]
+python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true
