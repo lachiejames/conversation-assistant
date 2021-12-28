@@ -4,23 +4,26 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
-openai = "0.11.5"
+openai = "==0.11.5"
 
 [dev-packages]
-black = "21.12b0"
-isort = "5.10.1"
-mypy = "0.9.30"
-pylint = "2.12.2"
-pytest = "6.2.5"
+black = "==21.12b0"
+isort = "==5.10.1"
+mypy = "==0.9.30"
+pylint = "==2.12.2"
+pytest = "==6.2.5"
+python-semantic-release = "==7.23.0"
 
 [scripts]
-check = "mypy ./conversation_assistant"
+check-types = "mypy ./conversation_assistant"
 format = "black ."
 install-dev = "pipenv install --dev"
 install-prod = "pipenv install"
 lint = "pylint ./conversation_assistant"
-start = "python ./conversation_assistant/main.py"
-test = "pytest ./conversation_assistant -vv"
+publish = "semantic-release --verbosity=DEBUG publish"
+sort-imports = "isort ./conversation_assistant"
+start = "python -m conversation_assistant"
+test = "pytest ./conversation_assistant"
 
 [requires]
 python_version = "3.9"

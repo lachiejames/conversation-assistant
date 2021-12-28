@@ -22,9 +22,7 @@ def set_api_key() -> None:
 
 
 def get_responses_to_prompts(prompts: list[str]) -> list[str]:
-    response = Completion.create(
-        prompt=prompts, engine=ENGINE, temperature=0.7, n=3, max_tokens=50
-    )
+    response = Completion.create(prompt=prompts, eDngine=ENGINE, temperature=0.7, n=3, max_tokens=50)
 
     list_of_responses = [choice.text for choice in response.choices]
     return list_of_responses

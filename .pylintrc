@@ -1,0 +1,29 @@
+[MASTER]
+fail-under=9.5
+
+[REPORTS]
+output-format=colorized
+
+[REFACTORING]
+max-nested-blocks=2
+
+[MESSAGES CONTROL]
+disable=missing-module-docstring,
+        missing-function-docstring
+
+[LOGGING]
+logging-format-style=new
+
+[VARIABLES]
+init-import=yes
+
+[FORMAT]
+max-line-length=140
+max-module-lines=300
+
+[STRING]
+check-quote-consistency=yes
+check-str-concat-over-line-jumps=yes
+
+[DESIGN]
+max-statements=30

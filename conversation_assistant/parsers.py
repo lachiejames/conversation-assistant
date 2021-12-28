@@ -1,4 +1,5 @@
 from openai import Completion
+
 from conversation_assistant.models.gpt3_completion_response import (
     GPT3CompletionResponse,
 )
