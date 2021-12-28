@@ -6,6 +6,6 @@ def parse_message_suggestions(response: GPT3CompletionResponse) -> list[Suggesti
     suggestions: list[Suggestion] = []
 
     for choice in response["choices"]:
-        suggestions.append(choice["text"].lstrip())
+        suggestions.append({"text": choice["text"].lstrip()})
 
     return suggestions
