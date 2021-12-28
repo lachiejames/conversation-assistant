@@ -9,11 +9,16 @@ openai = "0.11.5"
 [dev-packages]
 black = "21.12b0"
 isort = "5.10.1"
+mypy = "0.9.30"
+pylint = "2.12.2"
 pytest = "6.2.5"
 
 [scripts]
+check = "mypy ./conversation_assistant"
 format = "black ."
 install-dev = "pipenv install --dev"
+install-prod = "pipenv install"
+lint = "pylint ./conversation_assistant"
 start = "python ./conversation_assistant/main.py"
 test = "pytest ./conversation_assistant -vv"
 

@@ -1,0 +1,26 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "text": "    Bot - I work in the tech industry."
+    },
+    {
+      "finish_reason": "stop",
+      "index": 1,
+      "logprobs": null,
+      "text": "    Bot - I am a computer programmer."
+    },
+    {
+      "finish_reason": "stop",
+      "index": 2,
+      "logprobs": null,
+      "text": "    Bot - I work in the technology industry."
+    }
+  ],
+  "created": 1640685201,
+  "id": "cmpl-4K3STZU7XR1csfhQWTvlVD2TVxKDf",
+  "model": "davinci-instruct-v3:2021-11-19",
+  "object": "text_completion"
+}
