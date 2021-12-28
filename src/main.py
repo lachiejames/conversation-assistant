@@ -1,5 +1,10 @@
 import os
+
 import openai
+from openai.api_resources.completion import Completion
+
+PROMPT = "mine was good.  I just had a lazy day today\n"
+ENGINE = "davinci-instruct-beta"
 
 
 def set_api_key() -> None:
@@ -7,17 +12,19 @@ def set_api_key() -> None:
 
 
 def ask_question(question: str) -> str:
-    return openai.Completion.create(
+    response = openai.Completion.create(
         prompt=question,
-        engine="davinci-instruct-beta",
-        temperature=0.1,
-        max_tokens=20,
+        engine=ENGINE,
+        temperature=0,
         top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0,
     )
 
+    return response.choices[0].text
 
-response = ask_question("hey, how are you?")
 
-print(response)
+def run():
+    print(f"Question - {PROMPT}")
+
+    for i in range(10):
+        response = ask_question(PROMPT)
+        print(f"\n\n\n\n\n\n\n\n\n\n\n\nResponse #{i} - {response}")
