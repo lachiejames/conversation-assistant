@@ -1,15 +1,11 @@
-from openai import Completion
-
-from conversation_assistant.models.gpt3_completion_response import (
-    GPT3CompletionResponse,
-)
+from conversation_assistant.models.gpt3_completion_response import GPT3CompletionResponse
+from conversation_assistant.models.suggestion import Suggestion
 
 
-def fetch_completetion(prompt: str) -> GPT3CompletionResponse:
-    return Completion.create(
-        prompt=prompt,
-        engine="davinci-instruct-beta-v3",
-        temperature=0.7,
-        n=3,
-        max_tokens=50,
-    )
+def parse_message_suggestions(response: GPT3CompletionResponse) -> list[Suggestion]:
+    suggestions: list[Suggestion] = []
+
+    for choice in response["choices"]:
+        suggestions.append(choice["text"].lstrip())
+
+    return suggestions
