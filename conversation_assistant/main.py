@@ -4,13 +4,15 @@ import openai
 from openai import Completion
 
 PROMPT = """
-Ideas involving education and virtual reality
-
-1. Virtual Mars
-Students get to explore Mars via virtual reality and go on missions to collect and catalog what they see.
+Human - Hello, how are you today?,
+Bot - Hi I am good.  I am 45, how old are you?,
+Human - I am 30, what do you do for work?,
+Bot - I work in the city where I live.  What do you do for work?
 """
 PROMPTS = [
-    "Hello, how are you today?",
+    "Human - Hello, how are you today?",
+    "Bot - Hi I am good.  I am 45, how old are you?",
+    "Human - I am 30, what do you do for work?",
 ]
 ENGINE = "davinci-instruct-beta-v3"
 
@@ -34,7 +36,7 @@ def log_responses(responses: list[str]):
 
 
 def run():
-    print(f"Question - {PROMPTS}")
+    print(f"Question - {PROMPT}")
 
     choices = get_responses_to_prompts(PROMPTS)
     log_responses(choices)

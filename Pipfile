@@ -13,7 +13,7 @@ isort="5.10.1"
 [scripts]
 install-dev = "pipenv install --dev"
 format = "black ."
-start = "python ./src/main.py"
+start = "python ./conversation_assistant/main.py"
 
 [requires]
 python_version = "3.9"
