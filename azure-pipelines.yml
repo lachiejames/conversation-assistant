@@ -1,7 +1,7 @@
 name: $(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
 variables:
-  IS_MAIN_BRANCH: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+  IS_MASTER_BRANCH: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
   PIPENV_CACHE_DIR: $(Pipeline.Workspace)/.pipenv_cache
 
 stages:
@@ -59,6 +59,10 @@ stages:
         displayName: Publish
 
         steps:
+          - checkout: self
+            persistCredentials: true
+            clean: true
+
           - task: Cache@2
             displayName: Cache Dependencies
             inputs:
@@ -96,4 +100,4 @@ stages:
               git config --global user.name "Semantic Release"
               pipenv run publish
             displayName: Publish
-            condition: eq(variables.IS_MAIN_BRANCH, true)
+            condition: eq(variables.IS_MASTER_BRANCH, true)
