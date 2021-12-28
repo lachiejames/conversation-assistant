@@ -1,0 +1,47 @@
+name: $(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+stages:
+  - stage: test
+    displayName: Test
+    jobs:
+      - job: test
+        displayName: Test
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.9.x"
+            displayName: "Install Python"
+
+          - script: pipenv run install-dev
+            displayName: Install Dependencies
+
+          - script: |
+              pipenv run lint
+              pipenv run check-types
+            displayName: Lint
+
+          - script: pipenv run test
+            displayName: Test
+
+  - stage: publish
+    displayName: Publish
+    dependsOn: test
+    jobs:
+      - job: publish
+        displayName: Publish
+
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.9.x"
+            displayName: "Install Python"
+
+          - script: pipenv run install-dev
+            displayName: Install Dependencies
+
+          # - script: |
+          #     git config --global user.email "semantic@release.com"
+          #     git config --global user.name "Semantic Release"
+          #     pipenv run publish
+          #   displayName: Publish
+          #   condition: eq(variables.IS_MASTER_BRANCH, true)
