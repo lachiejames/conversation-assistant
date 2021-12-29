@@ -1,11 +1,19 @@
 from conversation_assistant.models.message import Message
 from conversation_assistant.models.suggestion import Suggestion
-from conversation_assistant.parsers import map_messages_to_prompt, parse_message_suggestions
-from conversation_assistant.test.mocks import MOCK_COMPLETION_RESPONSE, MOCK_MESSAGES, MOCK_PROMPT, MOCK_SUGGESTIONS
+from conversation_assistant.parsers import (
+    map_completion_response_to_suggestions,
+    map_messages_to_prompt,
+)
+from conversation_assistant.test.mocks import (
+    MOCK_COMPLETION_RESPONSE,
+    MOCK_MESSAGES,
+    MOCK_PROMPT,
+    MOCK_SUGGESTIONS,
+)
 
 
-def test_parse_message_suggestions_returns_expected_suggestions():
-    suggestions: list[Suggestion] = parse_message_suggestions(MOCK_COMPLETION_RESPONSE)
+def test_map_completion_response_to_suggestions_returns_expected_suggestions():
+    suggestions: list[Suggestion] = map_completion_response_to_suggestions(MOCK_COMPLETION_RESPONSE)
 
     assert suggestions == MOCK_SUGGESTIONS
 
