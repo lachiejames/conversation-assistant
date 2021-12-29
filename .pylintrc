@@ -9,7 +9,8 @@ max-nested-blocks=2
 
 [MESSAGES CONTROL]
 disable=missing-module-docstring,
-        missing-function-docstring
+        missing-function-docstring,
+        unused-wildcard-import
 
 [LOGGING]
 logging-format-style=new

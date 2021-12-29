@@ -1,8 +1,6 @@
 from openai import Completion
 
-from conversation_assistant.models.gpt3_completion_response import (
-    GPT3CompletionResponse,
-)
+from conversation_assistant.models import GPT3CompletionResponse
 
 
 def fetch_completetion(prompt: str) -> GPT3CompletionResponse:

@@ -1,8 +1,4 @@
-from conversation_assistant.models.gpt3_completion_response import (
-    GPT3CompletionResponse,
-)
-from conversation_assistant.models.message import Message
-from conversation_assistant.models.suggestion import Suggestion
+from conversation_assistant.models import GPT3CompletionResponse, Message, Suggestion
 
 MOCK_MESSAGES: list[Message] = [
     {"text": "Hey, how are you today?", "author": "Lachie James"},

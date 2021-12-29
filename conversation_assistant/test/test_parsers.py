@@ -1,5 +1,4 @@
-from conversation_assistant.models.message import Message
-from conversation_assistant.models.suggestion import Suggestion
+from conversation_assistant.models import Message, Suggestion
 from conversation_assistant.parsers import (
     map_completion_response_to_suggestions,
     map_messages_to_prompt,
