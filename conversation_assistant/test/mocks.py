@@ -48,9 +48,7 @@ MOCK_MESSAGES: list[Message] = [
     {"text": "Yeah good mate.  What have you been up to lately?", "author": "Lachie James"},
 ]
 
-MOCK_PROMPT = """
-Lachie James - Hey, how are you today?,
-Me - Not too bad mate, how are you?,
-Lachie James - Yeah good mate.  What have you been up to lately?,
-Me - 
-"""
+MOCK_PROMPT = """Lachie James - Hey, how are you today?
+Me - Not too bad mate, how are you?
+Lachie James - Yeah good mate.  What have you been up to lately?
+Me - """
