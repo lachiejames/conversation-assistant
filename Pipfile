@@ -17,10 +17,12 @@ python-semantic-release = "==7.23.0"
 
 [scripts]
 check-types = "mypy ./conversation_assistant"
+clean = "rm -rf .serverless .venv build conversation_assistant.egg-info dist .coverage"
 format = "black ./conversation_assistant"
 install-dev = "pipenv install --dev"
 install-prod = "pipenv install"
 lint = "pylint ./conversation_assistant"
+prepublish = "python setup.py sdist bdist_wheel"
 publish = "semantic-release --verbosity=DEBUG publish"
 sort-imports = "isort ./conversation_assistant"
 start = "python ./main.py"
