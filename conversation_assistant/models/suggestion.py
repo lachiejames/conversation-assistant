@@ -4,6 +4,5 @@ Suggestion = TypedDict(
     "Suggestion",
     {
         "text": str,
-        "confidence": float,
     },
 )

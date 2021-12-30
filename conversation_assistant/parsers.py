@@ -1,15 +1,24 @@
-from openai import Completion
+from conversation_assistant.models import GPT3CompletionResponse, Message, Suggestion
 
-from conversation_assistant.models.gpt3_completion_response import (
-    GPT3CompletionResponse,
-)
+LEADING_PROMPT = "Me - "
 
 
-def fetch_completetion(prompt: str) -> GPT3CompletionResponse:
-    return Completion.create(
-        prompt=prompt,
-        engine="davinci-instruct-beta-v3",
-        temperature=0.7,
-        n=3,
-        max_tokens=50,
-    )
+def map_messages_to_prompt(messages: list[Message]) -> str:
+    prompt = ""
+
+    for message in messages:
+        prompt += f"{message['author']} - {message['text']}\n"
+
+    # Ensures the suggested messages are from my perspective
+    prompt += LEADING_PROMPT
+
+    return prompt
+
+
+def map_completion_response_to_suggestions(response: GPT3CompletionResponse) -> list[Suggestion]:
+    suggestions: list[Suggestion] = []
+
+    for choice in response["choices"]:
+        suggestions.append({"text": choice["text"].lstrip()})
+
+    return suggestions

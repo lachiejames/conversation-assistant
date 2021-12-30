@@ -12,6 +12,7 @@ isort = "==5.10.1"
 mypy = "==0.930"
 pylint = "==2.12.2"
 pytest = "==6.2.5"
+pytest-cov = "==3.0.0"
 python-semantic-release = "==7.23.0"
 
 [scripts]
@@ -22,8 +23,8 @@ install-prod = "pipenv install"
 lint = "pylint ./conversation_assistant"
 publish = "semantic-release --verbosity=DEBUG publish"
 sort-imports = "isort ./conversation_assistant"
-start = "python -m conversation_assistant"
-test = "pytest ./conversation_assistant"
+start = "python ./main.py"
+test = "pytest ./conversation_assistant --cov=./conversation_assistant --cov-fail-under=90 --cov-branch -vv"
 
 [requires]
 python_version = "3.9"
