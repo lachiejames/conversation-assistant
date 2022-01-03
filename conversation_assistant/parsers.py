@@ -1,4 +1,4 @@
-from conversation_assistant.models import GPT3CompletionResponse, Message, Suggestion, LambdaEvent, message
+from conversation_assistant.models import GPT3CompletionResponse, Message, Suggestion
 
 LEADING_PROMPT = "Me: "
 
@@ -10,7 +10,10 @@ def generate_opening_prompt(messages: list[Message]) -> str:
         if message["author"] not in people_in_convo:
             people_in_convo.append(message["author"])
 
-    return f"The following is a conversation between {people_in_convo}. The assistant will give Me suggestions for things to say in this conversation.\n\n"
+    return f"""The following is a conversation between {people_in_convo}.
+The assistant will give Me suggestions for things to say in this conversation.
+
+"""
 
 
 def map_messages_to_prompt(messages: list[Message]) -> str:
