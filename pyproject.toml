@@ -2,7 +2,6 @@
 version_variable = [
     'setup.py:__version__',
 ]
-repository_url = "https://pypi.org/project/conversation_assistant/"
 
 [tool.black]
 line-length = 140
