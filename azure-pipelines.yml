@@ -143,7 +143,10 @@ stages:
               serverless plugin install -n serverless-python-requirements
             displayName: Install Serverless
 
-          - script: |
-              sls deploy
+          - task: AWSCLI@1
             displayName: Deploy to AWS
-            # condition: eq(variables.IS_MASTER_BRANCH, true)
+            inputs:
+              awsCredentials: 'lambda-deploy'
+              regionName: 'ap-southeast-2'
+              awsCommand: 'sls deploy'
+              failOnStandardError: true
