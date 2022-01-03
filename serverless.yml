@@ -31,3 +31,5 @@ functions:
     name: ${sls:stage}-conversation-assistant
     handler: handler.lambda_handler
     description: Returns a list of message suggestions based upon previous messages
+    events:
+      - http: POST /generate
