@@ -148,6 +148,11 @@ stages:
             displayName: Install Serverless
 
           - script: |
-              sls deploy
+              pipenv run sls deploy
             displayName: Deploy to AWS
+            # condition: eq(variables.IS_MASTER_BRANCH, true)
+
+          - script: |
+              pipenv run sls invoke local -f generate-message-suggestions -p events/me-and-ben.json
+            displayName: Invoke Lambda
             # condition: eq(variables.IS_MASTER_BRANCH, true)
