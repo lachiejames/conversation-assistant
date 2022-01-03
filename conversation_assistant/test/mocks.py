@@ -1,4 +1,10 @@
-from conversation_assistant.models import GPT3CompletionResponse, Message, Suggestion
+from conversation_assistant.models import (
+    GPT3CompletionResponse,
+    GPT3Params,
+    LambdaEvent,
+    Message,
+    Suggestion,
+)
 
 MOCK_MESSAGES: list[Message] = [
     {"text": "Hey, how are you today?", "author": "Lachie James"},
@@ -45,3 +51,15 @@ MOCK_SUGGESTIONS: list[Suggestion] = [
     {"text": "Just been keeping busy mate, you?"},
     {"text": "I've been pretty busy mate, just been doing some work and hanging out with friends."},
 ]
+
+MOCK_GPT3_PARAMS: GPT3Params = {
+    "randomness": 0.7,
+    "num_results": 3,
+    "max_length": 50,
+}
+
+
+MOCK_LAMBDA_EVENT: LambdaEvent = {
+    "previous_messages": MOCK_MESSAGES,
+    "gpt3_params": MOCK_GPT3_PARAMS,
+}
