@@ -1,6 +1,13 @@
 service: conversation-assistant
-
 frameworkVersion: "2"
+useDotenv: true
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    slim: true
 
 provider:
   name: aws
@@ -14,10 +21,9 @@ provider:
 package:
   patterns:
     - "!**"
-    - ".venv/Lib/site-packages/**"
     - "conversation_assistant/**"
     - "!conversation_assistant/test/**"
-    - "!**/__pycache__/**"
+    - ".env"
     - "handler.py"
 
 functions:
