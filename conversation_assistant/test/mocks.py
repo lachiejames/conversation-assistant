@@ -12,10 +12,13 @@ MOCK_MESSAGES: list[Message] = [
     {"text": "Yeah good mate.  What have you been up to lately?", "author": "Lachie James"},
 ]
 
-MOCK_PROMPT = """Lachie James - Hey, how are you today?
-Me - Not too bad mate, how are you?
-Lachie James - Yeah good mate.  What have you been up to lately?
-Me - """
+MOCK_PROMPT = """The following is a conversation between ['Lachie James', 'Me'].
+The assistant will give Me suggestions for things to say in this conversation.
+
+Lachie James: Hey, how are you today?
+Me: Not too bad mate, how are you?
+Lachie James: Yeah good mate.  What have you been up to lately?
+Me: """
 
 
 MOCK_COMPLETION_RESPONSE: GPT3CompletionResponse = {

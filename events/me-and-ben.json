@@ -24,5 +24,10 @@
       "text": "Oh right lol. I'm meeting for lunch at. I'll probably be home by 5",
       "author": "Ben Kerr"
     }
-  ]
+  ],
+  "gpt3_params": {
+    "randomness": 0.7,
+    "num_results": 3,
+    "max_length": 50
+  }
 }
