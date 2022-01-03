@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.1 (2022-01-03)
+### Fix
+* Use recommended gpt3 chat structure ([#5](https://github.com/lachiejames/conversation-assistant/issues/5)) ([`837a0f7`](https://github.com/lachiejames/conversation-assistant/commit/837a0f71c8459dfd6f0a564666e07b6c8e873133))
+
 ## v0.3.0 (2022-01-03)
 ### Feature
 * Allow http event to pass GPT3 params ([#4](https://github.com/lachiejames/conversation-assistant/issues/4)) ([`76175cc`](https://github.com/lachiejames/conversation-assistant/commit/76175cc93f2a565ace403eb4390054b81ecaeab1))
