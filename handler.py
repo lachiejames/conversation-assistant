@@ -1,10 +1,10 @@
 import json
 from dotenv import load_dotenv
 from conversation_assistant.generator import generate_message_suggestions
-from conversation_assistant.models import Message, Suggestion
+from conversation_assistant.models import LambdaEvent, Message, Suggestion
 
 
-def lambda_handler(event, context):
+def lambda_handler(event:LambdaEvent):
     load_dotenv(".env")
 
     previous_messages: list[Message] = event["previous_messages"]
