@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.0 (2022-01-03)
+### Feature
+* Allow http event to pass GPT3 params ([#4](https://github.com/lachiejames/conversation-assistant/issues/4)) ([`76175cc`](https://github.com/lachiejames/conversation-assistant/commit/76175cc93f2a565ace403eb4390054b81ecaeab1))
+
 ## v0.2.0 (2022-01-03)
 ### Feature
 * Deploy as Serverless application ([#3](https://github.com/lachiejames/conversation-assistant/issues/3)) ([`92c37b7`](https://github.com/lachiejames/conversation-assistant/commit/92c37b7ec7d7092c277dd351e8a89a8981bfcade))
