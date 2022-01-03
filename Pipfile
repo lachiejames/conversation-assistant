@@ -4,12 +4,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
+python-dotenv = "==0.19.2"
+mypy = "==0.930"
 openai = "==0.11.5"
 
 [dev-packages]
 black = "==21.12b0"
 isort = "==5.10.1"
-mypy = "==0.930"
 pylint = "==2.12.2"
 pytest = "==6.2.5"
 pytest-cov = "==3.0.0"
@@ -17,6 +18,7 @@ python-semantic-release = "==7.23.0"
 
 [scripts]
 check-types = "mypy ./conversation_assistant"
+clean = "rm -rf .serverless .venv build conversation_assistant.egg-info dist .coverage"
 format = "black ./conversation_assistant"
 install-dev = "pipenv install --dev"
 install-prod = "pipenv install"

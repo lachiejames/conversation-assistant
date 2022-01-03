@@ -1,12 +1,13 @@
 **/.venv/**
 **/__pycache__/**
 **/.pytest_cache/**
+**/*.egg-info/**
+**/.vscode/**
+**/.serverless/**
 **/build/**
 **/coverage/**
 **/dist/**
-**/*.egg-info/**
-**/.vscode/**
-
+**/node_modules/**
 **/*.pyc
 
 .coverage

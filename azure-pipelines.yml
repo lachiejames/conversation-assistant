@@ -11,41 +11,12 @@ stages:
       - job: test
         displayName: Test
         steps:
-          - task: Cache@2
-            displayName: Cache Dependencies
-            inputs:
-              key: 'python | "$(Agent.OS)" | Pipfile.lock'
-              restoreKeys: |
-                python | "$(Agent.OS)"
-                python
-              path: variables.PIPENV_CACHE_DIR
-              cacheHitVar: PIPENV_CACHE_RESTORED
+          - template: azure-pipelines-setup.yml
 
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: "3.9.x"
-            displayName: "Install Python"
+          - script: pipenv run check-types
+            displayName: Validate Types
 
-          - script: pip3 install pipenv
-            displayName: Get Pipenv
-
-          - script: |
-              cat > .env << EOF
-              OPENAI_API_KEY=$(OPENAI_API_KEY)
-
-              PIPENV_VENV_IN_PROJECT="enabled"
-              PIPENV_IGNORE_VIRTUALENVS=1
-              PIPENV_CACHE_DIR=variables.PIPENV_CACHE_DIR
-
-              EOF
-            displayName: Setup Environment
-
-          - script: pipenv run install-dev
-            displayName: Install Dependencies
-
-          - script: |
-              pipenv run lint
-              pipenv run check-types
+          - script: pipenv run lint
             displayName: Lint
 
           - script: pipenv run test
@@ -53,51 +24,51 @@ stages:
 
   - stage: publish
     displayName: Publish
+    condition: eq(variables.IS_MASTER_BRANCH, true)
     dependsOn: test
     jobs:
       - job: publish
         displayName: Publish
-
         steps:
           - checkout: self
             persistCredentials: true
             clean: true
 
-          - task: Cache@2
-            displayName: Cache Dependencies
-            inputs:
-              key: 'python | "$(Agent.OS)" | Pipfile.lock'
-              restoreKeys: |
-                python | "$(Agent.OS)"
-                python
-              path: variables.PIPENV_CACHE_DIR
-              cacheHitVar: PIPENV_CACHE_RESTORED
-
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: "3.9.x"
-            displayName: "Install Python"
-
-          - script: pip3 install pipenv
-            displayName: Get Pipenv
-
-          - script: |
-              cat > .env << EOF
-              OPENAI_API_KEY=$(OPENAI_API_KEY)
-
-              PIPENV_VENV_IN_PROJECT="enabled"
-              PIPENV_IGNORE_VIRTUALENVS=1
-              PIPENV_CACHE_DIR=variables.PIPENV_CACHE_DIR
-
-              EOF
-            displayName: Setup Environment
-
-          - script: pipenv run install-dev
-            displayName: Install Dependencies
+          - template: azure-pipelines-setup.yml
 
           - script: |
               git config --global user.email "semantic@release.com"
               git config --global user.name "Semantic Release"
               pipenv run publish
-            displayName: Publish
-            condition: eq(variables.IS_MASTER_BRANCH, true)
+            displayName: Publish to PyPI
+
+      - job: deploy
+        displayName: Deploy
+        steps:
+          - template: azure-pipelines-setup.yml
+
+          - script: |
+              npm install -g serverless
+              serverless plugin install -n serverless-python-requirements
+            displayName: Install Serverless
+
+          - script: pipenv run sls deploy
+            displayName: Deploy Serverless
+
+  - stage: smoke_test
+    displayName: SmokeTest
+    condition: eq(variables.IS_MASTER_BRANCH, true)
+    dependsOn: publish
+    jobs:
+      - job: smoke_test
+        displayName: SmokeTest
+        steps:
+          - template: azure-pipelines-setup.yml
+
+          - script: |
+              npm install -g serverless
+              serverless plugin install -n serverless-python-requirements
+            displayName: Install Serverless
+
+          - script: pipenv run sls invoke local -f generate-message-suggestions -p events/me-and-ben.json
+            displayName: Invoke Serverless Lambda
