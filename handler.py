@@ -6,7 +6,7 @@ from conversation_assistant.generator import generate_message_suggestions
 from conversation_assistant.models import LambdaEvent, Suggestion
 
 
-def lambda_handler(event: LambdaEvent):
+def lambda_handler(event: LambdaEvent, context):
     load_dotenv(".env")
 
     suggestions: list[Suggestion] = generate_message_suggestions(event)

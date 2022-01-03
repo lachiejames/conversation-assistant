@@ -21,5 +21,10 @@
       "text": "Yes I think so too 😂\n\nYes I do. I have two with the same webhosting, Bluehost. They are not live yet.\n\nI just don’t know how the backend database will work without  any php.\nUnless plugins like woocommerce do the job..??..",
       "author": "Sean Emami"
     }
-  ]
+  ],
+  "gpt3_params": {
+    "randomness": 0.7,
+    "num_results": 3,
+    "max_length": 50
+  }
 }

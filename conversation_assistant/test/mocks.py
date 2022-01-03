@@ -12,7 +12,7 @@ MOCK_MESSAGES: list[Message] = [
     {"text": "Yeah good mate.  What have you been up to lately?", "author": "Lachie James"},
 ]
 
-MOCK_PROMPT = """The following is a conversation between myself and <insert name>. The assistant is giving me tips for things to say.
+MOCK_PROMPT = """The following is a conversation between ['Lachie James', 'Me']. The assistant will give Me suggestions for things to say in this conversation.
 
 Lachie James: Hey, how are you today?
 Me: Not too bad mate, how are you?
