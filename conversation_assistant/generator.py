@@ -1,5 +1,9 @@
 from conversation_assistant.gpt3 import fetch_completetion
-from conversation_assistant.models import GPT3CompletionResponse, LambdaEvent, Suggestion
+from conversation_assistant.models import (
+    GPT3CompletionResponse,
+    LambdaEvent,
+    Suggestion,
+)
 from conversation_assistant.parsers import (
     map_completion_response_to_suggestions,
     map_messages_to_prompt,
