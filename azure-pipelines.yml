@@ -56,7 +56,7 @@ stages:
     dependsOn: test
     jobs:
       - job: publish
-        displayName: Publish
+        displayName: Publish Library
 
         steps:
           - checkout: self
@@ -100,4 +100,45 @@ stages:
               git config --global user.name "Semantic Release"
               pipenv run publish
             displayName: Publish
+            condition: eq(variables.IS_MASTER_BRANCH, true)
+
+      - job: deploy
+        displayName: Deploy
+
+        steps:
+          - task: Cache@2
+            displayName: Cache Dependencies
+            inputs:
+              key: 'python | "$(Agent.OS)" | Pipfile.lock'
+              restoreKeys: |
+                python | "$(Agent.OS)"
+                python
+              path: variables.PIPENV_CACHE_DIR
+              cacheHitVar: PIPENV_CACHE_RESTORED
+
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.9.x"
+            displayName: "Install Python"
+
+          - script: pip3 install pipenv
+            displayName: Get Pipenv
+
+          - script: |
+              cat > .env << EOF
+              OPENAI_API_KEY=$(OPENAI_API_KEY)
+
+              PIPENV_VENV_IN_PROJECT="enabled"
+              PIPENV_IGNORE_VIRTUALENVS=1
+              PIPENV_CACHE_DIR=variables.PIPENV_CACHE_DIR
+
+              EOF
+            displayName: Setup Environment
+
+          - script: pipenv run install-dev
+            displayName: Install Dependencies
+
+          - script: |
+              sls deploy
+            displayName: Deploy to AWS
             condition: eq(variables.IS_MASTER_BRANCH, true)
