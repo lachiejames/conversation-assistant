@@ -5,102 +5,102 @@ variables:
   PIPENV_CACHE_DIR: $(Pipeline.Workspace)/.pipenv_cache
 
 stages:
-  - stage: test
-    displayName: Test
-    jobs:
-      - job: test
-        displayName: Test
-        steps:
-          - task: Cache@2
-            displayName: Cache Dependencies
-            inputs:
-              key: 'python | "$(Agent.OS)" | Pipfile.lock'
-              restoreKeys: |
-                python | "$(Agent.OS)"
-                python
-              path: variables.PIPENV_CACHE_DIR
-              cacheHitVar: PIPENV_CACHE_RESTORED
+  # - stage: test
+  #   displayName: Test
+  #   jobs:
+  #     - job: test
+  #       displayName: Test
+  #       steps:
+  #         - task: Cache@2
+  #           displayName: Cache Dependencies
+  #           inputs:
+  #             key: 'python | "$(Agent.OS)" | Pipfile.lock'
+  #             restoreKeys: |
+  #               python | "$(Agent.OS)"
+  #               python
+  #             path: variables.PIPENV_CACHE_DIR
+  #             cacheHitVar: PIPENV_CACHE_RESTORED
 
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: "3.9.x"
-            displayName: "Install Python"
+  #         - task: UsePythonVersion@0
+  #           inputs:
+  #             versionSpec: "3.9.x"
+  #           displayName: "Install Python"
 
-          - script: pip3 install pipenv
-            displayName: Get Pipenv
+  #         - script: pip3 install pipenv
+  #           displayName: Get Pipenv
 
-          - script: |
-              cat > .env << EOF
-              OPENAI_API_KEY=$(OPENAI_API_KEY)
+  #         - script: |
+  #             cat > .env << EOF
+  #             OPENAI_API_KEY=$(OPENAI_API_KEY)
 
-              PIPENV_VENV_IN_PROJECT="enabled"
-              PIPENV_IGNORE_VIRTUALENVS=1
-              PIPENV_CACHE_DIR=variables.PIPENV_CACHE_DIR
+  #             PIPENV_VENV_IN_PROJECT="enabled"
+  #             PIPENV_IGNORE_VIRTUALENVS=1
+  #             PIPENV_CACHE_DIR=variables.PIPENV_CACHE_DIR
 
-              EOF
-            displayName: Setup Environment
+  #             EOF
+  #           displayName: Setup Environment
 
-          - script: pipenv run install-dev
-            displayName: Install Dependencies
+  #         - script: pipenv run install-dev
+  #           displayName: Install Dependencies
 
-          - script: |
-              pipenv run lint
-              pipenv run check-types
-            displayName: Lint
+  #         - script: |
+  #             pipenv run lint
+  #             pipenv run check-types
+  #           displayName: Lint
 
-          - script: pipenv run test
-            displayName: Test
+  #         - script: pipenv run test
+  #           displayName: Test
 
   - stage: publish
     displayName: Publish
-    dependsOn: test
+    # dependsOn: test
     jobs:
-      - job: publish
-        displayName: Publish Library
+      # - job: publish
+      #   displayName: Publish Library
 
-        steps:
-          - checkout: self
-            persistCredentials: true
-            clean: true
+      #   steps:
+      #     - checkout: self
+      #       persistCredentials: true
+      #       clean: true
 
-          - task: Cache@2
-            displayName: Cache Dependencies
-            inputs:
-              key: 'python | "$(Agent.OS)" | Pipfile.lock'
-              restoreKeys: |
-                python | "$(Agent.OS)"
-                python
-              path: variables.PIPENV_CACHE_DIR
-              cacheHitVar: PIPENV_CACHE_RESTORED
+      #     - task: Cache@2
+      #       displayName: Cache Dependencies
+      #       inputs:
+      #         key: 'python | "$(Agent.OS)" | Pipfile.lock'
+      #         restoreKeys: |
+      #           python | "$(Agent.OS)"
+      #           python
+      #         path: variables.PIPENV_CACHE_DIR
+      #         cacheHitVar: PIPENV_CACHE_RESTORED
 
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: "3.9.x"
-            displayName: "Install Python"
+      #     - task: UsePythonVersion@0
+      #       inputs:
+      #         versionSpec: "3.9.x"
+      #       displayName: "Install Python"
 
-          - script: pip3 install pipenv
-            displayName: Get Pipenv
+      #     - script: pip3 install pipenv
+      #       displayName: Get Pipenv
 
-          - script: |
-              cat > .env << EOF
-              OPENAI_API_KEY=$(OPENAI_API_KEY)
+      #     - script: |
+      #         cat > .env << EOF
+      #         OPENAI_API_KEY=$(OPENAI_API_KEY)
 
-              PIPENV_VENV_IN_PROJECT="enabled"
-              PIPENV_IGNORE_VIRTUALENVS=1
-              PIPENV_CACHE_DIR=variables.PIPENV_CACHE_DIR
+      #         PIPENV_VENV_IN_PROJECT="enabled"
+      #         PIPENV_IGNORE_VIRTUALENVS=1
+      #         PIPENV_CACHE_DIR=variables.PIPENV_CACHE_DIR
 
-              EOF
-            displayName: Setup Environment
+      #         EOF
+      #       displayName: Setup Environment
 
-          - script: pipenv run install-dev
-            displayName: Install Dependencies
+      #     - script: pipenv run install-dev
+      #       displayName: Install Dependencies
 
-          - script: |
-              git config --global user.email "semantic@release.com"
-              git config --global user.name "Semantic Release"
-              pipenv run publish
-            displayName: Publish
-            condition: eq(variables.IS_MASTER_BRANCH, true)
+      #     - script: |
+      #         git config --global user.email "semantic@release.com"
+      #         git config --global user.name "Semantic Release"
+      #         pipenv run publish
+      #       displayName: Publish
+      #       condition: eq(variables.IS_MASTER_BRANCH, true)
 
       - job: deploy
         displayName: Deploy
@@ -139,6 +139,11 @@ stages:
             displayName: Install Dependencies
 
           - script: |
+              npm install -g serverless
+              serverless plugin install -n serverless-python-requirements
+            displayName: Install Serverless
+
+          - script: |
               sls deploy
             displayName: Deploy to AWS
-            condition: eq(variables.IS_MASTER_BRANCH, true)
+            # condition: eq(variables.IS_MASTER_BRANCH, true)
