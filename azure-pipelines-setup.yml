@@ -1,0 +1,39 @@
+steps:
+  - task: Cache@2
+    displayName: Cache Dependencies
+    inputs:
+      key: 'python | "$(Agent.OS)" | Pipfile.lock'
+      restoreKeys: |
+        python | "$(Agent.OS)"
+        python
+      path: variables.PIPENV_CACHE_DIR
+      cacheHitVar: PIPENV_CACHE_RESTORED
+
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "3.9.x"
+    displayName: "Install Python"
+
+  - script: pip3 install pipenv
+    displayName: Get Pipenv
+
+  - script: |
+      cat > .env << EOF
+      PYPI_USERNAME=$(PYPI_USERNAME)
+      PYPI_PASSWORD=$(PYPI_PASSWORD)
+
+      AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID)
+      AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY)
+      AWS_DEFAULT_REGION=ap-southeast-2
+
+      OPENAI_API_KEY=$(OPENAI_API_KEY)
+
+      PIPENV_VENV_IN_PROJECT="enabled"
+      PIPENV_IGNORE_VIRTUALENVS=1
+      PIPENV_CACHE_DIR=variables.PIPENV_CACHE_DIR
+
+      EOF
+    displayName: Setup Environment
+
+  - script: pipenv run install-dev
+    displayName: Install Dependencies
