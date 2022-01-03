@@ -10,7 +10,7 @@ def fetch_completetion(prompt: str) -> GPT3CompletionResponse:
         prompt=prompt,
         api_key=os.getenv("OPENAI_API_KEY"),
         engine="davinci-instruct-beta-v3",
-        temperature=0.7,
+        temperature=0.6,
         n=3,
         max_tokens=50,
     )
