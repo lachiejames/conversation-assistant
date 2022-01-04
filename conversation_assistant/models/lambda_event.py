@@ -18,3 +18,10 @@ LambdaEvent = TypedDict(
         "gpt3_params": GPT3Params,
     },
 )
+
+LambdaRequest = TypedDict(
+    "LambdaRequest",
+    {
+        "body": str,
+    },
+)
