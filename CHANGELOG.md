@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.2 (2022-01-04)
+### Fix
+* Add logging ([#6](https://github.com/lachiejames/conversation-assistant/issues/6)) ([`f5f153c`](https://github.com/lachiejames/conversation-assistant/commit/f5f153ca6ca1d8d66409625a7d85c4a21766b590))
+
 ## v0.3.1 (2022-01-03)
 ### Fix
 * Use recommended gpt3 chat structure ([#5](https://github.com/lachiejames/conversation-assistant/issues/5)) ([`837a0f7`](https://github.com/lachiejames/conversation-assistant/commit/837a0f71c8459dfd6f0a564666e07b6c8e873133))
