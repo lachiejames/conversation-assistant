@@ -1,16 +1,13 @@
 import json
-from logging import log
 
 from dotenv import load_dotenv
 
 from conversation_assistant.generator import generate_message_suggestions
-from conversation_assistant.models import LambdaEvent, Suggestion
-from conversation_assistant.models import lambda_event
-from conversation_assistant.models.lambda_event import LambdaRequest
+from conversation_assistant.models import LambdaEvent, LambdaRequest, Suggestion
 
 
 def respond_with_200(event: LambdaEvent):
-    print(f"The event is valid.  Generating message suggestions...")
+    print("The event is valid.  Generating message suggestions...")
     suggestions: list[Suggestion] = generate_message_suggestions(event)
 
     return {
@@ -23,7 +20,7 @@ def respond_with_200(event: LambdaEvent):
 
 
 def respond_with_400(event: LambdaEvent):
-    print(f"The event is NOT valid, responding with error")
+    print("The event is NOT valid, responding with error")
 
     return {
         "statusCode": 400,
@@ -35,7 +32,7 @@ def respond_with_400(event: LambdaEvent):
 
 
 def respond_with_500(request: LambdaRequest):
-    print(f"The event is NOT valid, responding with error")
+    print("The event is NOT valid, responding with error")
 
     return {
         "statusCode": 500,

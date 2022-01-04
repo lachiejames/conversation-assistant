@@ -5,70 +5,69 @@ variables:
   PIPENV_CACHE_DIR: $(Pipeline.Workspace)/.pipenv_cache
 
 stages:
-  - stage: test
-    displayName: Test
-    jobs:
-      - job: test
-        displayName: Test
-        steps:
-          - template: azure-pipelines-setup.yml
+  # - stage: test
+  #   displayName: Test
+  #   jobs:
+  #     - job: test
+  #       displayName: Test
+  #       steps:
+  #         - template: azure-pipelines-setup.yml
 
-          - script: pipenv run check-types
-            displayName: Validate Types
+  #         - script: pipenv run check-types
+  #           displayName: Validate Types
 
-          - script: pipenv run lint
-            displayName: Lint
+  #         - script: pipenv run lint
+  #           displayName: Lint
 
-          - script: pipenv run test
-            displayName: Test
+  #         - script: pipenv run test
+  #           displayName: Test
 
-  - stage: publish
-    displayName: Publish
-    condition: eq(variables.IS_MASTER_BRANCH, true)
-    dependsOn: test
-    jobs:
-      - job: publish
-        displayName: Publish
-        steps:
-          - checkout: self
-            persistCredentials: true
-            clean: true
+  # - stage: publish
+  #   displayName: Publish
+  #   condition: eq(variables.IS_MASTER_BRANCH, true)
+  #   dependsOn: test
+  #   jobs:
+  #     - job: publish
+  #       displayName: Publish
+  #       steps:
+  #         - checkout: self
+  #           persistCredentials: true
+  #           clean: true
 
-          - template: azure-pipelines-setup.yml
+  #         - template: azure-pipelines-setup.yml
 
-          - script: |
-              git config --global user.email "semantic@release.com"
-              git config --global user.name "Semantic Release"
-              pipenv run publish
-            displayName: Publish to PyPI
+  #         - script: |
+  #             git config --global user.email "semantic@release.com"
+  #             git config --global user.name "Semantic Release"
+  #             pipenv run publish
+  #           displayName: Publish to PyPI
 
-      - job: deploy
-        displayName: Deploy
-        steps:
-          - template: azure-pipelines-setup.yml
+  #     - job: deploy
+  #       displayName: Deploy
+  #       steps:
+  #         - template: azure-pipelines-setup.yml
 
-          - script: |
-              npm install -g serverless
-              serverless plugin install -n serverless-python-requirements
-            displayName: Install Serverless
+  #         - script: |
+  #             npm install -g serverless
+  #             serverless plugin install -n serverless-python-requirements
+  #           displayName: Install Serverless
 
-          - script: pipenv run sls deploy
-            displayName: Deploy Serverless
+  #         - script: pipenv run sls deploy
+  #           displayName: Deploy Serverless
 
   - stage: smoke_test
     displayName: SmokeTest
-    condition: eq(variables.IS_MASTER_BRANCH, true)
-    dependsOn: publish
+    # condition: eq(variables.IS_MASTER_BRANCH, true)
+    # dependsOn: publish
     jobs:
       - job: smoke_test
         displayName: SmokeTest
         steps:
-          - template: azure-pipelines-setup.yml
-
-          - script: |
-              npm install -g serverless
-              serverless plugin install -n serverless-python-requirements
-            displayName: Install Serverless
-
-          - script: pipenv run sls invoke local -f generate-message-suggestions -p events/me-and-ben.json
-            displayName: Invoke Serverless Lambda
+          - task: LambdaInvokeFunction@1
+            inputs:
+              awsCredentials: "lambda-deploy"
+              regionName: "ap-southeast-2"
+              functionName: "local-conversation-assistant"
+              payload: "events/me-and-ben.json"
+              logRequest: true
+              logResponse: true
