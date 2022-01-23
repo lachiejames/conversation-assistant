@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 from jsonschema import ValidationError
 
-from conversation_assistant.models.lambda_event import LambdaEvent
+from conversation_assistant.models import LambdaEvent
 from conversation_assistant.validators import validate_message_suggestions
 
 
