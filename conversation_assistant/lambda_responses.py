@@ -1,12 +1,12 @@
 from jsonschema import ValidationError
 
-from conversation_assistant.generator import generate_message_suggestions
+import conversation_assistant.generator
 from conversation_assistant.models import LambdaEvent, LambdaResponse, Suggestion
 from conversation_assistant.validators import validate_message_suggestions
 
 
 def respond_with_200(event: LambdaEvent) -> LambdaResponse:
-    suggestions: list[Suggestion] = generate_message_suggestions(event)
+    suggestions: list[Suggestion] = conversation_assistant.generator.generate_message_suggestions(event)
 
     return {
         "statusCode": 200,
@@ -17,32 +17,37 @@ def respond_with_200(event: LambdaEvent) -> LambdaResponse:
     }
 
 
-def respond_with_400(event: LambdaEvent) -> LambdaResponse:
+def respond_with_400(error: ValidationError) -> LambdaResponse:
     return {
         "statusCode": 400,
         "headers": {
             "Content-Type": "application/json",
         },
-        "body": f"Invalid request - event={event}",
+        "body": f"Error - Invalid event\nerror={error.message}",
     }
 
 
-def respond_with_500(event: LambdaEvent) -> LambdaResponse:
+def respond_with_500(error: Exception) -> LambdaResponse:
+    print(error.with_traceback)
+
     return {
         "statusCode": 500,
         "headers": {
             "Content-Type": "application/json",
         },
-        "body": f"Something went wrong... event={event}",
+        "body": "Error - Something went wrong",
     }
 
 
 def lambda_response(event: LambdaEvent) -> LambdaResponse:
     try:
-        validate_message_suggestions(event)
+
+        try:
+            validate_message_suggestions(event)
+        except ValidationError as error:
+            return respond_with_400(error)
+
         return respond_with_200(event)
 
-    except ValidationError:
-        return respond_with_400(event)
-
-    return respond_with_500(event)
+    except Exception as error:
+        return respond_with_500(error)
