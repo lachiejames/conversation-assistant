@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.5 (2022-01-23)
+### Fix
+* Switch back to string events lol ([#9](https://github.com/lachiejames/conversation-assistant/issues/9)) ([`786e1a0`](https://github.com/lachiejames/conversation-assistant/commit/786e1a0650d98d4009d0ca8b0304808907a7c8aa))
+
 ## v0.3.4 (2022-01-23)
 ### Fix
 * Include schemas in lambda ([#8](https://github.com/lachiejames/conversation-assistant/issues/8)) ([`471fb60`](https://github.com/lachiejames/conversation-assistant/commit/471fb6068a92299c8b33a6ef9eb804ec74587af4))
