@@ -16,6 +16,7 @@ pylint = "==2.12.2"
 pytest = "==6.2.5"
 pytest-cov = "==3.0.0"
 python-semantic-release = "==7.23.0"
+types-jsonschema = "==4.3.2"
 
 [scripts]
 check-types = "mypy ./conversation_assistant ./handler.py"

@@ -1,33 +1,35 @@
 {
-  "previous_messages": [
-    {
-      "text": "Dad, Jordyn and I might be having lunch around Camberwell tomorrow afternoon. I'm not sure where or what time yet but I could probably pick you up on the way home",
-      "author": "Ben Kerr"
-    },
-    {
-      "text": "I'm probably not going to be ready until 7ish tomorrow cause Eltham, but I'll keep you updated",
-      "author": "Me"
-    },
-    {
-      "text": "Keen for another look at that prescious mug",
-      "author": "Ben Kerr"
-    },
-    {
-      "text": "A coffee mug?",
-      "author": "Ben Kerr"
-    },
-    {
-      "text": "Your mug baby",
-      "author": "Me"
-    },
-    {
-      "text": "Oh right lol. I'm meeting for lunch at. I'll probably be home by 5",
-      "author": "Ben Kerr"
+  "body": {
+    "previous_messages": [
+      {
+        "text": "Dad, Jordyn and I might be having lunch around Camberwell tomorrow afternoon. I'm not sure where or what time yet but I could probably pick you up on the way home",
+        "author": "Ben Kerr"
+      },
+      {
+        "text": "I'm probably not going to be ready until 7ish tomorrow cause Eltham, but I'll keep you updated",
+        "author": "Me"
+      },
+      {
+        "text": "Keen for another look at that prescious mug",
+        "author": "Ben Kerr"
+      },
+      {
+        "text": "A coffee mug?",
+        "author": "Ben Kerr"
+      },
+      {
+        "text": "Your mug baby",
+        "author": "Me"
+      },
+      {
+        "text": "Oh right lol. I'm meeting for lunch at. I'll probably be home by 5",
+        "author": "Ben Kerr"
+      }
+    ],
+    "gpt3_params": {
+      "randomness": 0.7,
+      "num_results": 3,
+      "max_length": 50
     }
-  ],
-  "gpt3_params": {
-    "randomness": 0.7,
-    "num_results": 3,
-    "max_length": 50
   }
 }
