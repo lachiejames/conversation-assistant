@@ -2,44 +2,38 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-    "body": {
-      "type": "object",
-      "properties": {
-        "previous_messages": {
-          "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "text": {
-                  "type": "string"
-                },
-                "author": {
-                  "type": "string"
-                }
-              },
-              "required": ["text", "author"]
-            }
-          ]
-        },
-        "gpt3_params": {
+    "previous_messages": {
+      "type": "array",
+      "items": [
+        {
           "type": "object",
           "properties": {
-            "randomness": {
-              "type": "number"
+            "text": {
+              "type": "string"
             },
-            "num_results": {
-              "type": "integer"
-            },
-            "max_length": {
-              "type": "integer"
+            "author": {
+              "type": "string"
             }
           },
-          "required": ["randomness", "num_results", "max_length"]
+          "required": ["text", "author"]
+        }
+      ]
+    },
+    "gpt3_params": {
+      "type": "object",
+      "properties": {
+        "randomness": {
+          "type": "number"
+        },
+        "num_results": {
+          "type": "integer"
+        },
+        "max_length": {
+          "type": "integer"
         }
       },
-      "required": ["previous_messages", "gpt3_params"]
+      "required": ["randomness", "num_results", "max_length"]
     }
   },
-  "required": ["body"]
+  "required": ["previous_messages", "gpt3_params"]
 }

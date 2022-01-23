@@ -1,8 +1,10 @@
+import json
+
 from pytest_mock import MockerFixture
 
 import conversation_assistant.generator
 from conversation_assistant.lambda_helper import lambda_response
-from conversation_assistant.models import LambdaResponse
+from conversation_assistant.models import LambdaResponse, MessageSuggestions
 from conversation_assistant.test.mocks import MOCK_LAMBDA_EVENT
 
 
@@ -14,8 +16,9 @@ def test_lambda_response__when_event_is_valid__then_response_code_is_200():
 
 def test_lambda_response__when_event_is_valid__then_returns_at_least_1_message_suggestion():
     response: LambdaResponse = lambda_response(MOCK_LAMBDA_EVENT)
+    message_suggestions: MessageSuggestions = json.loads(response["body"])
 
-    assert len(response["body"]["results"]) > 0
+    assert len(message_suggestions) > 0
 
 
 def test_lambda_response__when_event_is_invalid__then_response_code_is_400():
@@ -28,7 +31,7 @@ def test_lambda_response__when_event_is_invalid__then_returns_error_message():
     empty_event = {}
     response: LambdaResponse = lambda_response(empty_event)
 
-    assert response["body"] == "Error - Invalid event\n" + "error='body' is a required property"
+    assert response["body"] == "Error - Invalid event\n" + "error='body' is a required property, and it must be a string"
 
 
 def test_lambda_response__when_internal_error_raised__then_response_code_is_500(mocker: MockerFixture):

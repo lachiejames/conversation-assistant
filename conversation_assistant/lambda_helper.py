@@ -1,19 +1,26 @@
+import json
+
 from jsonschema import ValidationError
 
 import conversation_assistant.generator
-from conversation_assistant.models import LambdaEvent, LambdaResponse, Suggestion
+from conversation_assistant.models import (
+    GenerateMessageSuggestionsRequest,
+    LambdaEvent,
+    LambdaResponse,
+    Suggestion,
+)
 from conversation_assistant.validators import validate_message_suggestions
 
 
-def respond_with_200(event: LambdaEvent) -> LambdaResponse:
-    suggestions: list[Suggestion] = conversation_assistant.generator.generate_message_suggestions(event)
+def respond_with_200(request: GenerateMessageSuggestionsRequest) -> LambdaResponse:
+    suggestions: list[Suggestion] = conversation_assistant.generator.generate_message_suggestions(request)
 
     return {
         "statusCode": 200,
         "headers": {
             "Content-Type": "application/json",
         },
-        "body": {"results": suggestions},
+        "body": json.dumps({"results": suggestions}),
     }
 
 
@@ -41,13 +48,13 @@ def respond_with_500(error: Exception) -> LambdaResponse:
 
 def lambda_response(event: LambdaEvent) -> LambdaResponse:
     try:
-
         try:
             validate_message_suggestions(event)
+            request: GenerateMessageSuggestionsRequest = json.loads(event["body"])
+            return respond_with_200(request)
+
         except ValidationError as error:
             return respond_with_400(error)
-
-        return respond_with_200(event)
 
     except Exception as error:
         return respond_with_500(error)
