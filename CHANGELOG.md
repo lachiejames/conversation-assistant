@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.3 (2022-01-23)
+### Fix
+* Allow full json input ([#7](https://github.com/lachiejames/conversation-assistant/issues/7)) ([`9ce825d`](https://github.com/lachiejames/conversation-assistant/commit/9ce825d48855a5a105eef42a2740237e98a0a7c3))
+
 ## v0.3.2 (2022-01-04)
 ### Fix
 * Add logging ([#6](https://github.com/lachiejames/conversation-assistant/issues/6)) ([`f5f153c`](https://github.com/lachiejames/conversation-assistant/commit/f5f153ca6ca1d8d66409625a7d85c4a21766b590))
