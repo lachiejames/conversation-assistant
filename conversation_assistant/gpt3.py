@@ -5,7 +5,7 @@ from openai import Completion
 from conversation_assistant.models import GPT3CompletionResponse, GPT3Params
 
 
-def fetch_completetion(prompt: str, gpt3_params: GPT3Params) -> GPT3CompletionResponse:
+def fetch_completion(prompt: str, gpt3_params: GPT3Params) -> GPT3CompletionResponse:
     return Completion.create(
         prompt=prompt,
         api_key=os.getenv("OPENAI_API_KEY"),
