@@ -9,9 +9,10 @@ from conversation_assistant.models import GenerateMessageSuggestionsRequest, Lam
 
 def validate_message_suggestions(event: LambdaEvent):
     try:
+        assert isinstance(event["body"], str)
         json.loads(event["body"])
     except Exception as error:
-        raise ValidationError("'body' is a required property") from error
+        raise ValidationError("'body' is a required property, and it must be a string") from error
 
     path_to_schema: str = os.path.join("schemas", "generate-message-suggestions.json")
     generate_message_suggestions_request: GenerateMessageSuggestionsRequest = json.loads(event["body"])

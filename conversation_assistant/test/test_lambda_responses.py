@@ -31,7 +31,7 @@ def test_lambda_response__when_event_is_invalid__then_returns_error_message():
     empty_event = {}
     response: LambdaResponse = lambda_response(empty_event)
 
-    assert response["body"] == "Error - Invalid event\n" + "error='body' is a required property"
+    assert response["body"] == "Error - Invalid event\n" + "error='body' is a required property, and it must be a string"
 
 
 def test_lambda_response__when_internal_error_raised__then_response_code_is_500(mocker: MockerFixture):
