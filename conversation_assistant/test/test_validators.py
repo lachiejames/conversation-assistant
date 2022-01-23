@@ -3,11 +3,12 @@ from typing import Any
 import pytest
 from jsonschema import ValidationError
 
+from conversation_assistant.models.lambda_event import LambdaEvent
 from conversation_assistant.validators import validate_message_suggestions
 
 
 def test_validate_message_suggestions__when_event_is_valid__then_succeeds():
-    valid_event: Any = {
+    valid_event: LambdaEvent = {
         "body": {
             "previous_messages": [
                 {
@@ -31,7 +32,7 @@ def test_validate_message_suggestions__when_event_is_valid__then_succeeds():
 
 
 def test_validate_message_suggestions__when_event_is_valid_and_previous_messages_empty__then_succeeds():
-    valid_event: Any = {
+    valid_event: LambdaEvent = {
         "body": {
             "previous_messages": [],
             "gpt3_params": {

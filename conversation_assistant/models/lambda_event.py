@@ -11,17 +11,17 @@ GPT3Params = TypedDict(
     },
 )
 
-LambdaEvent = TypedDict(
-    "LambdaEvent",
+CaApiRequest = TypedDict(
+    "CaApiRequest",
     {
         "previous_messages": list[Message],
         "gpt3_params": GPT3Params,
     },
 )
 
-LambdaRequest = TypedDict(
-    "LambdaRequest",
+LambdaEvent = TypedDict(
+    "LambdaEvent",
     {
-        "body": str,
+        "body": CaApiRequest,
     },
 )

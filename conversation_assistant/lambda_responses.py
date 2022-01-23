@@ -1,11 +1,13 @@
 import json
 
+from jsonschema import ValidationError
+
 from conversation_assistant.generator import generate_message_suggestions
-from conversation_assistant.models import LambdaEvent, LambdaRequest, Suggestion
+from conversation_assistant.models import LambdaEvent, Suggestion
+from conversation_assistant.validators import validate_message_suggestions
 
 
 def respond_with_200(event: LambdaEvent):
-    print("The event is valid.  Generating message suggestions...")
     suggestions: list[Suggestion] = generate_message_suggestions(event)
 
     return {
@@ -18,36 +20,31 @@ def respond_with_200(event: LambdaEvent):
 
 
 def respond_with_400(event: LambdaEvent):
-    print("The event is NOT valid, responding with error")
-
     return {
         "statusCode": 400,
         "headers": {
             "Content-Type": "application/json",
         },
-        "body": json.dumps({"error": f"Invalid request body - {event}"}),
+        "body": json.dumps({"error": f"Invalid request - event={event}"}),
     }
 
 
-def respond_with_500(request: LambdaRequest):
-    print("The event is NOT valid, responding with error")
-
+def respond_with_500(event: LambdaEvent):
     return {
         "statusCode": 500,
         "headers": {
             "Content-Type": "application/json",
         },
-        "body": json.dumps({"error": f"Invalid request - {request}"}),
+        "body": json.dumps({"error": f"Something went wrong... event={event}"}),
     }
 
 
-def lambda_response(request: LambdaRequest):
-    if "body" in request:
-        lambda_event: LambdaEvent = json.loads(request["body"])
+def lambda_response(event: LambdaEvent):
+    try:
+        validate_message_suggestions(event)
+        return respond_with_200(event)
 
-        if "previous_messages" in lambda_event and "gpt3_params" in lambda_event:
-            return respond_with_200(lambda_event)
+    except ValidationError:
+        return respond_with_400(event)
 
-        return respond_with_400(lambda_event)
-
-    return respond_with_500(request)
+    return respond_with_500(event)
