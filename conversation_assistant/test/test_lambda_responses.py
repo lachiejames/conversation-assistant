@@ -1,7 +1,7 @@
 from pytest_mock import MockerFixture
 
 import conversation_assistant.generator
-from conversation_assistant.lambda_responses import lambda_response
+from conversation_assistant.lambda_helper import lambda_response
 from conversation_assistant.models import LambdaResponse
 from conversation_assistant.test.mocks import MOCK_LAMBDA_EVENT
 
