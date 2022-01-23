@@ -1,7 +1,7 @@
 from conversation_assistant.gpt3 import fetch_completion
 from conversation_assistant.models import (
+    GenerateMessageSuggestionsRequest,
     GPT3CompletionResponse,
-    LambdaEvent,
     Suggestion,
 )
 from conversation_assistant.parsers import (
@@ -10,11 +10,11 @@ from conversation_assistant.parsers import (
 )
 
 
-def generate_message_suggestions(event: LambdaEvent):
-    prompt: str = map_messages_to_prompt(event["body"]["previous_messages"])
+def generate_message_suggestions(request: GenerateMessageSuggestionsRequest):
+    prompt: str = map_messages_to_prompt(request["previous_messages"])
     print(f"Constructed a prompt - {prompt}")
 
-    completion_response: GPT3CompletionResponse = fetch_completion(prompt, event["body"]["gpt3_params"])
+    completion_response: GPT3CompletionResponse = fetch_completion(prompt, request["gpt3_params"])
     print(f"Fetched GPT3 completion response - {completion_response}")
 
     suggestions: list[Suggestion] = map_completion_response_to_suggestions(completion_response)

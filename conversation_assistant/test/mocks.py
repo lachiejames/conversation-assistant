@@ -1,3 +1,5 @@
+import json
+
 from conversation_assistant.models import (
     GPT3CompletionResponse,
     GPT3Params,
@@ -5,6 +7,7 @@ from conversation_assistant.models import (
     Message,
     Suggestion,
 )
+from conversation_assistant.models.lambda_event import GenerateMessageSuggestionsRequest
 
 MOCK_MESSAGES: list[Message] = [
     {"text": "Hey, how are you today?", "author": "Lachie James"},
@@ -61,10 +64,10 @@ MOCK_GPT3_PARAMS: GPT3Params = {
     "max_length": 50,
 }
 
-
-MOCK_LAMBDA_EVENT: LambdaEvent = {
-    "body": {
-        "previous_messages": MOCK_MESSAGES,
-        "gpt3_params": MOCK_GPT3_PARAMS,
-    }
+MOCK_GENERATE_MESSAGE_SUGGESTIONS_REQUEST: GenerateMessageSuggestionsRequest = {
+    "previous_messages": MOCK_MESSAGES,
+    "gpt3_params": MOCK_GPT3_PARAMS,
 }
+
+
+MOCK_LAMBDA_EVENT: LambdaEvent = {"body": json.dumps(MOCK_GENERATE_MESSAGE_SUGGESTIONS_REQUEST)}
