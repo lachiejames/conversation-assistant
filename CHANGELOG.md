@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.4 (2022-01-23)
+### Fix
+* Include schemas in lambda ([#8](https://github.com/lachiejames/conversation-assistant/issues/8)) ([`471fb60`](https://github.com/lachiejames/conversation-assistant/commit/471fb6068a92299c8b33a6ef9eb804ec74587af4))
+
 ## v0.3.3 (2022-01-23)
 ### Fix
 * Allow full json input ([#7](https://github.com/lachiejames/conversation-assistant/issues/7)) ([`9ce825d`](https://github.com/lachiejames/conversation-assistant/commit/9ce825d48855a5a105eef42a2740237e98a0a7c3))
