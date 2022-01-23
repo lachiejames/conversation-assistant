@@ -1,5 +1,3 @@
-from typing import Union
-
 from typing_extensions import TypedDict
 
 from conversation_assistant.models.suggestion import Suggestion
@@ -17,6 +15,6 @@ LambdaResponse = TypedDict(
     {
         "statusCode": int,
         "headers": dict[str, str],
-        "body": Union[MessageSuggestions, str],
+        "body": str,
     },
 )

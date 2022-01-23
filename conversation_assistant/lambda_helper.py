@@ -20,7 +20,7 @@ def respond_with_200(request: GenerateMessageSuggestionsRequest) -> LambdaRespon
         "headers": {
             "Content-Type": "application/json",
         },
-        "body": {"results": suggestions},
+        "body": json.dumps({"results": suggestions}),
     }
 
 
