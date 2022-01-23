@@ -1,9 +1,7 @@
-import json
-
 from jsonschema import ValidationError
 
 from conversation_assistant.generator import generate_message_suggestions
-from conversation_assistant.models import LambdaResponse, LambdaEvent, Suggestion
+from conversation_assistant.models import LambdaEvent, LambdaResponse, Suggestion
 from conversation_assistant.validators import validate_message_suggestions
 
 
@@ -25,7 +23,7 @@ def respond_with_400(event: LambdaEvent) -> LambdaResponse:
         "headers": {
             "Content-Type": "application/json",
         },
-        "body": json.dumps({"error": f"Invalid request - event={event}"}),
+        "body": f"Invalid request - event={event}",
     }
 
 
@@ -35,7 +33,7 @@ def respond_with_500(event: LambdaEvent) -> LambdaResponse:
         "headers": {
             "Content-Type": "application/json",
         },
-        "body": json.dumps({"error": f"Something went wrong... event={event}"}),
+        "body": f"Something went wrong... event={event}",
     }
 
 
