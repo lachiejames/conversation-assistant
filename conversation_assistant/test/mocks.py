@@ -63,6 +63,8 @@ MOCK_GPT3_PARAMS: GPT3Params = {
 
 
 MOCK_LAMBDA_EVENT: LambdaEvent = {
-    "previous_messages": MOCK_MESSAGES,
-    "gpt3_params": MOCK_GPT3_PARAMS,
+    "body": {
+        "previous_messages": MOCK_MESSAGES,
+        "gpt3_params": MOCK_GPT3_PARAMS,
+    }
 }

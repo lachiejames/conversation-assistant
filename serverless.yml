@@ -28,7 +28,7 @@ package:
 
 functions:
   generate-message-suggestions:
-    name: ${sls:stage}-conversation-assistant
+    name: ConversationAssistant
     handler: handler.lambda_handler
     description: Returns a list of message suggestions based upon previous messages
     events:

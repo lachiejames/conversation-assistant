@@ -1,30 +1,32 @@
 {
-  "previous_messages": [
-    {
-      "text": "Hey mate, how you been?\nI was hoping we could catch up but this pandemic never seems to end😞\n\nI was wondering, in your opinion, is it worth learning php?\n\nI’m leaning more towards Node.js, since I’ve been learning React and JavaScript but it’s a deeper learning curve.\n\nI’m thinking if I learn php and Wordpress ( I know the basics) it might be easier to setup an e-commerce site , using plugins and themes, than going through Node.js",
-      "author": "Sean Emami"
-    },
-    { "text": "Sorry about the massive message 😆", "author": "Sean Emami" },
-    {
-      "text": "Hey Sean, good to hear from you.  Hope you're enjoying lockdown 😜\n\nPHP has become less popular over the last few years, but there are still a lot of jobs out there.  E.g. Facebook is built with PHP.\n\nNode is more popular, and I think you would be better off sticking with that (if you want).  \n\nWordPress allows you to build a rich website full of features with virtually zero coding.  I have a WordPress site and I've never written PHP before.  If your goal is to set up a small-medium scale Ecommerce website, then I would definitely stick with WordPress.",
-      "author": "Me"
-    },
-    {
-      "text": "Hey Lachie, I’m over the lockdown. I hope next year things get back to normal 😔\n\nThanks for your feedback!🌟\n\nI have come to the same conclusion. \nI might just stick to Wordpress with what I have, and avoid php, which is simple enough to learn but I just don’t have enough time..and play with node.js for my own amusement 😆",
-      "author": "Sean Emami"
-    },
-    {
-      "text": "I think setting up a an e-commerce website with Node would be 10x harder and take 10x longer than just using WordPress 😂\n\nDo you already have a WordPress website?  If so, which webhosting provider are you using?",
-      "author": "Me"
-    },
-    {
-      "text": "Yes I think so too 😂\n\nYes I do. I have two with the same webhosting, Bluehost. They are not live yet.\n\nI just don’t know how the backend database will work without  any php.\nUnless plugins like woocommerce do the job..??..",
-      "author": "Sean Emami"
+  "body": {
+    "previous_messages": [
+      {
+        "text": "Hey mate, how you been?\nI was hoping we could catch up but this pandemic never seems to end😞\n\nI was wondering, in your opinion, is it worth learning php?\n\nI’m leaning more towards Node.js, since I’ve been learning React and JavaScript but it’s a deeper learning curve.\n\nI’m thinking if I learn php and Wordpress ( I know the basics) it might be easier to setup an e-commerce site , using plugins and themes, than going through Node.js",
+        "author": "Sean Emami"
+      },
+      { "text": "Sorry about the massive message 😆", "author": "Sean Emami" },
+      {
+        "text": "Hey Sean, good to hear from you.  Hope you're enjoying lockdown 😜\n\nPHP has become less popular over the last few years, but there are still a lot of jobs out there.  E.g. Facebook is built with PHP.\n\nNode is more popular, and I think you would be better off sticking with that (if you want).  \n\nWordPress allows you to build a rich website full of features with virtually zero coding.  I have a WordPress site and I've never written PHP before.  If your goal is to set up a small-medium scale Ecommerce website, then I would definitely stick with WordPress.",
+        "author": "Me"
+      },
+      {
+        "text": "Hey Lachie, I’m over the lockdown. I hope next year things get back to normal 😔\n\nThanks for your feedback!🌟\n\nI have come to the same conclusion. \nI might just stick to Wordpress with what I have, and avoid php, which is simple enough to learn but I just don’t have enough time..and play with node.js for my own amusement 😆",
+        "author": "Sean Emami"
+      },
+      {
+        "text": "I think setting up a an e-commerce website with Node would be 10x harder and take 10x longer than just using WordPress 😂\n\nDo you already have a WordPress website?  If so, which webhosting provider are you using?",
+        "author": "Me"
+      },
+      {
+        "text": "Yes I think so too 😂\n\nYes I do. I have two with the same webhosting, Bluehost. They are not live yet.\n\nI just don’t know how the backend database will work without  any php.\nUnless plugins like woocommerce do the job..??..",
+        "author": "Sean Emami"
+      }
+    ],
+    "gpt3_params": {
+      "randomness": 0.7,
+      "num_results": 3,
+      "max_length": 50
     }
-  ],
-  "gpt3_params": {
-    "randomness": 0.7,
-    "num_results": 3,
-    "max_length": 50
   }
 }
