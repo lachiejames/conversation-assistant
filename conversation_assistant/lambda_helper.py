@@ -28,7 +28,7 @@ def respond_with_400(error: ValidationError) -> LambdaResponse:
 
 
 def respond_with_500(error: Exception) -> LambdaResponse:
-    print(error.with_traceback)
+    print(error)
 
     return {
         "statusCode": 500,

@@ -23,6 +23,7 @@ package:
     - "!**"
     - "conversation_assistant/**"
     - "!conversation_assistant/test/**"
+    - "schemas/**"
     - ".env"
     - "handler.py"
 
