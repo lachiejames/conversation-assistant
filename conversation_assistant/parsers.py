@@ -1,5 +1,8 @@
-from .models import GPT3CompletionResponse, Suggestion
-from .models.lambda_event import GenerateMessageSuggestionsRequest
+from .models import (
+    GenerateMessageSuggestionsRequest,
+    GPT3CompletionResponse,
+    Suggestion,
+)
 
 
 def generate_prompt(request: GenerateMessageSuggestionsRequest) -> str:

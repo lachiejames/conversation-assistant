@@ -3,8 +3,8 @@ import json
 from pytest_mock import MockerFixture
 
 from ..lambda_helper import lambda_response
-from ..models import LambdaResponse, MessageSuggestions
-from ..test.mocks import MOCK_LAMBDA_EVENT
+from ..models import GenerateMessageSuggestionsRequest, LambdaResponse
+from .mocks import MOCK_LAMBDA_EVENT
 
 
 def test_lambda_response__when_event_is_valid__then_response_code_is_200():
@@ -15,7 +15,7 @@ def test_lambda_response__when_event_is_valid__then_response_code_is_200():
 
 def test_lambda_response__when_event_is_valid__then_returns_at_least_1_message_suggestion():
     response: LambdaResponse = lambda_response(MOCK_LAMBDA_EVENT)
-    message_suggestions: MessageSuggestions = json.loads(response["body"])
+    message_suggestions: GenerateMessageSuggestionsRequest = json.loads(response["body"])
 
     assert len(message_suggestions) > 0
 

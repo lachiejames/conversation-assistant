@@ -2,8 +2,7 @@ from typing import Any
 
 from dotenv import load_dotenv
 
-from conversation_assistant.lambda_helper import lambda_response
-from conversation_assistant.models import LambdaEvent
+from conversation_assistant import LambdaEvent, lambda_response
 
 
 def lambda_handler(event: LambdaEvent, _: Any):

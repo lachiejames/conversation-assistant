@@ -1,6 +1,6 @@
 from ..models import Message, Suggestion
 from ..parsers import generate_prompt, map_completion_response_to_suggestions
-from ..test.mocks import (
+from .mocks import (
     MOCK_COMPLETION_RESPONSE,
     MOCK_MESSAGES,
     MOCK_PROMPT,

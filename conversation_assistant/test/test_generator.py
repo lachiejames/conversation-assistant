@@ -1,6 +1,6 @@
 from ..generator import generate_message_suggestions
 from ..models import Suggestion
-from ..test.mocks import MOCK_GENERATE_MESSAGE_SUGGESTIONS_REQUEST
+from .mocks import MOCK_GENERATE_MESSAGE_SUGGESTIONS_REQUEST
 
 
 def test_generate_message_suggestions_returns_3_choices():
