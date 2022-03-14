@@ -1,13 +1,13 @@
 import json
 
-from conversation_assistant.models import (
+from ..models import (
+    GenerateMessageSuggestionsRequest,
     GPT3CompletionResponse,
     GPT3Params,
     LambdaEvent,
     Message,
     Suggestion,
 )
-from conversation_assistant.models.lambda_event import GenerateMessageSuggestionsRequest
 
 MOCK_MESSAGES: list[Message] = [
     {"text": "Hey, how are you today?", "author": "Lachie James"},

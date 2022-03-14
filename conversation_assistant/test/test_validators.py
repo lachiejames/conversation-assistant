@@ -4,8 +4,8 @@ from typing import Any
 import pytest
 from jsonschema import ValidationError
 
-from conversation_assistant.models import LambdaEvent
-from conversation_assistant.validators import validate_message_suggestions
+from ..models import LambdaEvent
+from ..validators import validate_message_suggestions
 
 
 def test_validate_message_suggestions__when_event_is_valid__then_succeeds():

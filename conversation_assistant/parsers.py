@@ -1,5 +1,5 @@
-from conversation_assistant.models import GPT3CompletionResponse, Suggestion
-from conversation_assistant.models.lambda_event import GenerateMessageSuggestionsRequest
+from .models import GPT3CompletionResponse, Suggestion
+from .models.lambda_event import GenerateMessageSuggestionsRequest
 
 
 def generate_prompt(request: GenerateMessageSuggestionsRequest) -> str:

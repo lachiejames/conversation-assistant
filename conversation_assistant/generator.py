@@ -1,13 +1,10 @@
-from conversation_assistant.gpt3 import fetch_completion
-from conversation_assistant.models import (
+from .gpt3 import fetch_completion
+from .models import (
     GenerateMessageSuggestionsRequest,
     GPT3CompletionResponse,
     Suggestion,
 )
-from conversation_assistant.parsers import (
-    generate_prompt,
-    map_completion_response_to_suggestions,
-)
+from .parsers import generate_prompt, map_completion_response_to_suggestions
 
 
 def generate_message_suggestions(request: GenerateMessageSuggestionsRequest):

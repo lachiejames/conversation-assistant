@@ -4,7 +4,7 @@ from typing import Any
 
 from jsonschema import ValidationError, validate
 
-from conversation_assistant.models import GenerateMessageSuggestionsRequest, LambdaEvent
+from .models import GenerateMessageSuggestionsRequest, LambdaEvent
 
 
 def validate_message_suggestions(event: LambdaEvent):
