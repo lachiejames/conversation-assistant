@@ -1,6 +1,5 @@
 from unittest.mock import MagicMock, patch
 
-
 from conversation_assistant.models.gpt3_params import GPT3Params
 
 from ..gpt3 import fetch_completion

@@ -46,7 +46,7 @@ def respond_with_500(error: Exception) -> LambdaResponse:
     }
 
 
-def lambda_response(event: LambdaEvent) -> LambdaResponse:
+def run_lambda(event: LambdaEvent) -> LambdaResponse:
     try:
         try:
             validate_message_suggestions(event)
