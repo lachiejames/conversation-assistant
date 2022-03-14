@@ -3,11 +3,11 @@ from openai import Completion
 from .models import GPT3CompletionResponse, GPT3Params
 
 
-def fetch_completion(prompt: str, gpt3_params: GPT3Params, api_key: str) -> GPT3CompletionResponse:
+def fetch_completion(prompt: str, gpt3_params: GPT3Params) -> GPT3CompletionResponse:
     response: GPT3CompletionResponse = Completion.create(
-        prompt=prompt,
-        api_key=api_key,
         engine="davinci-instruct-beta-v3",
+        prompt=prompt,
+        api_key=gpt3_params["api_key"],
         temperature=gpt3_params["temperature"],
         n=gpt3_params["n"],
         max_tokens=gpt3_params["max_tokens"],
