@@ -1,8 +1,10 @@
 from typing import TypedDict
 
+
 GPT3Params = TypedDict(
     "GPT3Params",
     {
+        "n": int,
         "temperature": float,
         "max_tokens": int,
         "top_p": float,
