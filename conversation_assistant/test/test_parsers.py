@@ -1,17 +1,10 @@
-from typing import cast
-
 from ..models import ConversationParams, Message, ProfileParams, Suggestion
 from ..parsers import generate_prompt, map_completion_response_to_suggestions
-from .mocks import (
-    MOCK_COMPLETION_RESPONSE,
-    MOCK_MESSAGES,
-    MOCK_PROMPT,
-    MOCK_SUGGESTIONS,
-)
+from .mocks import MOCK_GPT3_COMPLETION_RESPONSE, MOCK_SUGGESTIONS
 
 
 def test_map_completion_response_to_suggestions_returns_expected_suggestions():
-    suggestions: list[Suggestion] = map_completion_response_to_suggestions(MOCK_COMPLETION_RESPONSE)
+    suggestions: list[Suggestion] = map_completion_response_to_suggestions(MOCK_GPT3_COMPLETION_RESPONSE)
 
     assert suggestions == MOCK_SUGGESTIONS
 

@@ -33,12 +33,12 @@ def test_lambda_response__when_event_is_invalid__then_returns_error_message():
     assert response["body"] == "Error - Invalid event\n" + "error='body' is a required property, and it must be a string"
 
 
-def test_lambda_response__when_internal_error_raised__then_response_code_is_500(mocker: MockerFixture):
+def test_lambda_response__when_internal_error_raised__then_response_code_is_500():
 
     response: LambdaResponse = lambda_response(MOCK_LAMBDA_EVENT)
     assert response["statusCode"] == 500
 
 
-def test_lambda_response__when_internal_error_raised__then_returns_error_message(mocker: MockerFixture):
+def test_lambda_response__when_internal_error_raised__then_returns_error_message():
     response: LambdaResponse = lambda_response(MOCK_LAMBDA_EVENT)
     assert response["body"] == "Error - Something went wrong"
