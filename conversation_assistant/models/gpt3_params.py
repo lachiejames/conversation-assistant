@@ -1,6 +1,5 @@
 from typing import TypedDict
 
-
 GPT3Params = TypedDict(
     "GPT3Params",
     {
