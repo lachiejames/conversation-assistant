@@ -1,3 +1,4 @@
+# pylint: disable=unused-import
 from .conversation_params import ConversationParams
 from .gpt3_completion_response import GPT3CompletionResponse
 from .gpt3_params import GPT3Params
