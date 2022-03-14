@@ -7,7 +7,7 @@ ConversationParams = TypedDict(
     {
         "their_name": str,
         "their_relationship_to_me": str,
-        "tone_of_chat": str,
+        "tone_of_chat": list[str],
         "previous_messages": list[Message],
     },
 )

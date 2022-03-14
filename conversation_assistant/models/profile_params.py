@@ -5,7 +5,7 @@ ProfileParams = TypedDict(
     {
         "name": str,
         "age": int,
-        "pronoun": str,
+        "pronouns": str,
         "location": str,
         "occupation": str,
         "hobbies": list[str],
