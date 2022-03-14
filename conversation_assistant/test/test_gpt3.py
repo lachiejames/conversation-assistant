@@ -15,7 +15,6 @@ def test_fetch_completion__when_all_gpt3_params_passed__then_each_param_mapped_t
     call_dict = create_completion_spy.call_args_list[0][1]
 
     assert call_dict["prompt"] is MOCK_PROMPT
-    assert call_dict["api_key"] is mock_gpt3_params["api_key"]
     assert call_dict["n"] is mock_gpt3_params["n"]
     assert call_dict["temperature"] is mock_gpt3_params["temperature"]
     assert call_dict["max_tokens"] is mock_gpt3_params["max_tokens"]
