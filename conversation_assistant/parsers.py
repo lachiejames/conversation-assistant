@@ -1,4 +1,10 @@
-from .models import ConversationParams, GPT3CompletionResponse, ProfileParams, Suggestion, Message
+from .models import (
+    ConversationParams,
+    GPT3CompletionResponse,
+    Message,
+    ProfileParams,
+    Suggestion,
+)
 
 
 def generate_prompt(profile_params: ProfileParams, conversationParams: ConversationParams) -> str:

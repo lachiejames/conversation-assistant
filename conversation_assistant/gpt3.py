@@ -13,9 +13,9 @@ def fetch_completion(prompt: str, gpt3_params: GPT3Params) -> GPT3CompletionResp
         max_tokens=gpt3_params["max_tokens"],
         best_of=gpt3_params["best_of"],
         top_p=gpt3_params["top_p"],
-        frequency_penalty=["frequency_penalty"],
-        presence_penalty=["presence_penalty"],
-        stop=["stop"],
+        frequency_penalty=gpt3_params["frequency_penalty"],
+        presence_penalty=gpt3_params["presence_penalty"],
+        stop=gpt3_params["stop"],
     )
 
     return response
