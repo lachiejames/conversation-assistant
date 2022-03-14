@@ -1,23 +1,24 @@
 from .models import (
-    GenerateMessageSuggestionsRequest,
+    ConversationParams,
     GPT3CompletionResponse,
+    ProfileParams,
     Suggestion,
 )
 
 
-def generate_prompt(request: GenerateMessageSuggestionsRequest) -> str:
-    my_name = request["profile_params"]["name"]
-    my_age = request["profile_params"]["age"]
-    my_pronoun = request["profile_params"]["pronoun"]
-    my_location = request["profile_params"]["location"]
-    my_occupation = request["profile_params"]["occupation"]
-    my_traits = request["profile_params"]["traits"]
-    my_hobbies = request["profile_params"]["hobbies"]
+def generate_prompt(profile_params: ProfileParams, conversationParams: ConversationParams) -> str:
+    my_name = profile_params["name"]
+    my_age = profile_params["age"]
+    my_pronoun = profile_params["pronoun"]
+    my_location = profile_params["location"]
+    my_occupation = profile_params["occupation"]
+    my_traits = profile_params["traits"]
+    my_hobbies = profile_params["hobbies"]
 
-    their_name = request["conversation_params"]["their_name"]
-    their_relationship_to_me = request["conversation_params"]["their_relationship_to_me"]
-    tone_of_chat = request["conversation_params"]["tone_of_chat"]
-    previous_messages = request["conversation_params"]["previous_messages"]
+    their_name = conversationParams["their_name"]
+    their_relationship_to_me = conversationParams["their_relationship_to_me"]
+    tone_of_chat = conversationParams["tone_of_chat"]
+    previous_messages = conversationParams["previous_messages"]
 
     prompt = f"""
 The following is a conversation between {my_name} and {their_name}, who is {my_name}'s {their_relationship_to_me}.  
