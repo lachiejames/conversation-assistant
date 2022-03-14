@@ -1,5 +1,3 @@
-import os
-
 from openai import Completion
 
 from conversation_assistant.models import GPT3CompletionResponse, GPT3Params

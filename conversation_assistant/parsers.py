@@ -1,4 +1,4 @@
-from conversation_assistant.models import GPT3CompletionResponse, Message, Suggestion
+from conversation_assistant.models import GPT3CompletionResponse, Suggestion
 from conversation_assistant.models.lambda_event import GenerateMessageSuggestionsRequest
 
 

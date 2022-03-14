@@ -6,7 +6,7 @@ from conversation_assistant.lambda_helper import lambda_response
 from conversation_assistant.models import LambdaEvent
 
 
-def lambda_handler(event: LambdaEvent, context: Any):
+def lambda_handler(event: LambdaEvent, _: Any):
     print(f"event = {event}")
 
     load_dotenv(".env")
