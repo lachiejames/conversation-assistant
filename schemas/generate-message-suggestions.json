@@ -77,10 +77,7 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "text",
-                "author"
-              ]
+              "required": ["text", "author"]
             }
           ]
         }
@@ -141,9 +138,5 @@
       ]
     }
   },
-  "required": [
-    "profile_params",
-    "conversation_params",
-    "gpt3_params"
-  ]
+  "required": ["profile_params", "conversation_params", "gpt3_params"]
 }
