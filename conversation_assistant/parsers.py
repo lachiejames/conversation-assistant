@@ -13,24 +13,21 @@ def generate_prompt(profile_params: ProfileParams, conversation_params: Conversa
     my_pronouns: str = profile_params["pronouns"]
     my_location: str = profile_params["location"]
     my_occupation: str = profile_params["occupation"]
-    my_traits: list[str] = profile_params["traits"]
-    my_traits_str: str = ", ".join(my_traits)
-    my_hobbies: list[str] = profile_params["hobbies"]
-    my_hobbies_str: str = ", ".join(my_hobbies)
+    my_traits: str = ", ".join(profile_params["traits"])
+    my_hobbies: str = ", ".join(profile_params["hobbies"])
 
     their_name: str = conversation_params["their_name"]
     their_relationship_to_me: str = conversation_params["their_relationship_to_me"]
-    tone_of_chat: list[str] = conversation_params["tone_of_chat"]
-    tone_of_chat_str: str = ", ".join(tone_of_chat)
+    tone_of_chat: str = ", ".join(conversation_params["tone_of_chat"])
     previous_messages: list[Message] = conversation_params["previous_messages"]
 
     prompt = f"""
 The following is a conversation between {my_name} and {their_name}, who is {my_name}'s {their_relationship_to_me}.  
 {my_name} is a {my_age} year old {my_occupation} who lives in {my_location}.
 {my_name}'s pronouns are {my_pronouns}.
-{my_name}'s favourite hobbies include {my_hobbies_str}.  
-{my_name} can be described as {my_traits_str}.  
-The tone of this conversation is {tone_of_chat_str}.
+{my_name}'s favourite hobbies include {my_hobbies}.  
+{my_name} can be described as {my_traits}.  
+The tone of this conversation is {tone_of_chat}.
 
 """
 

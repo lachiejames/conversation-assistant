@@ -1,14 +1,4 @@
 steps:
-  - task: Cache@2
-    displayName: Cache Dependencies
-    inputs:
-      key: 'python | "$(Agent.OS)" | Pipfile.lock'
-      restoreKeys: |
-        python | "$(Agent.OS)"
-        python
-      path: $(Pipeline.Workspace)/.pipenv_cache
-      cacheHitVar: PIPENV_CACHE_RESTORED
-
   - task: UsePythonVersion@0
     inputs:
       versionSpec: "3.9.x"
@@ -31,7 +21,6 @@ steps:
 
       PIPENV_VENV_IN_PROJECT="enabled"
       PIPENV_IGNORE_VIRTUALENVS=1
-      PIPENV_CACHE_DIR=$(Pipeline.Workspace)/.pipenv_cache
 
       EOF
     displayName: Setup Environment
