@@ -6,7 +6,7 @@ steps:
       restoreKeys: |
         python | "$(Agent.OS)"
         python
-      path: variables.PIPENV_CACHE_DIR
+      path: $(Pipeline.Workspace)/.pipenv_cache
       cacheHitVar: PIPENV_CACHE_RESTORED
 
   - task: UsePythonVersion@0
@@ -31,7 +31,7 @@ steps:
 
       PIPENV_VENV_IN_PROJECT="enabled"
       PIPENV_IGNORE_VIRTUALENVS=1
-      PIPENV_CACHE_DIR=variables.PIPENV_CACHE_DIR
+      PIPENV_CACHE_DIR=$(Pipeline.Workspace)/.pipenv_cache
 
       EOF
     displayName: Setup Environment
