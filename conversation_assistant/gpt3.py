@@ -8,6 +8,8 @@ from .models import GPT3CompletionResponse, GPT3Params
 
 
 def fetch_completion(prompt: str, gpt3_params: GPT3Params) -> GPT3CompletionResponse:
+    """Depends on OPENAI_API_KEY environment variable"""
+
     response: GPT3CompletionResponse = Completion.create(
         engine="davinci-instruct-beta-v3",
         prompt=prompt,

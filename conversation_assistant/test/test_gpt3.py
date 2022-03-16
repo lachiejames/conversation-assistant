@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, patch
-from jsonschema import ValidationError
 
 import pytest
+from jsonschema import ValidationError
 
 from conversation_assistant.models.gpt3_params import GPT3Params
 

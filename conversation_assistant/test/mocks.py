@@ -21,9 +21,7 @@ Chad Johnson:"""
 MOCK_SUGGESTIONS: list[Suggestion] = [
     {"text": "Hey! I'm Chad, 26 years old and a software developer. What about you?"},
     {"text": "Hey there!"},
-    {
-        "text": "From your profile it looks like we have a lot in common so I'd love to chat with you more if you're interested?"
-    },
+    {"text": "From your profile it looks like we have a lot in common so I'd love to chat with you more if you're interested?"},
 ]
 
 MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
@@ -76,7 +74,6 @@ MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
         ],
     },
     "gpt3_params": {
-        "api_key": "abc123",
         "n": 1,
         "temperature": 0.7,
         "max_tokens": 50,

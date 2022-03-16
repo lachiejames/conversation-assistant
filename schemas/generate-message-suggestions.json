@@ -92,9 +92,6 @@
     "gpt3_params": {
       "type": "object",
       "properties": {
-        "api_key": {
-          "type": "string"
-        },
         "n": {
           "type": "integer"
         },
@@ -126,7 +123,6 @@
         }
       },
       "required": [
-        "api_key",
         "n",
         "temperature",
         "max_tokens",

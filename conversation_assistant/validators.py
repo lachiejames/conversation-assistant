@@ -4,7 +4,11 @@ from typing import Any
 
 from jsonschema import ValidationError, validate
 
-from .models import GenerateMessageSuggestionsRequest, GPT3CompletionResponse, LambdaEvent
+from .models import (
+    GenerateMessageSuggestionsRequest,
+    GPT3CompletionResponse,
+    LambdaEvent,
+)
 
 
 def validate_message_suggestions(event: LambdaEvent):
