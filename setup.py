@@ -2,7 +2,7 @@ from pathlib import Path
 from setuptools import find_packages, setup
 
 ROOT_DIRECTORY = Path(__file__).parent
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 
 setup(

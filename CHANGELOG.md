@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.1 (2022-03-16)
+### Fix
+* Remove api_key from gpt3_params ([`a06e625`](https://github.com/lachiejames/conversation-assistant/commit/a06e625730daf33e075d680b71bca110cf27b521))
+
 ## v1.0.0 (2022-03-16)
 ### Feature
 * Upgrade to v2 ([#10](https://github.com/lachiejames/conversation-assistant/issues/10)) ([`2c704eb`](https://github.com/lachiejames/conversation-assistant/commit/2c704ebadd7f76a195c5364d392c8a36673f6031))
