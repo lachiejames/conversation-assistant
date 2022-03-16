@@ -2,6 +2,8 @@ import os
 
 from openai import Completion
 
+from conversation_assistant.validators import validate_completion_response
+
 from .models import GPT3CompletionResponse, GPT3Params
 
 
@@ -19,5 +21,7 @@ def fetch_completion(prompt: str, gpt3_params: GPT3Params) -> GPT3CompletionResp
         presence_penalty=gpt3_params["presence_penalty"],
         stop=gpt3_params["stop"],
     )
+
+    validate_completion_response(response)
 
     return response
