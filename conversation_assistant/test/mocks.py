@@ -15,13 +15,15 @@ Chad Johnson's favourite hobbies include Coding, Reading books, People watching.
 Chad Johnson can be described as Mysterious, Intriguing, Intelligent.  
 The tone of this conversation is Chill, Friendly, Cutesy.
 
-Stacey: It must be my lucky day.
+Stacey: hey there
 Chad Johnson:"""
 
 MOCK_SUGGESTIONS: list[Suggestion] = [
-    {"text": "Not much, just been hanging out with friends and family."},
-    {"text": "Just been keeping busy mate, you?"},
-    {"text": "I've been pretty busy mate, just been doing some work and hanging out with friends."},
+    {"text": "Hey! I'm Chad, 26 years old and a software developer. What about you?"},
+    {"text": "Hey there!"},
+    {
+        "text": "From your profile it looks like we have a lot in common so I'd love to chat with you more if you're interested?"
+    },
 ]
 
 MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
@@ -30,19 +32,19 @@ MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
             "finish_reason": "stop",
             "index": 0,
             "logprobs": None,
-            "text": "\nNot much, just been hanging out with friends and family.",
+            "text": "Hey! I'm Chad, 26 years old and a software developer. What about you?",
         },
         {
             "finish_reason": "stop",
             "index": 1,
             "logprobs": None,
-            "text": "\nJust been keeping busy mate, you?",
+            "text": "Hey there!",
         },
         {
             "finish_reason": "stop",
             "index": 2,
             "logprobs": None,
-            "text": "I've been pretty busy mate, just been doing some work and hanging out with friends.",
+            "text": "From your profile it looks like we have a lot in common so I'd love to chat with you more if you're interested?",
         },
     ],
     "created": 1640749603,
@@ -68,7 +70,7 @@ MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
         "tone_of_chat": ["Chill", "Friendly", "Cutesy"],
         "previous_messages": [
             {
-                "text": "It must be my lucky day.",
+                "text": "hey there",
                 "author": "Stacey",
             },
         ],

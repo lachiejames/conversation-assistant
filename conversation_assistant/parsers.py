@@ -34,7 +34,7 @@ The tone of this conversation is {tone_of_chat}.
     for message in previous_messages:
         prompt += f"{message['author']}: {message['text']}\n"
 
-    # Generate the next message from the perspective of me
+    # Generate the next message from the perspective of the 'me' (the user)
     prompt += f"{my_name}:"
 
     return prompt
