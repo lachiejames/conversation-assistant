@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.0 (2022-03-16)
+### Feature
+* Upgrade to v2 ([#10](https://github.com/lachiejames/conversation-assistant/issues/10)) ([`2c704eb`](https://github.com/lachiejames/conversation-assistant/commit/2c704ebadd7f76a195c5364d392c8a36673f6031))
+
+### Breaking
+* The schema for requests to this API has been totally re-written. ([`2c704eb`](https://github.com/lachiejames/conversation-assistant/commit/2c704ebadd7f76a195c5364d392c8a36673f6031))
+
 ## v0.3.5 (2022-01-23)
 ### Fix
 * Switch back to string events lol ([#9](https://github.com/lachiejames/conversation-assistant/issues/9)) ([`786e1a0`](https://github.com/lachiejames/conversation-assistant/commit/786e1a0650d98d4009d0ca8b0304808907a7c8aa))
