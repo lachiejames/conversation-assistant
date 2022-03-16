@@ -2,7 +2,6 @@ name: $(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
 variables:
   IS_MASTER_BRANCH: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
-  PIPENV_CACHE_DIR: $(Pipeline.Workspace)/.pipenv_cache
 
 stages:
   - stage: test
@@ -13,13 +12,13 @@ stages:
         steps:
           - template: azure-pipelines-setup.yml
 
-          - script: pipenv run check-types
+          - bash: pipenv run check-types
             displayName: Validate Types
 
-          - script: pipenv run lint
+          - bash: pipenv run lint
             displayName: Lint
 
-          - script: pipenv run test
+          - bash: pipenv run test
             displayName: Test
 
   - stage: publish
@@ -36,7 +35,7 @@ stages:
 
           - template: azure-pipelines-setup.yml
 
-          - script: |
+          - bash: |
               git config --global user.email "semantic@release.com"
               git config --global user.name "Semantic Release"
               pipenv run publish
@@ -47,33 +46,8 @@ stages:
         steps:
           - template: azure-pipelines-setup.yml
 
-          - script: |
-              npm install -g serverless
-              serverless plugin install -n serverless-python-requirements
+          - bash: yarn install
             displayName: Install Serverless
 
-          - script: pipenv run sls deploy
+          - bash: pipenv run yarn sls deploy
             displayName: Deploy Serverless
-
-  - stage: smoke_test
-    displayName: SmokeTest
-    condition: eq(variables.IS_MASTER_BRANCH, true)
-    dependsOn: publish
-    jobs:
-      - job: smoke_test
-        displayName: SmokeTest
-        steps:
-          - task: LambdaInvokeFunction@1
-            inputs:
-              awsCredentials: lambda-deploy
-              regionName: ap-southeast-2
-              functionName: ConversationAssistant
-              payload: |
-                {
-                  "body": {
-                    "previous_messages": [
-                      { "text": "What's crackin' babydoll", "author": "Ben Kerr" }
-                    ],
-                    "gpt3_params": { "randomness": 0.7, "num_results": 3, "max_length": 5 }
-                  }
-                }

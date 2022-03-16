@@ -1,27 +1,23 @@
 from typing_extensions import TypedDict
 
-from conversation_assistant.models.message import Message
-
-GPT3Params = TypedDict(
-    "GPT3Params",
-    {
-        "randomness": float,
-        "num_results": int,
-        "max_length": int,
-    },
-)
+from .conversation_params import ConversationParams
+from .gpt3_params import GPT3Params
+from .profile_params import ProfileParams
 
 GenerateMessageSuggestionsRequest = TypedDict(
     "GenerateMessageSuggestionsRequest",
     {
-        "previous_messages": list[Message],
+        "conversation_params": ConversationParams,
+        "profile_params": ProfileParams,
         "gpt3_params": GPT3Params,
     },
 )
 
+
 LambdaEvent = TypedDict(
     "LambdaEvent",
     {
+        # Stringified version of GenerateMessageSuggestionsRequest since Lambda's don't like JSON payloads
         "body": str,
     },
 )

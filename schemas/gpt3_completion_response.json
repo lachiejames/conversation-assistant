@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "choices": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "finish_reason": {
+              "type": "string"
+            },
+            "index": {
+              "type": "integer"
+            },
+            "logprobs": {
+              "type": "null"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": ["finish_reason", "index", "logprobs", "text"]
+        }
+      ]
+    },
+    "created": {
+      "type": "integer"
+    },
+    "id": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    }
+  },
+  "required": ["choices", "created", "id", "model", "object"]
+}

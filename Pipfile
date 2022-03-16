@@ -21,15 +21,12 @@ python-semantic-release = "==7.23.0"
 types-jsonschema = "==4.3.2"
 
 [scripts]
-check-types = "mypy ./conversation_assistant ./handler.py"
-clean = "rm -rf .serverless .venv build conversation_assistant.egg-info dist .coverage"
-format = "black ./conversation_assistant ./handler.py"
-install-dev = "pipenv install --dev"
-install-prod = "pipenv install"
-lint = "pylint ./conversation_assistant ./handler.py"
+check-types = "python -m mypy conversation_assistant handler.py"
+format = "bash -c 'python -m black conversation_assistant && python -m isort conversation_assistant'"
+install = "pipenv install --dev"
+lint = "python -m pylint ./conversation_assistant ./handler.py"
 publish = "semantic-release --verbosity=DEBUG publish"
-sort-imports = "isort ./conversation_assistant ./handler.py"
-test = "pytest ./conversation_assistant --cov=./conversation_assistant --cov-fail-under=90 --cov-branch --cov-report=xml:coverage.xml -vv"
+test = "python -m pytest conversation_assistant --cov=./conversation_assistant --cov-fail-under=90 --cov-branch --cov-report xml:cov.xml"
 
 [requires]
 python_version = "3.9"

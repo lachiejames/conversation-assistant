@@ -2,18 +2,18 @@ import json
 
 from jsonschema import ValidationError
 
-import conversation_assistant.generator
-from conversation_assistant.models import (
+from .generator import generate_message_suggestions
+from .models import (
     GenerateMessageSuggestionsRequest,
     LambdaEvent,
     LambdaResponse,
     Suggestion,
 )
-from conversation_assistant.validators import validate_message_suggestions
+from .validators import validate_message_suggestions
 
 
 def respond_with_200(request: GenerateMessageSuggestionsRequest) -> LambdaResponse:
-    suggestions: list[Suggestion] = conversation_assistant.generator.generate_message_suggestions(request)
+    suggestions: list[Suggestion] = generate_message_suggestions(request)
 
     return {
         "statusCode": 200,
@@ -46,7 +46,7 @@ def respond_with_500(error: Exception) -> LambdaResponse:
     }
 
 
-def lambda_response(event: LambdaEvent) -> LambdaResponse:
+def run_lambda(event: LambdaEvent) -> LambdaResponse:
     try:
         try:
             validate_message_suggestions(event)

@@ -1,9 +1,9 @@
 from typing_extensions import TypedDict
 
-from conversation_assistant.models.suggestion import Suggestion
+from .suggestion import Suggestion
 
-MessageSuggestions = TypedDict(
-    "MessageSuggestions",
+GenerateMessageSuggestionsRequest = TypedDict(
+    "GenerateMessageSuggestionsRequest",
     {
         "results": list[Suggestion],
     },

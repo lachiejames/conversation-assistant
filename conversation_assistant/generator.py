@@ -1,17 +1,14 @@
-from conversation_assistant.gpt3 import fetch_completion
-from conversation_assistant.models import (
+from .gpt3 import fetch_completion
+from .models import (
     GenerateMessageSuggestionsRequest,
     GPT3CompletionResponse,
     Suggestion,
 )
-from conversation_assistant.parsers import (
-    map_completion_response_to_suggestions,
-    map_messages_to_prompt,
-)
+from .parsers import generate_prompt, map_completion_response_to_suggestions
 
 
 def generate_message_suggestions(request: GenerateMessageSuggestionsRequest):
-    prompt: str = map_messages_to_prompt(request["previous_messages"])
+    prompt: str = generate_prompt(request["profile_params"], request["conversation_params"])
     print(f"Constructed a prompt - {prompt}")
 
     completion_response: GPT3CompletionResponse = fetch_completion(prompt, request["gpt3_params"])

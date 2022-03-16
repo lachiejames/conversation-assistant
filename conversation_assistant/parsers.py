@@ -1,29 +1,41 @@
-from conversation_assistant.models import GPT3CompletionResponse, Message, Suggestion
+from .models import (
+    ConversationParams,
+    GPT3CompletionResponse,
+    Message,
+    ProfileParams,
+    Suggestion,
+)
 
-LEADING_PROMPT = "Me: "
 
+def generate_prompt(profile_params: ProfileParams, conversation_params: ConversationParams) -> str:
+    my_name: str = profile_params["name"]
+    my_age: int = profile_params["age"]
+    my_pronouns: str = profile_params["pronouns"]
+    my_location: str = profile_params["location"]
+    my_occupation: str = profile_params["occupation"]
+    my_traits: str = ", ".join(profile_params["traits"])
+    my_hobbies: str = ", ".join(profile_params["hobbies"])
 
-def generate_opening_prompt(messages: list[Message]) -> str:
-    people_in_convo: list[str] = []
+    their_name: str = conversation_params["their_name"]
+    their_relationship_to_me: str = conversation_params["their_relationship_to_me"]
+    tone_of_chat: str = ", ".join(conversation_params["tone_of_chat"])
+    previous_messages: list[Message] = conversation_params["previous_messages"]
 
-    for message in messages:
-        if message["author"] not in people_in_convo:
-            people_in_convo.append(message["author"])
-
-    return f"""The following is a conversation between {people_in_convo}.
-The assistant will give Me suggestions for things to say in this conversation.
+    prompt = f"""
+The following is a conversation between {my_name} and {their_name}, who is {my_name}'s {their_relationship_to_me}.  
+{my_name} is a {my_age} year old {my_occupation} who lives in {my_location}.
+{my_name}'s pronouns are {my_pronouns}.
+{my_name}'s favourite hobbies include {my_hobbies}.  
+{my_name} can be described as {my_traits}.  
+The tone of this conversation is {tone_of_chat}.
 
 """
 
-
-def map_messages_to_prompt(messages: list[Message]) -> str:
-    prompt = generate_opening_prompt(messages)
-
-    for message in messages:
+    for message in previous_messages:
         prompt += f"{message['author']}: {message['text']}\n"
 
-    # Ensures the suggested messages are from my perspective
-    prompt += LEADING_PROMPT
+    # Generate the next message from the perspective of the 'me' (the user)
+    prompt += f"{my_name}:"
 
     return prompt
 

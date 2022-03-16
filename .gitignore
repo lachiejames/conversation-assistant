@@ -1,5 +1,6 @@
 **/.venv/**
 **/__pycache__/**
+**/.mypy_cache/**
 **/.pytest_cache/**
 **/*.egg-info/**
 **/.vscode/**
@@ -12,5 +13,5 @@
 
 .coverage
 .env
-coverage.xml
+cov.xml
 requirements.txt
