@@ -12,5 +12,5 @@
 
 .coverage
 .env
-coverage.xml
+cov.xml
 requirements.txt
