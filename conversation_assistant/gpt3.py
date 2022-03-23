@@ -11,7 +11,7 @@ def fetch_completion(prompt: str, gpt3_params: GPT3Params) -> GPT3CompletionResp
     """Depends on OPENAI_API_KEY environment variable"""
 
     response: GPT3CompletionResponse = Completion.create(
-        engine="davinci-instruct-beta-v3",
+        engine="text-davinci-002",
         prompt=prompt,
         api_key=os.getenv("OPENAI_API_KEY"),
         temperature=gpt3_params["temperature"],
