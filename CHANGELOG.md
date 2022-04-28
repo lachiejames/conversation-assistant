@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.1 (2022-04-28)
+### Fix
+* Tidy up imports ([`0507422`](https://github.com/lachiejames/conversation-assistant/commit/0507422da076bf3bb140391b540f574f4b4777b0))
+
 ## v2.0.0 (2022-04-28)
 ### Feature
 * Upgrade to v3 ([#12](https://github.com/lachiejames/conversation-assistant/issues/12)) ([`cb5726e`](https://github.com/lachiejames/conversation-assistant/commit/cb5726e824723671ba8a0c5e37bad4ab065e62d2))
