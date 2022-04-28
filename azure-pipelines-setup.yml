@@ -19,7 +19,7 @@ steps:
 
       OPENAI_API_KEY=$(OPENAI_API_KEY)
 
-      PIPENV_VENV_IN_PROJECT="enabled"
+      PIPENV_VENV_IN_PROJECT=true
       PIPENV_IGNORE_VIRTUALENVS=1
 
       EOF
