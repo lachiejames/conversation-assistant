@@ -2,6 +2,17 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.0 (2022-04-28)
+### Feature
+* Upgrade to v3 ([#12](https://github.com/lachiejames/conversation-assistant/issues/12)) ([`cb5726e`](https://github.com/lachiejames/conversation-assistant/commit/cb5726e824723671ba8a0c5e37bad4ab065e62d2))
+
+### Fix
+* Upgrade to latest GPT3 model ([#11](https://github.com/lachiejames/conversation-assistant/issues/11)) ([`c886a00`](https://github.com/lachiejames/conversation-assistant/commit/c886a0026f709edfbfe8c72d2f8e37dcb3cf377f))
+* Remove api_key from gpt3_params ([`a06e625`](https://github.com/lachiejames/conversation-assistant/commit/a06e625730daf33e075d680b71bca110cf27b521))
+
+### Breaking
+* The schema for requests to this API has been re-written again. ([`cb5726e`](https://github.com/lachiejames/conversation-assistant/commit/cb5726e824723671ba8a0c5e37bad4ab065e62d2))
+
 ## v1.0.0 (2022-03-16)
 ### Feature
 * Upgrade to v2 ([#10](https://github.com/lachiejames/conversation-assistant/issues/10)) ([`2c704eb`](https://github.com/lachiejames/conversation-assistant/commit/2c704ebadd7f76a195c5364d392c8a36673f6031))
