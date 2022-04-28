@@ -8,11 +8,7 @@ from .parsers import generate_prompt, map_completion_response_to_suggestions
 
 
 def generate_message_suggestions(request: GenerateMessageSuggestionsRequest):
-    prompt: str = generate_prompt(
-        request["settings"]["profile_params"],
-        request["settings"]["conversation_params"],
-        request["previous_messages"],
-    )
+    prompt: str = generate_prompt(request)
     print(f"Constructed a prompt - {prompt}")
 
     completion_response: GPT3CompletionResponse = fetch_completion(prompt, request["settings"]["gpt3_params"])

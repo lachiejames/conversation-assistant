@@ -1,24 +1,27 @@
+from conversation_assistant.models import GenerateMessageSuggestionsRequest
+
 from .models import (
-    ConversationParams,
+    GenerateMessageSuggestionsRequest,
     GPT3CompletionResponse,
     Message,
-    ProfileParams,
     Suggestion,
 )
 
 
-def generate_prompt(profile_params: ProfileParams, conversation_params: ConversationParams, previous_messages: list[Message]) -> str:
-    my_name: str = profile_params["name"]
-    my_age: int = profile_params["age"]
-    my_pronouns: str = profile_params["pronouns"]
-    my_location: str = profile_params["location"]
-    my_occupation: str = profile_params["occupation"]
-    my_traits: str = ", ".join(profile_params["traits"])
-    my_hobbies: str = ", ".join(profile_params["hobbies"])
+def generate_prompt(request: GenerateMessageSuggestionsRequest) -> str:
+    my_name: str = request["settings"]["profile_params"]["name"]
+    my_age: int = request["settings"]["profile_params"]["age"]
+    my_pronouns: str = request["settings"]["profile_params"]["pronouns"]
+    my_location: str = request["settings"]["profile_params"]["location"]
+    my_occupation: str = request["settings"]["profile_params"]["occupation"]
+    my_traits: str = ", ".join(request["settings"]["profile_params"]["traits"])
+    my_hobbies: str = ", ".join(request["settings"]["profile_params"]["hobbies"])
 
-    their_name: str = conversation_params["their_name"]
-    their_relationship_to_me: str = conversation_params["their_relationship_to_me"]
-    tone_of_chat: str = conversation_params["tone_of_chat"]
+    their_name: str = request["settings"]["conversation_params"]["their_name"]
+    their_relationship_to_me: str = request["settings"]["conversation_params"]["their_relationship_to_me"]
+    tone_of_chat: str = request["settings"]["conversation_params"]["tone_of_chat"]
+
+    previous_messages: list[Message] = request["previous_messages"]
 
     prompt = f"""
 The following is a conversation between {my_name} and {their_name}, who is {my_name}'s {their_relationship_to_me}.  
