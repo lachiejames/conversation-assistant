@@ -2,137 +2,130 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-    "profile_params": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "age": {
-          "type": "integer"
-        },
-        "pronouns": {
-          "type": "string"
-        },
-        "location": {
-          "type": "string"
-        },
-        "occupation": {
-          "type": "string"
-        },
-        "hobbies": {
-          "type": "array",
-          "items": [
-            {
+    "previous_messages": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "author": {
               "type": "string"
             }
-          ]
-        },
-        "traits": {
-          "type": "array",
-          "items": [
-            {
-              "type": "string"
-            }
-          ]
+          },
+          "required": ["text", "author"]
         }
-      },
-      "required": [
-        "name",
-        "age",
-        "pronouns",
-        "location",
-        "occupation",
-        "hobbies",
-        "traits"
       ]
     },
-    "conversation_params": {
-      "type": "object",
-      "properties": {
-        "their_name": {
-          "type": "string"
+    "settings": {
+      "profile_params": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "integer"
+          },
+          "pronouns": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "occupation": {
+            "type": "string"
+          },
+          "hobbies": {
+            "type": "array",
+            "items": [
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "traits": {
+            "type": "array",
+            "items": [
+              {
+                "type": "string"
+              }
+            ]
+          }
         },
-        "their_relationship_to_me": {
-          "type": "string"
-        },
-        "tone_of_chat": {
-          "type": "array",
-          "items": [
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "previous_messages": {
-          "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "text": {
-                  "type": "string"
-                },
-                "author": {
-                  "type": "string"
-                }
-              },
-              "required": ["text", "author"]
-            }
-          ]
-        }
+        "required": [
+          "name",
+          "age",
+          "pronouns",
+          "location",
+          "occupation",
+          "hobbies",
+          "traits"
+        ]
       },
-      "required": [
-        "their_name",
-        "their_relationship_to_me",
-        "tone_of_chat",
-        "previous_messages"
-      ]
-    },
-    "gpt3_params": {
-      "type": "object",
-      "properties": {
-        "n": {
-          "type": "integer"
+      "conversation_params": {
+        "type": "object",
+        "properties": {
+          "their_name": {
+            "type": "string"
+          },
+          "their_relationship_to_me": {
+            "type": "string"
+          },
+          "tone_of_chat": {
+            "type": "string"
+          }
         },
-        "temperature": {
-          "type": "number"
-        },
-        "max_tokens": {
-          "type": "integer"
-        },
-        "top_p": {
-          "type": "number"
-        },
-        "best_of": {
-          "type": "integer"
-        },
-        "frequency_penalty": {
-          "type": "number"
-        },
-        "presence_penalty": {
-          "type": "number"
-        },
-        "stop": {
-          "type": "array",
-          "items": [
-            {
-              "type": "string"
-            }
-          ]
-        }
+        "required": ["their_name", "their_relationship_to_me", "tone_of_chat"]
       },
-      "required": [
-        "n",
-        "temperature",
-        "max_tokens",
-        "top_p",
-        "best_of",
-        "frequency_penalty",
-        "presence_penalty",
-        "stop"
-      ]
+      "gpt3_params": {
+        "type": "object",
+        "properties": {
+          "n": {
+            "type": "integer"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "max_tokens": {
+            "type": "integer"
+          },
+          "top_p": {
+            "type": "number"
+          },
+          "best_of": {
+            "type": "integer"
+          },
+          "frequency_penalty": {
+            "type": "number"
+          },
+          "presence_penalty": {
+            "type": "number"
+          },
+          "stop": {
+            "type": "array",
+            "items": [
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "n",
+          "temperature",
+          "max_tokens",
+          "top_p",
+          "best_of",
+          "frequency_penalty",
+          "presence_penalty",
+          "stop"
+        ]
+      },
+      "required": ["profile_params", "conversation_params", "gpt3_params"]
     }
   },
-  "required": ["profile_params", "conversation_params", "gpt3_params"]
+  "required": ["previous_messages", "settings"]
 }
