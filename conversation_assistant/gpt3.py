@@ -2,9 +2,8 @@ import os
 
 from openai import Completion
 
-from conversation_assistant.validators import validate_completion_response
-
 from .models import GPT3CompletionResponse, GPT3Params
+from .validators import validate_completion_response
 
 
 def fetch_completion(prompt: str, gpt3_params: GPT3Params) -> GPT3CompletionResponse:

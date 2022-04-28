@@ -3,9 +3,8 @@ from unittest.mock import MagicMock, patch
 import pytest
 from jsonschema import ValidationError
 
-from conversation_assistant.models.gpt3_params import GPT3Params
-
 from ..gpt3 import fetch_completion
+from ..models import GPT3Params
 from .mocks import MOCK_GPT3_COMPLETION_RESPONSE, MOCK_PROMPT, MOCK_REQUEST
 
 

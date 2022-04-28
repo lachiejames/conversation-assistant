@@ -1,5 +1,3 @@
-from conversation_assistant.models import GenerateMessageSuggestionsRequest
-
 from .models import (
     GenerateMessageSuggestionsRequest,
     GPT3CompletionResponse,
