@@ -18,7 +18,7 @@ def generate_prompt(profile_params: ProfileParams, conversation_params: Conversa
 
     their_name: str = conversation_params["their_name"]
     their_relationship_to_me: str = conversation_params["their_relationship_to_me"]
-    tone_of_chat: str = ", ".join(conversation_params["tone_of_chat"])
+    tone_of_chat: str = conversation_params["tone_of_chat"]
 
     prompt = f"""
 The following is a conversation between {my_name} and {their_name}, who is {my_name}'s {their_relationship_to_me}.  

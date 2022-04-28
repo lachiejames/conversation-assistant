@@ -13,7 +13,7 @@ Chad Johnson is a 26 year old Software Developer who lives in Camberwell, Victor
 Chad Johnson's pronouns are he/him.
 Chad Johnson's favourite hobbies include Coding, Reading books, People watching.  
 Chad Johnson can be described as Mysterious, Intriguing, Intelligent.  
-The tone of this conversation is Chill, Friendly, Cutesy.
+The tone of this conversation is Chill.
 
 Stacey: hey there
 Chad Johnson:"""
@@ -72,7 +72,7 @@ MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
         "conversation_params": {
             "their_name": "Stacey",
             "their_relationship_to_me": "new match on a dating app",
-            "tone_of_chat": ["Chill", "Friendly", "Cutesy"],
+            "tone_of_chat": "Chill",
         },
         "gpt3_params": {
             "n": 1,

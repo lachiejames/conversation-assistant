@@ -37,7 +37,7 @@ def test_generate_prompt__when_all_params_are_empty___then_returns_silly_looking
     mock_conversation_params: ConversationParams = {
         "their_name": "",
         "their_relationship_to_me": "",
-        "tone_of_chat": [],
+        "tone_of_chat": "",
     }
 
     mock_previous_messages: list[Message] = []

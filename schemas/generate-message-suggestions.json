@@ -75,12 +75,7 @@
             "type": "string"
           },
           "tone_of_chat": {
-            "type": "array",
-            "items": [
-              {
-                "type": "string"
-              }
-            ]
+            "type": "string"
           }
         },
         "required": ["their_name", "their_relationship_to_me", "tone_of_chat"]
