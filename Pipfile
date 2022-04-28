@@ -5,20 +5,20 @@ verify_ssl = true
 
 [packages]
 jsonschema = "==4.4.0" 
-mypy = "==0.930" 
-openai = "==0.16.0" 
-python-dotenv = "==0.19.2" 
+mypy = "==0.950" 
+openai = "==0.18.1" 
+python-dotenv = "==0.20.0" 
 tomli = "==1.2.3" # just for conflict resolution
 
 [dev-packages]
-black = "==21.12b0"
+black = "==22.3.0"
 isort = "==5.10.1"
-pylint = "==2.12.2"
-pytest = "==6.2.5"
+pylint = "==2.13.7"
+pytest = "==7.1.2"
 pytest-cov = "==3.0.0"
-pytest-mock = "==3.6.1"
-python-semantic-release = "==7.23.0"
-types-jsonschema = "==4.3.2"
+pytest-mock = "==3.7.0"
+python-semantic-release = "==7.28.1"
+types-jsonschema = "==4.4.4"
 
 [scripts]
 check-types = "python -m mypy conversation_assistant handler.py"
