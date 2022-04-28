@@ -15,10 +15,11 @@ def test_map_completion_response_to_suggestions_returns_expected_suggestions():
 
 
 def test_generate_prompt__when_all_params_defined___then_returns_prompt_containing_all_params():
-    mock_profile_params: ProfileParams = MOCK_REQUEST["profile_params"]
-    mock_conversation_params: ConversationParams = MOCK_REQUEST["conversation_params"]
+    mock_profile_params: ProfileParams = MOCK_REQUEST["settings"]["profile_params"]
+    mock_conversation_params: ConversationParams = MOCK_REQUEST["settings"]["conversation_params"]
+    mock_previous_messages: list[Message] = MOCK_REQUEST["previous_messages"]
 
-    prompt: list[Message] = generate_prompt(mock_profile_params, mock_conversation_params)
+    prompt: list[Message] = generate_prompt(mock_profile_params, mock_conversation_params, mock_previous_messages)
 
     assert prompt == MOCK_PROMPT
 
@@ -37,8 +38,9 @@ def test_generate_prompt__when_all_params_are_empty___then_returns_silly_looking
         "their_name": "",
         "their_relationship_to_me": "",
         "tone_of_chat": [],
-        "previous_messages": [],
     }
+
+    mock_previous_messages: list[Message] = []
 
     expected_silly_prompt = """
 The following is a conversation between  and , who is 's .  
@@ -50,6 +52,6 @@ The tone of this conversation is .
 
 :"""
 
-    prompt: list[Message] = generate_prompt(mock_profile_params, mock_conversation_params)
+    prompt: list[Message] = generate_prompt(mock_profile_params, mock_conversation_params, mock_previous_messages)
 
     assert prompt == expected_silly_prompt

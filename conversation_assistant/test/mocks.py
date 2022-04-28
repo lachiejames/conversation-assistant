@@ -53,35 +53,37 @@ MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
 
 
 MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
-    "profile_params": {
-        "name": "Chad Johnson",
-        "age": 26,
-        "pronouns": "he/him",
-        "location": "Camberwell, Victoria, Australia",
-        "occupation": "Software Developer",
-        "hobbies": ["Coding", "Reading books", "People watching"],
-        "traits": ["Mysterious", "Intriguing", "Intelligent"],
-    },
-    "conversation_params": {
-        "their_name": "Stacey",
-        "their_relationship_to_me": "new match on a dating app",
-        "tone_of_chat": ["Chill", "Friendly", "Cutesy"],
-        "previous_messages": [
-            {
-                "text": "hey there",
-                "author": "Stacey",
-            },
-        ],
-    },
-    "gpt3_params": {
-        "n": 1,
-        "temperature": 0.7,
-        "max_tokens": 50,
-        "top_p": 1.0,
-        "best_of": 1,
-        "frequency_penalty": 2.0,
-        "presence_penalty": 2.0,
-        "stop": ["\n"],
+    "previous_messages": [
+        {
+            "text": "hey there",
+            "author": "Stacey",
+        },
+    ],
+    "settings": {
+        "profile_params": {
+            "name": "Chad Johnson",
+            "age": 26,
+            "pronouns": "he/him",
+            "location": "Camberwell, Victoria, Australia",
+            "occupation": "Software Developer",
+            "hobbies": ["Coding", "Reading books", "People watching"],
+            "traits": ["Mysterious", "Intriguing", "Intelligent"],
+        },
+        "conversation_params": {
+            "their_name": "Stacey",
+            "their_relationship_to_me": "new match on a dating app",
+            "tone_of_chat": ["Chill", "Friendly", "Cutesy"],
+        },
+        "gpt3_params": {
+            "n": 1,
+            "temperature": 0.7,
+            "max_tokens": 50,
+            "top_p": 1.0,
+            "best_of": 1,
+            "frequency_penalty": 2.0,
+            "presence_penalty": 2.0,
+            "stop": ["\n"],
+        },
     },
 }
 

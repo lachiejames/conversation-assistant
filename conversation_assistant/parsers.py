@@ -7,7 +7,7 @@ from .models import (
 )
 
 
-def generate_prompt(profile_params: ProfileParams, conversation_params: ConversationParams) -> str:
+def generate_prompt(profile_params: ProfileParams, conversation_params: ConversationParams, previous_messages: list[Message]) -> str:
     my_name: str = profile_params["name"]
     my_age: int = profile_params["age"]
     my_pronouns: str = profile_params["pronouns"]
@@ -19,7 +19,6 @@ def generate_prompt(profile_params: ProfileParams, conversation_params: Conversa
     their_name: str = conversation_params["their_name"]
     their_relationship_to_me: str = conversation_params["their_relationship_to_me"]
     tone_of_chat: str = ", ".join(conversation_params["tone_of_chat"])
-    previous_messages: list[Message] = conversation_params["previous_messages"]
 
     prompt = f"""
 The following is a conversation between {my_name} and {their_name}, who is {my_name}'s {their_relationship_to_me}.  
