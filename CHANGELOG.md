@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.1.0 (2022-07-09)
+### Feature
+* Update schema ([#13](https://github.com/lachiejames/conversation-assistant/issues/13)) ([`0386170`](https://github.com/lachiejames/conversation-assistant/commit/0386170f84c32882a423f31c03cf9797c1b983cc))
+
 ## v2.0.1 (2022-04-28)
 ### Fix
 * Tidy up imports ([`0507422`](https://github.com/lachiejames/conversation-assistant/commit/0507422da076bf3bb140391b540f574f4b4777b0))
