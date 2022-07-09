@@ -27,7 +27,7 @@
             "type": "string"
           },
           "age": {
-            "type": "integer"
+            "type": "string"
           },
           "pronouns": {
             "type": "string"

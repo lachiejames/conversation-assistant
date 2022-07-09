@@ -62,7 +62,7 @@ MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
     "settings": {
         "profile_params": {
             "name": "Chad Johnson",
-            "age": 26,
+            "age": "26",
             "pronouns": "he/him",
             "location": "Camberwell, Victoria, Australia",
             "occupation": "Software Developer",
