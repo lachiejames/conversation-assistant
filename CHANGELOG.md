@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.1.1 (2022-07-09)
+### Fix
+* Make age a number ([#14](https://github.com/lachiejames/conversation-assistant/issues/14)) ([`54d6157`](https://github.com/lachiejames/conversation-assistant/commit/54d6157367ffe9fb94ddfdc5695bf68de94a5ee8))
+
 ## v2.1.0 (2022-07-09)
 ### Feature
 * Update schema ([#13](https://github.com/lachiejames/conversation-assistant/issues/13)) ([`0386170`](https://github.com/lachiejames/conversation-assistant/commit/0386170f84c32882a423f31c03cf9797c1b983cc))
