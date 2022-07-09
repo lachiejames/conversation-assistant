@@ -8,7 +8,7 @@ ProfileParams = TypedDict(
         "pronouns": str,
         "location": str,
         "occupation": str,
-        "hobbies": list[str],
-        "traits": list[str],
+        "hobbies": str,
+        "self_description": str,
     },
 )

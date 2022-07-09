@@ -12,8 +12,8 @@ def generate_prompt(request: GenerateMessageSuggestionsRequest) -> str:
     my_pronouns: str = request["settings"]["profile_params"]["pronouns"]
     my_location: str = request["settings"]["profile_params"]["location"]
     my_occupation: str = request["settings"]["profile_params"]["occupation"]
-    my_traits: str = ", ".join(request["settings"]["profile_params"]["traits"])
-    my_hobbies: str = ", ".join(request["settings"]["profile_params"]["hobbies"])
+    my_hobbies: str = request["settings"]["profile_params"]["hobbies"]
+    my_self_description: str = request["settings"]["profile_params"]["self_description"]
 
     their_name: str = request["settings"]["conversation_params"]["their_name"]
     their_relationship_to_me: str = request["settings"]["conversation_params"]["their_relationship_to_me"]
@@ -22,11 +22,11 @@ def generate_prompt(request: GenerateMessageSuggestionsRequest) -> str:
     previous_messages: list[Message] = request["previous_messages"]
 
     prompt = f"""
-The following is a conversation between {my_name} and {their_name}, who is {my_name}'s {their_relationship_to_me}.  
+The following is a conversation between {my_name} and {their_name}, who is {my_name}'s {their_relationship_to_me}.
 {my_name} is a {my_age} year old {my_occupation} who lives in {my_location}.
 {my_name}'s pronouns are {my_pronouns}.
-{my_name}'s favourite hobbies include {my_hobbies}.  
-{my_name} can be described as {my_traits}.  
+{my_name}'s favourite hobbies include {my_hobbies}.
+{my_name} can be described as {my_self_description}.
 The tone of this conversation is {tone_of_chat}.
 
 """

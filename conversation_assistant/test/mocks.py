@@ -8,12 +8,12 @@ from ..models import (
 )
 
 MOCK_PROMPT = """
-The following is a conversation between Chad Johnson and Stacey, who is Chad Johnson's new match on a dating app.  
+The following is a conversation between Chad Johnson and Stacey, who is Chad Johnson's new match on a dating app.
 Chad Johnson is a 26 year old Software Developer who lives in Camberwell, Victoria, Australia.
 Chad Johnson's pronouns are he/him.
-Chad Johnson's favourite hobbies include Coding, Reading books, People watching.  
-Chad Johnson can be described as Mysterious, Intriguing, Intelligent.  
-The tone of this conversation is Chill.
+Chad Johnson's favourite hobbies include coding, reading books, and people watching.
+Chad Johnson can be described as mysterious, yet intriguing.
+The tone of this conversation is chill.
 
 Stacey: hey there
 Chad Johnson:"""
@@ -66,15 +66,16 @@ MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
             "pronouns": "he/him",
             "location": "Camberwell, Victoria, Australia",
             "occupation": "Software Developer",
-            "hobbies": ["Coding", "Reading books", "People watching"],
-            "traits": ["Mysterious", "Intriguing", "Intelligent"],
+            "hobbies": "coding, reading books, and people watching",
+            "self_description": "mysterious, yet intriguing",
         },
         "conversation_params": {
             "their_name": "Stacey",
             "their_relationship_to_me": "new match on a dating app",
-            "tone_of_chat": "Chill",
+            "tone_of_chat": "chill",
         },
         "gpt3_params": {
+            "engine": "text-davinci-002",
             "n": 1,
             "temperature": 0.7,
             "max_tokens": 50,

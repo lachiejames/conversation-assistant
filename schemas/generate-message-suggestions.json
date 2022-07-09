@@ -39,20 +39,10 @@
             "type": "string"
           },
           "hobbies": {
-            "type": "array",
-            "items": [
-              {
-                "type": "string"
-              }
-            ]
+            "type": "string"
           },
-          "traits": {
-            "type": "array",
-            "items": [
-              {
-                "type": "string"
-              }
-            ]
+          "self_description": {
+            "type": "string"
           }
         },
         "required": [
@@ -62,7 +52,7 @@
           "location",
           "occupation",
           "hobbies",
-          "traits"
+          "self_description"
         ]
       },
       "conversation_params": {
@@ -83,6 +73,9 @@
       "gpt3_params": {
         "type": "object",
         "properties": {
+          "engine": {
+            "type": "string"
+          },
           "n": {
             "type": "integer"
           },
