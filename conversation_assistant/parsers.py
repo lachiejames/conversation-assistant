@@ -44,7 +44,7 @@ def map_completion_response_to_suggestions(response: GPT3CompletionResponse) -> 
     suggestions: list[Suggestion] = []
 
     for choice in response["choices"]:
-        suggestion = choice["text"].lstrip()
+        suggestion = choice["text"].strip()
         suggestions.append({"text": suggestion})
 
     return suggestions
