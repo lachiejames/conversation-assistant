@@ -39,20 +39,10 @@
             "type": "string"
           },
           "hobbies": {
-            "type": "array",
-            "items": [
-              {
-                "type": "string"
-              }
-            ]
+            "type": "string"
           },
-          "traits": {
-            "type": "array",
-            "items": [
-              {
-                "type": "string"
-              }
-            ]
+          "self_description": {
+            "type": "string"
           }
         },
         "required": [
@@ -62,7 +52,7 @@
           "location",
           "occupation",
           "hobbies",
-          "traits"
+          "self_description"
         ]
       },
       "conversation_params": {
@@ -83,6 +73,9 @@
       "gpt3_params": {
         "type": "object",
         "properties": {
+          "engine": {
+            "type": "string"
+          },
           "n": {
             "type": "integer"
           },
@@ -103,14 +96,6 @@
           },
           "presence_penalty": {
             "type": "number"
-          },
-          "stop": {
-            "type": "array",
-            "items": [
-              {
-                "type": "string"
-              }
-            ]
           }
         },
         "required": [
@@ -120,8 +105,7 @@
           "top_p",
           "best_of",
           "frequency_penalty",
-          "presence_penalty",
-          "stop"
+          "presence_penalty"
         ]
       },
       "required": ["profile_params", "conversation_params", "gpt3_params"]

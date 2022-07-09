@@ -33,8 +33,8 @@ def test_generate_prompt__when_all_params_are_empty___then_returns_silly_looking
         "pronouns": "",
         "location": "",
         "occupation": "",
-        "hobbies": [],
-        "traits": [],
+        "hobbies": "",
+        "self_description": "",
     }
     mock_conversation_params: ConversationParams = {
         "their_name": "",
@@ -54,11 +54,11 @@ def test_generate_prompt__when_all_params_are_empty___then_returns_silly_looking
     }
 
     expected_silly_prompt = """
-The following is a conversation between  and , who is 's .  
+The following is a conversation between  and , who is 's .
  is a -1 year old  who lives in .
 's pronouns are .
-'s favourite hobbies include .  
- can be described as .  
+'s favourite hobbies include .
+ can be described as .
 The tone of this conversation is .
 
 :"""
