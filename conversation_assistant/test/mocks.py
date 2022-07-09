@@ -87,6 +87,6 @@ MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
     },
 }
 
-MOCK_STOPPER = ["Chad Johnson: ", "Stacey: "]
+MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
 
 MOCK_LAMBDA_EVENT: LambdaEvent = {"body": json.dumps(MOCK_REQUEST)}

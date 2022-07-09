@@ -6,13 +6,13 @@ from .models import GPT3CompletionResponse, GPT3Params
 from .validators import validate_completion_response
 
 
-def get_stopper(my_name: str, their_name: str) -> list[str]:
+def get_stop_indicator(my_name: str, their_name: str) -> list[str]:
     """Prevents GPT3 from returning a full conversation instead of just 1 message"""
 
     return [f"{my_name}: ", f"{their_name}: "]
 
 
-def fetch_completion(prompt: str, gpt3_params: GPT3Params, stopper: list[str]) -> GPT3CompletionResponse:
+def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[str]) -> GPT3CompletionResponse:
     """Depends on OPENAI_API_KEY environment variable"""
 
     response: GPT3CompletionResponse = Completion.create(
@@ -26,7 +26,7 @@ def fetch_completion(prompt: str, gpt3_params: GPT3Params, stopper: list[str]) -
         top_p=gpt3_params["top_p"],
         frequency_penalty=gpt3_params["frequency_penalty"],
         presence_penalty=gpt3_params["presence_penalty"],
-        stop=stopper,
+        stop=stop_indicator,
     )
 
     validate_completion_response(response)
