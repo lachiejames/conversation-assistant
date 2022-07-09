@@ -83,7 +83,6 @@ MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
             "best_of": 1,
             "frequency_penalty": 2.0,
             "presence_penalty": 2.0,
-            "stop": ["\n"],
         },
     },
 }

@@ -96,14 +96,6 @@
           },
           "presence_penalty": {
             "type": "number"
-          },
-          "stop": {
-            "type": "array",
-            "items": [
-              {
-                "type": "string"
-              }
-            ]
           }
         },
         "required": [
@@ -113,8 +105,7 @@
           "top_p",
           "best_of",
           "frequency_penalty",
-          "presence_penalty",
-          "stop"
+          "presence_penalty"
         ]
       },
       "required": ["profile_params", "conversation_params", "gpt3_params"]
