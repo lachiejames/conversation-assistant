@@ -12,6 +12,7 @@ python-dotenv = "==0.20.0"
 
 [dev-packages]
 black = "==22.3.0"
+google-cloud-functions = "==1.7.0"
 isort = "==5.10.1"
 pylint = "==2.13.7"
 pytest = "==7.1.2"
