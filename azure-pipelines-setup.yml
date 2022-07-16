@@ -7,5 +7,15 @@ steps:
   - bash: pip3 install pipenv
     displayName: Get Pipenv
 
+  - bash: |
+      cat > .env << EOF
+      OPENAI_API_KEY=$(OPENAI_API_KEY)
+
+      PIPENV_VENV_IN_PROJECT=true
+      PIPENV_IGNORE_VIRTUALENVS=1
+
+      EOF
+    displayName: Setup Environment
+
   - bash: pipenv run install
     displayName: Install Dependencies
