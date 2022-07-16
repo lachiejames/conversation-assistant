@@ -21,12 +21,3 @@ GenerateMessageSuggestionsRequest = TypedDict(
         "settings": Settings,
     },
 )
-
-
-LambdaEvent = TypedDict(
-    "LambdaEvent",
-    {
-        # Stringified version of GenerateMessageSuggestionsRequest since Lambda's don't like JSON payloads
-        "body": str,
-    },
-)

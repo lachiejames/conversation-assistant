@@ -1,15 +1,11 @@
 import json
+from typing import Any
 
 from jsonschema import ValidationError
 
 from .generator import generate_message_suggestions
-from .models import (
-    GenerateMessageSuggestionsRequest,
-    LambdaEvent,
-    LambdaResponse,
-    Suggestion,
-)
-from .validators import validate_message_suggestions
+from .models import GenerateMessageSuggestionsRequest, LambdaResponse, Suggestion
+from .validators import validate_request
 
 
 def respond_with_200(request: GenerateMessageSuggestionsRequest) -> LambdaResponse:
@@ -46,11 +42,11 @@ def respond_with_500(error: Exception) -> LambdaResponse:
     }
 
 
-def run_lambda(event: LambdaEvent) -> LambdaResponse:
+def run_lambda(event: Any) -> LambdaResponse:
     try:
         try:
-            validate_message_suggestions(event)
-            request: GenerateMessageSuggestionsRequest = json.loads(event["body"])
+            validate_request(event)
+            request: GenerateMessageSuggestionsRequest = event.json
             return respond_with_200(request)
 
         except ValidationError as error:

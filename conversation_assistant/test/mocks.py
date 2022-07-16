@@ -3,7 +3,6 @@ import json
 from ..models import (
     GenerateMessageSuggestionsRequest,
     GPT3CompletionResponse,
-    LambdaEvent,
     Suggestion,
 )
 
@@ -89,4 +88,4 @@ MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
 
 MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
 
-MOCK_LAMBDA_EVENT: LambdaEvent = {"body": json.dumps(MOCK_REQUEST)}
+MOCK_LAMBDA_EVENT = {"json": json.dumps(MOCK_REQUEST)}
