@@ -1,3 +1,38 @@
 {
-  "json": "{\"previous_messages\": [{\"text\": \"hey there\", \"author\": \"Stacey\"}], \"settings\": {\"profile_params\": {\"name\": \"Chad Johnson\", \"age\": \"26\", \"pronouns\": \"he/him\", \"location\": \"Camberwell, Victoria, Australia\", \"occupation\": \"Software Developer\", \"hobbies\": \"coding, reading books, and people watching\", \"self_description\": \"mysterious, yet intriguing\"}, \"conversation_params\": {\"their_name\": \"Stacey\", \"their_relationship_to_me\": \"new match on a dating app\", \"tone_of_chat\": \"chill\"}, \"gpt3_params\": {\"engine\": \"text-davinci-002\", \"n\": 1, \"temperature\": 0.7, \"max_tokens\": 50, \"top_p\": 1.0, \"best_of\": 1, \"frequency_penalty\": 2.0, \"presence_penalty\": 2.0}}}"
+  "previous_messages": [
+    {
+      "id": 10,
+      "dateCreated": "2022-07-10",
+      "text": "hey there",
+      "author": "Stacey"
+    }
+  ],
+  "settings": {
+    "id": 0,
+    "dateCreated": "2022-07-10",
+    "conversation_params": {
+      "their_name": "Stacey",
+      "their_relationship_to_me": "New match on a dating app",
+      "tone_of_chat": "Flirty"
+    },
+    "profile_params": {
+      "name": "Chad Johnson",
+      "age": "26",
+      "pronouns": "he/him",
+      "location": "Camberwell, Melbourne",
+      "occupation": "Software Dev",
+      "hobbies": "Chillin",
+      "self_description": "A Bit Of A Wanker"
+    },
+    "gpt3_params": {
+      "engine": "text-davinci-002",
+      "n": 1,
+      "temperature": 0.9,
+      "max_tokens": 50,
+      "top_p": 1.0,
+      "best_of": 1,
+      "frequency_penalty": 2.0,
+      "presence_penalty": 2.0
+    }
+  }
 }
