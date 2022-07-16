@@ -7,7 +7,7 @@ from .models import (
 from .parsers import generate_prompt, map_completion_response_to_suggestions
 
 
-def generate_message_suggestions(request: GenerateMessageSuggestionsRequest):
+def fetch_suggestions(request: GenerateMessageSuggestionsRequest):
     prompt: str = generate_prompt(request)
     print(f"Constructed a prompt - {prompt}")
 

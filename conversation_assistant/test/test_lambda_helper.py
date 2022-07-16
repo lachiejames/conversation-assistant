@@ -7,7 +7,7 @@ from ..models import LambdaResponse
 from .mocks import MOCK_REQUEST_BODY, MOCK_SUGGESTIONS
 
 
-@patch("conversation_assistant.lambda_helper.generate_message_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
+@patch("conversation_assistant.lambda_helper.fetch_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
 def test_lambda_response__when_event_is_valid__then_response_code_is_200():
     response = run_generate_suggestions(MOCK_REQUEST_BODY)
 

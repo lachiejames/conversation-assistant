@@ -8,7 +8,7 @@ from .models import GPT3CompletionResponse
 
 
 def validate_request(request_body: Any):
-    path_to_schema: str = os.path.join("schemas", "generate_message_suggestions.json")
+    path_to_schema: str = os.path.join("schemas", "generate_suggestions_request.json")
 
     with open(path_to_schema, "r", encoding="utf-8") as schema_file:
         schema: Any = json.load(schema_file)
