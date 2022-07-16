@@ -1,8 +1,8 @@
 #!include:.gitignore
 
 .git
-events
 conversation_assistant/test
+e2e
 
 .gitignore
 .pylintrc
@@ -16,5 +16,3 @@ Pipfile
 Pipfile.lock
 pyproject.toml
 pytest.ini
-setup.py
-test_main.py

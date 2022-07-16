@@ -16,10 +16,10 @@ pytest-mock = "==3.7.0"
 types-jsonschema = "==4.4.4"
 
 [scripts]
-check-types = "python -m mypy conversation_assistant e2e app.py main.py setup.py"
-format = "bash -c 'python -m black conversation_assistant e2e app.py main.py setup.py && python -m isort conversation_assistant e2e app.py main.py setup.py'"
+check-types = "python -m mypy conversation_assistant e2e app.py main.py"
+format = "bash -c 'python -m black conversation_assistant e2e app.py main.py && python -m isort conversation_assistant e2e app.py main.py'"
 install = "pipenv install --dev"
-lint = "python -m pylint conversation_assistant e2e app.py main.py setup.py"
+lint = "python -m pylint conversation_assistant e2e app.py main.py"
 test = "python -m pytest conversation_assistant --cov=./conversation_assistant --cov-fail-under=90 --cov-branch --cov-report xml:cov.xml"
 teste2e = "python -m pytest e2e"
 
