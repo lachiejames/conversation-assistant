@@ -17,11 +17,12 @@ pytest-cov = "==3.0.0"
 pytest-mock = "==3.7.0"
 python-semantic-release = "==7.28.1"
 types-jsonschema = "==4.4.4"
+types-requests = "2.28.1"
 
 [scripts]
 build-requirements = "pipenv lock -r"
 check-types = "python -m mypy conversation_assistant"
-e2etest = "python -m pytest e2e"
+teste2e = "python -m pytest e2e"
 format = "bash -c 'python -m black conversation_assistant && python -m isort conversation_assistant'"
 install = "pipenv install --dev"
 lint = "python -m pylint ./conversation_assistant"
