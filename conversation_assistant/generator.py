@@ -3,7 +3,7 @@ from .models import GenerateSuggestionsRequest, GPT3CompletionResponse, Suggesti
 from .parsers import generate_prompt, map_completion_response_to_suggestions
 
 
-def fetch_suggestions(request: GenerateSuggestionsRequest):
+def fetch_suggestions(request: GenerateSuggestionsRequest) -> list[Suggestion]:
     prompt: str = generate_prompt(request)
     print(f"Constructed a prompt - {prompt}")
 

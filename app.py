@@ -6,5 +6,5 @@ app = flask.Flask(__name__)
 
 
 @app.route("/generate", methods=["POST"])
-def index():
+def generate():
     return main.generate_suggestions(flask.request)
