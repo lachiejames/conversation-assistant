@@ -1,15 +1,17 @@
 #!include:.gitignore
 
+.git
+events
+conversation_assistant/test
+
+.gitignore
+.pylintrc
 CHANGELOG.md
-Pipfile
-Pipfile.lock
 README.md
 azure-pipelines-setup.yml
 azure-pipelines.yml
 conftest.py
-conversation_assistant/test
 cov.xml
-events
 pyproject.toml
 pytest.ini
 setup.py
