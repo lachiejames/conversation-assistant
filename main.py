@@ -8,4 +8,4 @@ from conversation_assistant.models import LambdaResponse
 
 @functions_framework.http
 def generate_suggestions(request: Request) -> LambdaResponse:
-    return run_generate_suggestions(request.json)
+    return run_generate_suggestions(request.get_json(silent=True))

@@ -1,5 +1,5 @@
 import json
-from typing import Any
+from typing import Any, Union
 
 from jsonschema import ValidationError
 
@@ -26,26 +26,25 @@ def respond_with_400(error: ValidationError) -> LambdaResponse:
         "headers": {
             "Content-Type": "application/json",
         },
-        "body": f"Error - Invalid request\nerror={error.message}",
+        "body": f"Invalid request body: {error.message}",
     }
 
 
 def respond_with_500(error: Exception) -> LambdaResponse:
-    print(error)
-
     return {
         "statusCode": 500,
         "headers": {
             "Content-Type": "application/json",
         },
-        "body": "Error - Something went wrong",
+        "body": f"Something went wrong: {error}",
     }
 
 
 # request_body typed as 'Any' until after validate_request(request_body)
-def run_generate_suggestions(request_body: Any) -> LambdaResponse:
+def run_generate_suggestions(request_body: Union[Any, None]) -> LambdaResponse:
     try:
         try:
+            assert request_body is not None
             validate_request(request_body)
             return respond_with_200(request_body)
 

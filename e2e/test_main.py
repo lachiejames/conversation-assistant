@@ -29,3 +29,19 @@ def test_generate_suggestions__when_valid_request_received__then_returns_1_sugge
             suggestions: List[Suggestion] = parsed_response["results"]
 
             assert len(suggestions) == 1
+
+
+def test_generate_suggestions__when_invalid_request_body_received__then_returns_400_error(app: flask.Flask):
+    with app.test_request_context(json={"this": "will fail"}):
+        response: LambdaResponse = generate_suggestions(flask.request)
+
+        assert response["statusCode"] == 400
+        assert "Invalid request" in response["body"]
+
+
+def test_generate_suggestions__when_malformed_request_received__then_returns_400_error(app: flask.Flask):
+    with app.test_request_context(data={"this": "will fail"}):
+        response: LambdaResponse = generate_suggestions(flask.request)
+
+        assert response["statusCode"] == 500
+        assert "Something went wrong" in response["body"]
