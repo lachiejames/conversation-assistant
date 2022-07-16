@@ -1,6 +1,6 @@
 from ..models import (
     ConversationParams,
-    GenerateMessageSuggestionsRequest,
+    GenerateSuggestionsRequest,
     Message,
     ProfileParams,
     Suggestion,
@@ -44,7 +44,7 @@ def test_generate_prompt__when_all_params_are_empty___then_returns_silly_looking
 
     mock_previous_messages: list[Message] = []
 
-    request: GenerateMessageSuggestionsRequest = {
+    request: GenerateSuggestionsRequest = {
         "previous_messages": mock_previous_messages,
         "settings": {
             "profile_params": mock_profile_params,

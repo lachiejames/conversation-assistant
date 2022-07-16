@@ -4,7 +4,7 @@ from typing import Any, List
 
 import flask
 import pytest
-from conversation_assistant.models import GenerateMessageSuggestionsRequest, LambdaResponse, Suggestion
+from conversation_assistant.models import LambdaResponse, Suggestion
 
 from main import generate_suggestions
 import requests

@@ -1,8 +1,4 @@
-from ..models import (
-    GenerateMessageSuggestionsRequest,
-    GPT3CompletionResponse,
-    Suggestion,
-)
+from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, Suggestion
 
 MOCK_PROMPT = """
 The following is a conversation between Chad Johnson and Stacey, who is Chad Johnson's new match on a dating app.
@@ -49,7 +45,7 @@ MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
 }
 
 
-MOCK_REQUEST_BODY: GenerateMessageSuggestionsRequest = {
+MOCK_REQUEST_BODY: GenerateSuggestionsRequest = {
     "previous_messages": [
         {
             "text": "hey there",

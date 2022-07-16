@@ -2,8 +2,8 @@ from typing_extensions import TypedDict
 
 from .suggestion import Suggestion
 
-GenerateMessageSuggestionsRequest = TypedDict(
-    "GenerateMessageSuggestionsRequest",
+GenerateSuggestionsResponse = TypedDict(
+    "GenerateSuggestionsResponse",
     {
         "results": list[Suggestion],
     },

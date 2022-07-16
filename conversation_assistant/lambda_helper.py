@@ -4,11 +4,11 @@ from typing import Any, Union
 from jsonschema import ValidationError
 
 from .generator import fetch_suggestions
-from .models import GenerateMessageSuggestionsRequest, LambdaResponse, Suggestion
+from .models import GenerateSuggestionsRequest, LambdaResponse, Suggestion
 from .validators import validate_request
 
 
-def respond_with_200(request: GenerateMessageSuggestionsRequest) -> LambdaResponse:
+def respond_with_200(request: GenerateSuggestionsRequest) -> LambdaResponse:
     suggestions: list[Suggestion] = fetch_suggestions(request)
 
     return {

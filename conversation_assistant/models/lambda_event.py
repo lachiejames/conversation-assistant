@@ -14,8 +14,8 @@ Settings = TypedDict(
     },
 )
 
-GenerateMessageSuggestionsRequest = TypedDict(
-    "GenerateMessageSuggestionsRequest",
+GenerateSuggestionsRequest = TypedDict(
+    "GenerateSuggestionsRequest",
     {
         "previous_messages": list[Message],
         "settings": Settings,

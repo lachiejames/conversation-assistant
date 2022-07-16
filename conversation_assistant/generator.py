@@ -1,13 +1,9 @@
 from .gpt3 import fetch_completion, get_stop_indicator
-from .models import (
-    GenerateMessageSuggestionsRequest,
-    GPT3CompletionResponse,
-    Suggestion,
-)
+from .models import GenerateSuggestionsRequest, GPT3CompletionResponse, Suggestion
 from .parsers import generate_prompt, map_completion_response_to_suggestions
 
 
-def fetch_suggestions(request: GenerateMessageSuggestionsRequest):
+def fetch_suggestions(request: GenerateSuggestionsRequest):
     prompt: str = generate_prompt(request)
     print(f"Constructed a prompt - {prompt}")
 
