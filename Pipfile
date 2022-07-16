@@ -1,5 +1,4 @@
 [packages]
-flask = "==2.1.3"
 functions-framework = "==3.1.0"
 jsonschema = "==4.4.0"
 mypy = "==0.950"
@@ -9,28 +8,20 @@ openai = "==0.18.1"
 [dev-packages]
 black = "==22.3.0"
 flask = "==2.1.2"
-google-cloud-functions = "==1.7.0"
 isort = "==5.10.1"
 pylint = "==2.13.7"
 pytest = "==7.1.2"
 pytest-cov = "==3.0.0"
 pytest-mock = "==3.7.0"
-python-semantic-release = "==7.28.1"
 types-jsonschema = "==4.4.4"
-types-requests = "2.28.1"
 
 [scripts]
-build-requirements = "pipenv lock -r"
-check-types = "python -m mypy conversation_assistant e2e app.py"
-teste2e = "python -m pytest e2e"
-format = "bash -c 'python -m black conversation_assistant e2e app.py && python -m isort conversation_assistant e2e app.py'"
+check-types = "python -m mypy conversation_assistant e2e app.py main.py setup.py"
+format = "bash -c 'python -m black conversation_assistant e2e app.py main.py setup.py && python -m isort conversation_assistant e2e app.py main.py setup.py'"
 install = "pipenv install --dev"
-lint = "python -m pylint ./conversation_assistant e2e app.py"
-publish = "semantic-release --verbosity=DEBUG publish"
+lint = "python -m pylint conversation_assistant e2e app.py main.py setup.py"
 test = "python -m pytest conversation_assistant --cov=./conversation_assistant --cov-fail-under=90 --cov-branch --cov-report xml:cov.xml"
+teste2e = "python -m pytest e2e"
 
 [requires]
 python_version = "3.9"
-
-[pipenv]
-allow_prereleases = true
