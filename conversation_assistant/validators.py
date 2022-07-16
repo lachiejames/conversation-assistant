@@ -4,7 +4,7 @@ from typing import Any
 
 from jsonschema import validate
 
-from .models import GenerateMessageSuggestionsRequest, GPT3CompletionResponse
+from .models import GPT3CompletionResponse
 
 
 def validate_request(request_body: Any):

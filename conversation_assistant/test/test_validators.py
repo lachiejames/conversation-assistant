@@ -1,4 +1,3 @@
-import json
 from typing import Any
 
 import pytest
@@ -9,20 +8,11 @@ from .mocks import MOCK_GPT3_COMPLETION_RESPONSE, MOCK_REQUEST_BODY
 
 
 def test_validate_message_suggestions__when_event_is_valid__then_succeeds():
-    valid_event: Any = {"json": MOCK_REQUEST_BODY}
-
-    validate_request(valid_event)
-
-
-def test_validate_message_suggestions__when_event_not_wrapped_in_body__then_raises_validation_error():
-    invalid_event: Any = MOCK_REQUEST_BODY
-
-    with pytest.raises(ValidationError):
-        validate_request(invalid_event)
+    validate_request(MOCK_REQUEST_BODY)
 
 
 def test_validate_message_suggestions__when_event_is_empty__then_raises_validation_error():
-    invalid_event: Any = {"json": json.dumps({})}
+    invalid_event: Any = {}
 
     with pytest.raises(ValidationError):
         validate_request(invalid_event)

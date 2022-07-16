@@ -42,11 +42,12 @@ def respond_with_500(error: Exception) -> LambdaResponse:
     }
 
 
-def run_generate_suggestions(request: Any) -> LambdaResponse:
+# request_body typed as 'Any' until after validate_request(request_body)
+def run_generate_suggestions(request_body: Any) -> LambdaResponse:
     try:
         try:
-            validate_request(request.json)
-            return respond_with_200(request.json)
+            validate_request(request_body)
+            return respond_with_200(request_body)
 
         except ValidationError as error:
             return respond_with_400(error)
