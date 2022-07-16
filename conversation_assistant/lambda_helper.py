@@ -4,11 +4,11 @@ from typing import Any, Union
 from jsonschema import ValidationError
 
 from .generator import fetch_suggestions
-from .models import GenerateSuggestionsRequest, LambdaResponse, Suggestion
+from .models import GenerateSuggestionsRequest, GenerateSuggestionsResponse, Suggestion
 from .validators import validate_request
 
 
-def respond_with_200(request: GenerateSuggestionsRequest) -> LambdaResponse:
+def respond_with_200(request: GenerateSuggestionsRequest) -> GenerateSuggestionsResponse:
     suggestions: list[Suggestion] = fetch_suggestions(request)
 
     return {
@@ -20,7 +20,7 @@ def respond_with_200(request: GenerateSuggestionsRequest) -> LambdaResponse:
     }
 
 
-def respond_with_400(error: ValidationError) -> LambdaResponse:
+def respond_with_400(error: ValidationError) -> GenerateSuggestionsResponse:
     return {
         "statusCode": 400,
         "headers": {
@@ -30,7 +30,7 @@ def respond_with_400(error: ValidationError) -> LambdaResponse:
     }
 
 
-def respond_with_500(error: Exception) -> LambdaResponse:
+def respond_with_500(error: Exception) -> GenerateSuggestionsResponse:
     return {
         "statusCode": 500,
         "headers": {
@@ -41,7 +41,7 @@ def respond_with_500(error: Exception) -> LambdaResponse:
 
 
 # request_body typed as 'Any' until after validate_request(request_body)
-def run_generate_suggestions(request_body: Union[Any, None]) -> LambdaResponse:
+def run_generate_suggestions(request_body: Union[Any, None]) -> GenerateSuggestionsResponse:
     try:
         try:
             assert request_body is not None

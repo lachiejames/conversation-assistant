@@ -2,16 +2,16 @@ from typing_extensions import TypedDict
 
 from .suggestion import Suggestion
 
-GenerateSuggestionsResponse = TypedDict(
-    "GenerateSuggestionsResponse",
+GenerateSuggestionsResponseBody = TypedDict(
+    "GenerateSuggestionsResponseBody",
     {
         "results": list[Suggestion],
     },
 )
 
 
-LambdaResponse = TypedDict(
-    "LambdaResponse",
+GenerateSuggestionsResponse = TypedDict(
+    "GenerateSuggestionsResponse",
     {
         "statusCode": int,
         "headers": dict[str, str],
