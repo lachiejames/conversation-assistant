@@ -14,4 +14,3 @@
 .coverage
 .env
 cov.xml
-requirements.txt

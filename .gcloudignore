@@ -12,6 +12,8 @@ azure-pipelines-setup.yml
 azure-pipelines.yml
 conftest.py
 cov.xml
+Pipfile
+Pipfile.lock
 pyproject.toml
 pytest.ini
 setup.py
