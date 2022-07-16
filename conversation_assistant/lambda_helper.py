@@ -26,7 +26,7 @@ def respond_with_400(error: ValidationError) -> LambdaResponse:
         "headers": {
             "Content-Type": "application/json",
         },
-        "body": f"Error - Invalid event\nerror={error.message}",
+        "body": f"Error - Invalid request\nerror={error.message}",
     }
 
 
@@ -42,12 +42,11 @@ def respond_with_500(error: Exception) -> LambdaResponse:
     }
 
 
-def run_lambda(event: Any) -> LambdaResponse:
+def run_generate_suggestions(request: Any) -> LambdaResponse:
     try:
         try:
-            validate_request(event)
-            request: GenerateMessageSuggestionsRequest = event.json
-            return respond_with_200(request)
+            validate_request(request.json)
+            return respond_with_200(request.json)
 
         except ValidationError as error:
             return respond_with_400(error)

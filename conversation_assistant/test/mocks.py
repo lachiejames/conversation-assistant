@@ -51,7 +51,7 @@ MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
 }
 
 
-MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
+MOCK_REQUEST_BODY: GenerateMessageSuggestionsRequest = {
     "previous_messages": [
         {
             "text": "hey there",
@@ -87,5 +87,3 @@ MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
 }
 
 MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
-
-MOCK_LAMBDA_EVENT = {"json": json.dumps(MOCK_REQUEST)}

@@ -9,7 +9,7 @@ from ..parsers import generate_prompt, map_completion_response_to_suggestions
 from .mocks import (
     MOCK_GPT3_COMPLETION_RESPONSE,
     MOCK_PROMPT,
-    MOCK_REQUEST,
+    MOCK_REQUEST_BODY,
     MOCK_SUGGESTIONS,
 )
 
@@ -21,7 +21,7 @@ def test_map_completion_response_to_suggestions_returns_expected_suggestions():
 
 
 def test_generate_prompt__when_all_params_defined___then_returns_prompt_containing_all_params():
-    prompt: list[Message] = generate_prompt(MOCK_REQUEST)
+    prompt: list[Message] = generate_prompt(MOCK_REQUEST_BODY)
 
     assert prompt == MOCK_PROMPT
 
@@ -49,7 +49,7 @@ def test_generate_prompt__when_all_params_are_empty___then_returns_silly_looking
         "settings": {
             "profile_params": mock_profile_params,
             "conversation_params": mock_conversation_params,
-            "gpt3_params": MOCK_REQUEST["settings"]["gpt3_params"],
+            "gpt3_params": MOCK_REQUEST_BODY["settings"]["gpt3_params"],
         },
     }
 

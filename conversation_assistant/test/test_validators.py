@@ -5,17 +5,17 @@ import pytest
 from jsonschema import ValidationError
 
 from ..validators import validate_completion_response, validate_request
-from .mocks import MOCK_GPT3_COMPLETION_RESPONSE, MOCK_REQUEST
+from .mocks import MOCK_GPT3_COMPLETION_RESPONSE, MOCK_REQUEST_BODY
 
 
 def test_validate_message_suggestions__when_event_is_valid__then_succeeds():
-    valid_event: Any = {"json": MOCK_REQUEST}
+    valid_event: Any = {"json": MOCK_REQUEST_BODY}
 
     validate_request(valid_event)
 
 
 def test_validate_message_suggestions__when_event_not_wrapped_in_body__then_raises_validation_error():
-    invalid_event: Any = MOCK_REQUEST
+    invalid_event: Any = MOCK_REQUEST_BODY
 
     with pytest.raises(ValidationError):
         validate_request(invalid_event)
