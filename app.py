@@ -2,7 +2,6 @@ import flask
 
 import main
 
-
 app = flask.Flask(__name__)
 
 

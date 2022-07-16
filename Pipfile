@@ -21,11 +21,11 @@ types-requests = "2.28.1"
 
 [scripts]
 build-requirements = "pipenv lock -r"
-check-types = "python -m mypy conversation_assistant"
+check-types = "python -m mypy conversation_assistant e2e app.py"
 teste2e = "python -m pytest e2e"
-format = "bash -c 'python -m black conversation_assistant && python -m isort conversation_assistant'"
+format = "bash -c 'python -m black conversation_assistant e2e app.py && python -m isort conversation_assistant e2e app.py'"
 install = "pipenv install --dev"
-lint = "python -m pylint ./conversation_assistant"
+lint = "python -m pylint ./conversation_assistant e2e app.py"
 publish = "semantic-release --verbosity=DEBUG publish"
 test = "python -m pytest conversation_assistant --cov=./conversation_assistant --cov-fail-under=90 --cov-branch --cov-report xml:cov.xml"
 

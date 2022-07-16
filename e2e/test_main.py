@@ -3,17 +3,9 @@ import os
 from typing import Any, List
 
 import flask
-import pytest
+
 from conversation_assistant.models import GenerateSuggestionsResponse, Suggestion
-
 from main import generate_suggestions
-import requests
-
-
-# Create a fake "app" for generating test request contexts.
-@pytest.fixture(scope="module")
-def app() -> flask.Flask:
-    return flask.Flask(__name__)
 
 
 def get_path_to_file(filename: str) -> str:
@@ -21,7 +13,7 @@ def get_path_to_file(filename: str) -> str:
 
 
 def test_generate_suggestions__when_valid_request_received__then_returns_1_suggestion(app: flask.Flask):
-    with open(get_path_to_file("tinder.json"), "r", encoding="utf-8") as example_request_file:
+    with open(get_path_to_file("work.json"), "r", encoding="utf-8") as example_request_file:
         with app.test_request_context(json=json.load(example_request_file)):
             response: GenerateSuggestionsResponse = generate_suggestions(flask.request)
 
