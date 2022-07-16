@@ -21,11 +21,12 @@ types-jsonschema = "==4.4.4"
 [scripts]
 build-requirements = "pipenv lock -r"
 check-types = "python -m mypy conversation_assistant"
+e2etest = "python -m pytest e2e"
 format = "bash -c 'python -m black conversation_assistant && python -m isort conversation_assistant'"
 install = "pipenv install --dev"
 lint = "python -m pylint ./conversation_assistant"
 publish = "semantic-release --verbosity=DEBUG publish"
-test = "python -m pytest . --cov=./conversation_assistant --cov-fail-under=90 --cov-branch --cov-report xml:cov.xml"
+test = "python -m pytest conversation_assistant --cov=./conversation_assistant --cov-fail-under=90 --cov-branch --cov-report xml:cov.xml"
 
 [requires]
 python_version = "3.9"
