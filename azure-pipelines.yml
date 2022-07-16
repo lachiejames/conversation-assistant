@@ -24,6 +24,10 @@ jobs:
     steps:
       - template: azure-pipelines-setup.yml
 
+      # Pipfile not currently supported by Cloud Functions
+      - bash: pipenv run export-requirements > requirements.txt
+        displayName: Export requirements.txt
+
       - bash: |
           gcloud functions deploy generate_suggestions \
             --runtime python39 \
