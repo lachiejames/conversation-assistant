@@ -73,7 +73,7 @@ jobs:
           url: https://us-central1-conversation-assistant-android.cloudfunctions.net/generate_suggestions # ${{ steps.deploy.outputs.url }}
           customHeaders: '{ "Content-Type": "application/json" }'
           bearerToken: ${{ env.BEARER_TOKEN }}
-          data: "asewf"
+          data: ${{ env.SAMPLE_REQUEST }}
 
       - name: Log Result
         run: echo ${{ steps.invoke.outputs.response }}
