@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
 
 env:
+  GCP_PROJECT_NAME: conversation-assistant-android
   PIPENV_VENV_IN_PROJECT: true
   PIPENV_IGNORE_VIRTUALENVS: 1
 
@@ -29,7 +30,7 @@ jobs:
         uses: google-github-actions/get-secretmanager-secrets@v0
         with:
           secrets: |-
-            OPENAI_API_KEY:conversation-assistant-android/OPENAI_API_KEY
+            OPENAI_API_KEY:${{ env.GCP_PROJECT_NAME }}/OPENAI_API_KEY
 
       - name: Set Python Version
         uses: actions/setup-python@v4
