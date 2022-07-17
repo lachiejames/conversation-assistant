@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      OPENAI_API_KEY: $(OPENAI_API_KEY)
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       PIPENV_VENV_IN_PROJECT: true
       PIPENV_IGNORE_VIRTUALENVS: 1
     steps:
