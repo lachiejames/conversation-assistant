@@ -34,14 +34,25 @@ jobs:
       - name: Install Dependencies
         run: pipenv run install
 
-      # Cloud functions does not yet support installing from Pipfile.lock
+      # Cloud functions do not yet support installing from Pipfile.lock
       - name: Export requirements.txt
         run: pipenv run export-requirements > requirements.txt
 
       - name: Deploy Cloud Function
+        id: deploy
         uses: google-github-actions/deploy-cloud-functions@v0
         with:
           name: generate_suggestions
           runtime: python39
           secret_environment_variables: |-
             OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
+
+      - name: Invoke Cloud Function
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: ${{ steps.deploy.outputs.url }}
+          method: POST
+          # username: ${{ secrets.AWX_USER }}
+          # password: ${{ secrets.AWX_PASSWORD }}
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: ${{ secrets.SAMPLE_REQUEST }}
