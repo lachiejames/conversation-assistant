@@ -37,7 +37,7 @@ def test_run_generate_suggestions__when_event_is_invalid__then_returns_error_mes
     empty_event: dict[str, str] = {}
     response: Response = run_generate_suggestions(empty_event)
 
-    assert response.data == "Invalid request body: test"
+    assert response.data == b"Invalid request body: test"
 
 
 @patch("conversation_assistant.run.validate_request", MagicMock(side_effect=RuntimeError("test")))
@@ -49,4 +49,4 @@ def test_run_generate_suggestions__when_internal_error_raised__then_response_cod
 @patch("conversation_assistant.run.validate_request", MagicMock(side_effect=RuntimeError("test")))
 def test_run_generate_suggestions__when_internal_error_raised__then_returns_error_message() -> None:
     response: Response = run_generate_suggestions(MOCK_REQUEST_BODY)
-    assert response.data == "Something went wrong: test"
+    assert response.data == b"Something went wrong: test"
