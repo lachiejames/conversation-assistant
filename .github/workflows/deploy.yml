@@ -48,11 +48,17 @@ jobs:
             OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
 
       - name: Invoke Cloud Function
+        id: invoke
         uses: fjogeleit/http-request-action@v1
         with:
-          url: ${{ steps.deploy.outputs.url }}
           method: POST
-          # username: ${{ secrets.AWX_USER }}
-          # password: ${{ secrets.AWX_PASSWORD }}
-          customHeaders: '{"Content-Type": "application/json"}'
+          url: ${{ steps.deploy.outputs.url }}
           data: ${{ secrets.SAMPLE_REQUEST }}
+          customHeaders: |
+            {
+              "Content-Type": "application/json",
+              "Authorization": "bearer $(gcloud auth print-identity-token)"
+            }
+
+      - name: Log Result
+        run: echo ${{ steps.invoke.outputs.response }}
