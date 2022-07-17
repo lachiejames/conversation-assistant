@@ -8,45 +8,36 @@ from .models import GenerateSuggestionsRequest, GenerateSuggestionsResponse, Sug
 from .validators import validate_request
 
 
+HEADERS = {
+    "Content-Type": "application/json",
+}
+
+
 def respond_with_200(request: GenerateSuggestionsRequest) -> GenerateSuggestionsResponse:
     suggestions: list[Suggestion] = fetch_suggestions(request)
 
-    return {
-        "statusCode": 200,
-        "headers": {
-            "Content-Type": "application/json",
-        },
-        "body": json.dumps({"results": suggestions}),
-    }
+    return (json.dumps({"results": suggestions}), 200, HEADERS)
 
 
 def respond_with_400(error: ValidationError) -> GenerateSuggestionsResponse:
-    return {
-        "statusCode": 400,
-        "headers": {
-            "Content-Type": "application/json",
-        },
-        "body": f"Invalid request body: {error.message}",
-    }
+    return (f"Invalid request body: {error.message}", 400, HEADERS)
 
 
 def respond_with_500(error: Exception) -> GenerateSuggestionsResponse:
-    return {
-        "statusCode": 500,
-        "headers": {
-            "Content-Type": "application/json",
-        },
-        "body": f"Something went wrong: {error}",
-    }
+    return (f"Something went wrong: {error}", 500, HEADERS)
 
 
 # request_body typed as 'Any' until after validate_request(request_body)
 def run_generate_suggestions(request_body: Union[Any, None]) -> GenerateSuggestionsResponse:
     try:
         try:
-            assert request_body is not None
+            if request_body is None:
+                raise ValueError("Request body is required")
             validate_request(request_body)
             return respond_with_200(request_body)
+
+        except ValueError as error:
+            return respond_with_400(error)
 
         except ValidationError as error:
             return respond_with_400(error)

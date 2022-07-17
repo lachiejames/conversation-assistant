@@ -10,11 +10,4 @@ GenerateSuggestionsResponseBody = TypedDict(
 )
 
 
-GenerateSuggestionsResponse = TypedDict(
-    "GenerateSuggestionsResponse",
-    {
-        "statusCode": int,
-        "headers": dict[str, str],
-        "body": str,
-    },
-)
+GenerateSuggestionsResponse = tuple[str, int, dict[str, str]]
