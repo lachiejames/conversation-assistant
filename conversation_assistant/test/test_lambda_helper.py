@@ -2,7 +2,7 @@ from unittest.mock import MagicMock, patch
 
 from jsonschema import ValidationError
 
-from ..lambda_helper import run_generate_suggestions
+from ..run_generate_suggestions import run_generate_suggestions
 from ..models import GenerateSuggestionsResponse
 from .mocks import MOCK_REQUEST_BODY, MOCK_SUGGESTIONS
 
