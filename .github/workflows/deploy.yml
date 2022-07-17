@@ -2,13 +2,13 @@ name: Deploy to Prod
 
 on:
   push:
-    branches: [master]
+    branches: [master, feat/migrate-from-aws-to-firebase]
   workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       PIPENV_VENV_IN_PROJECT: true
@@ -16,6 +16,11 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+
+      - name: GCP Auth
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Set Python Version
         uses: actions/setup-python@v4
@@ -28,14 +33,57 @@ jobs:
       - name: Install Dependencies
         run: pipenv run install
 
-      - name: Validate Types
-        run: pipenv run check-types
+      # Cloud functions does not yet support installing from Pipfile.lock
+      - name: Export requirements.txt
+        run: pipenv run export-requirements > requirements.txt
 
-      - name: Lint
-        run: pipenv run lint
+      - name: Deploy Cloud Function
+        uses: google-github-actions/deploy-cloud-functions@v0
+        with:
+          name: generate_suggestions
+          runtime: python39
 
-      - name: Unit Test
-        run: pipenv run test
-
-      - name: E2E Test
-        run: pipenv run teste2e
+      # - id: Smoke Test
+      #   run: |
+      #     curl -m 70 -X POST https://us-central1-conversation-assistant-android.cloudfunctions.net/generate_suggestions \
+      #       -H "Authorization:bearer $(gcloud auth print-identity-token)" \
+      #       -H "Content-Type:application/json" \
+      #       -d '{
+      #         "previous_messages": [
+      #           {
+      #             "id": 10,
+      #             "dateCreated": "2022-07-10",
+      #             "text": "Johnson, you were supposed to have that feature out yesterday.  What is going on?",
+      #             "author": "Richard"
+      #           }
+      #         ],
+      #         "settings": {
+      #           "id": 0,
+      #           "dateCreated": "2022-07-10",
+      #           "conversation_params": {
+      #             "their_name": "Richard",
+      #             "their_relationship_to_me": "Boss",
+      #             "tone_of_chat": "Professional"
+      #           },
+      #           "profile_params": {
+      #             "name": "Chad Johnson",
+      #             "age": "26",
+      #             "pronouns": "he/him",
+      #             "location": "Camberwell, Melbourne",
+      #             "occupation": "Software Dev",
+      #             "hobbies": "App development, playing with my dog Willow",
+      #             "self_description": "A bit of a joker"
+      #           },
+      #           "gpt3_params": {
+      #             "engine": "text-davinci-002",
+      #             "n": 1,
+      #             "temperature": 0.9,
+      #             "max_tokens": 50,
+      #             "top_p": 1.0,
+      #             "best_of": 1,
+      #             "frequency_penalty": 2.0,
+      #             "presence_penalty": 2.0
+      #           }
+      #         }
+      #       }
+      #       '
