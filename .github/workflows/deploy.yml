@@ -29,11 +29,11 @@ jobs:
         with:
           python-version: "3.9"
 
-      - name: Load Sample Request
-        run: |
-          echo "SAMPLE_REQUEST<<EOF" >> $GITHUB_ENV
-          cat e2e/mock_requests/work.json >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+      # - name: Load Sample Request
+      #   run: |
+      #     echo "SAMPLE_REQUEST<<EOF" >> $GITHUB_ENV
+      #     cat e2e/mock_requests/work.json >> $GITHUB_ENV
+      #     echo "EOF" >> $GITHUB_ENV
 
       # - name: Install Pipenv
       #   run: pip3 install pipenv
@@ -54,20 +54,22 @@ jobs:
       #     secret_environment_variables: |-
       #       OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
 
-      - name: Invoke Cloud Function
-        id: invoke
-        uses: fjogeleit/http-request-action@v1
-        with:
-          method: POST
-          url: https://us-central1-conversation-assistant-android.cloudfunctions.net/generate_suggestions # ${{ steps.deploy.outputs.url }}
-          data: ${{ env.SAMPLE_REQUEST }}
-          customHeaders: |
-            {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer ${{ steps.auth.outputs.id_token }}"
-            }
+      # - name: Invoke Cloud Function
+      #   id: invoke
+      #   uses: fjogeleit/http-request-action@v1
+      #   with:
+      #     method: POST
+      #     url: https://us-central1-conversation-assistant-android.cloudfunctions.net/generate_suggestions # ${{ steps.deploy.outputs.url }}
+      #     data: ${{ env.SAMPLE_REQUEST }}
+      #     customHeaders: |
+      #       {
+      #         "Content-Type": "application/json",
+      #         "Authorization": "Bearer ${{ steps.auth.outputs.id_token }}"
+      #       }
 
-      - name: Log Result
+      - name: Invoke Cloud Function
         run: |
-          echo request:  \n\n${{ env.SAMPLE_REQUEST }}\n\n\n\n
-          echo response: \n\n${{ steps.invoke.outputs.response }}\n\n\n\n
+          curl -m 70 -X POST https://us-central1-conversation-assistant-android.cloudfunctions.net/generate_suggestions \
+            -H "Authorization:bearer $(gcloud auth print-identity-token)" \
+            -H "Content-Type:application/json" \
+            -d "$(cat e2e/mock_requests/work.json)"
