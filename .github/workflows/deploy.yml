@@ -1,0 +1,41 @@
+name: Deploy to Prod
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENAI_API_KEY: $(OPENAI_API_KEY)
+      PIPENV_VENV_IN_PROJECT: true
+      PIPENV_IGNORE_VIRTUALENVS: 1
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Set Python Version
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Pipenv
+        run: pip3 install pipenv
+
+      - name: Install Dependencies
+        run: pipenv run install
+
+      - name: Validate Types
+        run: pipenv run check-types
+
+      - name: Lint
+        run: pipenv run lint
+
+      - name: Unit Test
+        run: pipenv run test
+
+      - name: E2E Test
+        run: pipenv run teste2e

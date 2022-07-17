@@ -1,6 +1,7 @@
 #!include:.gitignore
 
 .git
+.github
 conversation_assistant/test
 e2e
 
@@ -8,8 +9,6 @@ e2e
 .pylintrc
 CHANGELOG.md
 README.md
-azure-pipelines-setup.yml
-azure-pipelines.yml
 conftest.py
 cov.xml
 Pipfile
