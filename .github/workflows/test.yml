@@ -1,23 +1,35 @@
 name: Test
 
 on:
-  # pull_request:
-  #   branches: [master]
+  pull_request:
+    branches: [master]
   push:
     branches: [master]
   workflow_dispatch:
+
+env:
+  PIPENV_VENV_IN_PROJECT: true
+  PIPENV_IGNORE_VIRTUALENVS: 1
 
 jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      PIPENV_VENV_IN_PROJECT: true
-      PIPENV_IGNORE_VIRTUALENVS: 1
     steps:
       - name: checkout
         uses: actions/checkout@v3
+
+      - name: GCP Auth
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: GCP Load Secrets
+        id: gcp_secrets
+        uses: google-github-actions/get-secretmanager-secrets@v0
+        with:
+          secrets: |-
+            OPENAI_API_KEY:conversation-assistant-android/OPENAI_API_KEY
 
       - name: Set Python Version
         uses: actions/setup-python@v4
@@ -41,3 +53,5 @@ jobs:
 
       - name: E2E Test
         run: pipenv run teste2e
+        env:
+          OPENAI_API_KEY: ${{ steps.gcp_secrets.outputs.OPENAI_API_KEY }}

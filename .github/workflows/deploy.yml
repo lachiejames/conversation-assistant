@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  GCP_PROJECT_ID: conversation-assistant-android
+  GCP_SECRET_PATH: projects/conversation-assistant-android/secrets
   PIPENV_VENV_IN_PROJECT: true
   PIPENV_IGNORE_VIRTUALENVS: 1
 
@@ -22,13 +22,6 @@ jobs:
         uses: google-github-actions/auth@v0
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
-
-      - name: GCP Load Secrets
-        id: gcp_secrets
-        uses: google-github-actions/get-secretmanager-secrets@v0
-        with:
-          secrets: |-
-            OPENAI_API_KEY:conversation-assistant-android/OPENAI_API_KEY
 
       - name: Set Python Version
         uses: actions/setup-python@v4
@@ -51,4 +44,4 @@ jobs:
           name: generate_suggestions
           runtime: python39
           secret_environment_variables: |-
-            OPENAI_API_KEY=${{ steps.gcp_secrets.outputs.OPENAI_API_KEY }}
+            OPENAI_API_KEY=$GCP_SECRET_PATH/OPENAI_API_KEY
