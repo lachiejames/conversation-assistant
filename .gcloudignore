@@ -1,5 +1,3 @@
-#!include:.gitignore
-
 .git
 .github
 conversation_assistant/test
@@ -15,3 +13,6 @@ Pipfile
 Pipfile.lock
 pyproject.toml
 pytest.ini
+
+# Generated from Pipfile.lock before deployment
+!requirements.txt

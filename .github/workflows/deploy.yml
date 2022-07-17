@@ -38,10 +38,13 @@ jobs:
       - name: Export requirements.txt
         run: pipenv run export-requirements > requirements.txt
 
+      - name: temp
+        run: cat requirements.txt
+
       - name: Deploy Cloud Function
         uses: google-github-actions/deploy-cloud-functions@v0
         with:
           name: generate_suggestions
           runtime: python39
           secret_environment_variables: |-
-            OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
+            OPENAI_API_KEY=projects/conversation-assistant-android/secrets/OPENAI_API_KEY
