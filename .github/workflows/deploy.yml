@@ -35,36 +35,36 @@ jobs:
           cat e2e/mock_requests/work.json >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      - name: Install Pipenv
-        run: pip3 install pipenv
+      # - name: Install Pipenv
+      #   run: pip3 install pipenv
 
-      - name: Install Dependencies
-        run: pipenv run install
+      # - name: Install Dependencies
+      #   run: pipenv run install
 
-      # Cloud functions do not yet support installing from Pipfile.lock
-      - name: Export requirements.txt
-        run: pipenv run export-requirements > requirements.txt
+      # # Cloud functions do not yet support installing from Pipfile.lock
+      # - name: Export requirements.txt
+      #   run: pipenv run export-requirements > requirements.txt
 
-      - name: Deploy Cloud Function
-        id: deploy
-        uses: google-github-actions/deploy-cloud-functions@v0
-        with:
-          name: generate_suggestions
-          runtime: python39
-          secret_environment_variables: |-
-            OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
+      # - name: Deploy Cloud Function
+      #   id: deploy
+      #   uses: google-github-actions/deploy-cloud-functions@v0
+      #   with:
+      #     name: generate_suggestions
+      #     runtime: python39
+      #     secret_environment_variables: |-
+      #       OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
 
       - name: Invoke Cloud Function
         id: invoke
         uses: fjogeleit/http-request-action@v1
         with:
           method: POST
-          url: ${{ steps.deploy.outputs.url }}
+          url: https://us-central1-conversation-assistant-android.cloudfunctions.net/generate_suggestions # ${{ steps.deploy.outputs.url }}
           data: ${{ env.SAMPLE_REQUEST }}
           customHeaders: |
             {
               "Content-Type": "application/json",
-              "Authorization": "bearer ${{ steps.auth.outputs.token }}"
+              "Authorization": "Bearer ${{ steps.auth.outputs.id_token }}"
             }
 
       - name: Log Result
