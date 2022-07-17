@@ -1,13 +1,16 @@
 import json
 import os
-from typing import Any
+from typing import Any, Union
 
 from jsonschema import validate
 
 from .models import GPT3CompletionResponse
 
 
-def validate_request(request_body: Any) -> None:
+def validate_request(request_body: Union[Any, None]) -> None:
+    if request_body is None:
+        raise ValueError("Request body is required")
+
     path_to_schema: str = os.path.join("schemas", "generate_suggestions_request.json")
 
     with open(path_to_schema, "r", encoding="utf-8") as schema_file:

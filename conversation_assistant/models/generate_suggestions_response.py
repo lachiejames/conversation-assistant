@@ -2,12 +2,9 @@ from typing_extensions import TypedDict
 
 from .suggestion import Suggestion
 
-GenerateSuggestionsResponseBody = TypedDict(
-    "GenerateSuggestionsResponseBody",
+GenerateSuggestionsResponse = TypedDict(
+    "GenerateSuggestionsResponse",
     {
         "results": list[Suggestion],
     },
 )
-
-
-GenerateSuggestionsResponse = tuple[str, int, dict[str, str]]

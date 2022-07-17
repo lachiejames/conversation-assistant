@@ -1,4 +1,9 @@
-from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, Suggestion
+from ..models import (
+    GenerateSuggestionsRequest,
+    GenerateSuggestionsResponse,
+    GPT3CompletionResponse,
+    Suggestion,
+)
 
 MOCK_PROMPT = """
 The following is a conversation between Chad Johnson and Stacey, who is Chad Johnson's new match on a dating app.
@@ -81,3 +86,5 @@ MOCK_REQUEST_BODY: GenerateSuggestionsRequest = {
 }
 
 MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
+
+MOCK_RESPONSE: GenerateSuggestionsResponse = {"results": MOCK_SUGGESTIONS}
