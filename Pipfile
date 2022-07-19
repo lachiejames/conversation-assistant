@@ -18,6 +18,7 @@ types-six = "==1.16.18"
 
 [scripts]
 check-types = "python -m mypy conversation_assistant e2e main.py"
+start = "python -m flask run --port 8081"
 export-requirements = "pipenv lock -r"
 format = "bash -c 'python -m black conversation_assistant e2e main.py && python -m isort conversation_assistant e2e main.py'"
 install-ci = "pipenv install --dev --deploy"

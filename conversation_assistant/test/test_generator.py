@@ -2,8 +2,12 @@ from unittest.mock import MagicMock, patch
 
 from ..generator import fetch_suggestions
 from ..models import Suggestion
-from .mocks import MOCK_GPT3_COMPLETION_RESPONSE, MOCK_PROMPT, MOCK_REQUEST, MOCK_SUGGESTIONS
-from ..translate import detect_input_lang, translate_text
+from .mocks import (
+    MOCK_GPT3_COMPLETION_RESPONSE,
+    MOCK_PROMPT,
+    MOCK_REQUEST,
+    MOCK_SUGGESTIONS,
+)
 
 
 @patch("conversation_assistant.generator.fetch_completion", MagicMock(return_value=MOCK_GPT3_COMPLETION_RESPONSE))

@@ -9,3 +9,4 @@ from .generate_suggestions_response import GenerateSuggestionsResponse
 from .gpt3_completion_response import GPT3CompletionResponse
 from .message import Message
 from .suggestion import Suggestion
+from .translation_response import DetectLangResponse, TranslateResponse
