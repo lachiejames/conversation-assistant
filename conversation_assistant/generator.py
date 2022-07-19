@@ -1,11 +1,12 @@
 from .gpt3 import fetch_completion, get_stop_indicator
 from .models import GenerateSuggestionsRequest, GPT3CompletionResponse, Suggestion
 from .parsers import generate_prompt, map_completion_response_to_suggestions
-from .translate import detect_input_lang, translate_text
+from .translate import detect_input_lang
 
 
 def fetch_suggestions(request: GenerateSuggestionsRequest) -> list[Suggestion]:
-    input_lang: str = detect_input_lang(request["previous_messages"])
+    messages_str = str([message["text"] for message in request["previous_messages"]])
+    input_lang: str = detect_input_lang(messages_str)
     print(f"Detected input language: '{input_lang}'")
 
     translated_prompt: str = generate_prompt(request, input_lang)

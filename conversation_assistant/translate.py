@@ -1,16 +1,14 @@
 import six
 from google.cloud import translate_v2 as translate
 
-from .models import DetectLangResponse, TranslateResponse, Message
+from .models import DetectLangResponse, TranslateResponse
 
 
-def detect_input_lang(previous_messages: list[Message]) -> str:
+def detect_input_lang(text: str) -> str:
     """
     Depends on GOOGLE_APPLICATION_CREDENTIALS environment variable, which must point to a
     valid Google Cloud Service Account JSON file
     """
-
-    text = str([message["text"] for message in previous_messages])
 
     if isinstance(text, six.binary_type):
         text = text.decode("utf-8")

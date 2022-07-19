@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 
 import flask
 
-from conversation_assistant import Suggestion
+from conversation_assistant import Suggestion, detect_input_lang
 from main import generate_suggestions
 
 
@@ -23,6 +23,18 @@ def test_generate_suggestions__when_valid_request_received__then_returns_1_sugge
 
             assert response.status_code == 200
             assert len(suggestions) == 1
+
+
+def test_generate_suggestions__when_messages_in_italian__then_suggestion_in_italian(app: flask.Flask) -> None:
+    with open(get_path_to_file("italian.json"), "r", encoding="utf-8") as example_request_file:
+        with app.test_request_context(json=json.load(example_request_file)):
+            response: flask.Response = generate_suggestions(flask.request)
+
+            parsed_response: Any = json.loads(response.data)
+            suggestions: List[Suggestion] = parsed_response["results"]
+
+            assert response.status_code == 200
+            assert detect_input_lang(suggestions[0]["text"]) == "it"
 
 
 def test_generate_suggestions__when_request_is_missing_required_properties__then_returns_400(app: flask.Flask) -> None:

@@ -1,13 +1,13 @@
-from .translate import translate_text
 from .models import (
     GenerateSuggestionsRequest,
     GPT3CompletionResponse,
     Message,
     Suggestion,
 )
+from .translate import translate_text
 
 
-def generate_prompt(request: GenerateSuggestionsRequest,input_lang:str) -> str:
+def generate_prompt(request: GenerateSuggestionsRequest, input_lang: str) -> str:
     my_name: str = request["settings"]["profile_params"]["name"]
     my_age: str = request["settings"]["profile_params"]["age"]
     my_pronouns: str = request["settings"]["profile_params"]["pronouns"]
@@ -31,12 +31,12 @@ The following is a conversation between {my_name} and {their_name}, who is {my_n
 The tone of this conversation is {tone_of_chat}.
 
 """
-    
+
     translated_prompt: str = translate_text(prompt, input_lang)
-    
+
     for message in previous_messages:
         translated_prompt += f"{message['author']}: {message['text']}\n"
-    
+
     # Generate the next message from the perspective of the 'me' (the user)
     translated_prompt += f"{my_name}:"
 

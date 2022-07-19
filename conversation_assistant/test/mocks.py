@@ -15,10 +15,22 @@ MOCK_PROMPT = f"""{MOCK_PROMPT_PREFIX}
 Stacey: hey there
 Chad Johnson:"""
 
+MOCK_PROMPT_ITALIAN = """
+Quella che segue è una conversazione tra Chad Johnson e Stacey, che è la nuova partita di Chad Johnson su un'app di appuntamenti.
+Chad Johnson è uno sviluppatore di software di 26 anni che vive a Camberwell, Victoria, Australia.
+I pronomi di Chad Johnson sono lui/lui.
+Gli hobby preferiti di Chad Johnson includono la programmazione, la lettura di libri e l'osservazione delle persone.
+Chad Johnson può essere descritto come misterioso, ma intrigante.
+Il tono di questa conversazione è freddo."""
+
 MOCK_SUGGESTIONS: list[Suggestion] = [
     {"text": "Hey! I'm Chad, 26 years old and a software developer. What about you?"},
     {"text": "Hey there!"},
     {"text": "From your profile it looks like we have a lot in common so I'd love to chat with you more if you're interested?"},
+]
+
+MOCK_SUGGESTIONS_ITALIAN: list[Suggestion] = [
+    {"text": "Ehi! Sono Chad, 26 anni e uno sviluppatore di software. E tu?"},
 ]
 
 MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
