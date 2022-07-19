@@ -17,3 +17,4 @@ cov.xml
 requirements.txt
 
 gha-creds-*.json
+google-application-credentials.json

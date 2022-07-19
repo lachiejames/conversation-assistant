@@ -1,13 +1,19 @@
-from typing import Any, Union
+from typing import Any
 
-from translate import Translator
+import six
+from google.cloud import translate_v2 as translate
 
 
-def translate_text(text: str, input_lang: str, output_lang: str) -> str:
-    translator = Translator(from_lang=input_lang, to_lang=output_lang)
-    result: Union[Any, str] = translator.translate(text)
+def translate_text(text: str, target_lang: str) -> str:
+    if isinstance(text, six.binary_type):
+        text = text.decode("utf-8")
 
-    if isinstance(result, str):
-        return result
+    translate_client = translate.Client()
+    result: Any = translate_client.translate(text, target_language=target_lang)
+    translated_text: Any = result["translatedText"]
 
-    raise Exception(f"Translation from '{input_lang}' to '{output_lang}' failed\n\nText: ${text}\n\nResult:{result}")
+    if isinstance(translated_text, str):
+        return translated_text
+
+    input_lang = result["detectedSourceLanguage"]
+    raise Exception(f"Translation from '{input_lang}' to '{target_lang}'", result)
