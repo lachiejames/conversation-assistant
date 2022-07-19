@@ -38,32 +38,32 @@ jobs:
         with:
           python-version: "3.9"
 
-      # - name: Install Pipenv
-      #   run: pip3 install pipenv
+      - name: Install Pipenv
+        run: pip3 install pipenv
 
-      # - name: Install Dependencies
-      #   run: pipenv run install
+      - name: Install Dependencies
+        run: pipenv run install
 
-      # # Cloud functions do not yet support installing from Pipfile.lock
-      # - name: Export requirements.txt
-      #   run: pipenv run export-requirements > requirements.txt
+      # Cloud functions do not yet support installing from Pipfile.lock
+      - name: Export requirements.txt
+        run: pipenv run export-requirements > requirements.txt
 
-      # - name: Deploy Cloud Function
-      #   id: deploy
-      #   uses: google-github-actions/deploy-cloud-functions@v0
-      #   with:
-      #     name: generate_suggestions
-      #     runtime: python39
-      #     secret_environment_variables: |-
-      #       OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
+      - name: Deploy Cloud Function
+        id: deploy
+        uses: google-github-actions/deploy-cloud-functions@v0
+        with:
+          name: generate_suggestions
+          runtime: python39
+          secret_environment_variables: |-
+            OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
 
-      # - name: Invoke Cloud Function
-      #   run: |
-      #     curl -X POST https://us-central1-conversation-assistant-android.cloudfunctions.net/generate_suggestions \
-      #       -H "Authorization:bearer $(gcloud auth print-identity-token)" \
-      #       -H "Content-Type:application/json" \
-      #       -d "pmh" \
-      #       || exit 1
+      - name: Invoke Cloud Function
+        run: |
+          curl -X POST https://us-central1-conversation-assistant-android.cloudfunctions.net/generate_suggestions \
+            -H "Authorization:bearer $(gcloud auth print-identity-token)" \
+            -H "Content-Type:application/json" \
+            -d "pmh" \
+            || exit 1
 
       - name: Invoke Cloud Function
         id: invoke
