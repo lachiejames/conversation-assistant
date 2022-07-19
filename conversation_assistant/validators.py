@@ -1,32 +1,24 @@
 import json
 import os
-from typing import Any
+from typing import Any, Union
 
-from jsonschema import ValidationError, validate
+from jsonschema import validate
 
-from .models import (
-    GenerateMessageSuggestionsRequest,
-    GPT3CompletionResponse,
-    LambdaEvent,
-)
+from .models import GPT3CompletionResponse
 
 
-def validate_message_suggestions(event: LambdaEvent):
-    try:
-        assert isinstance(event["body"], str)
-        json.loads(event["body"])
-    except Exception as error:
-        raise ValidationError("'body' is a required property, and it must be a string") from error
+def validate_request(request_body: Union[Any, None]) -> None:
+    if request_body is None:
+        raise ValueError("Request body is required")
 
-    path_to_schema: str = os.path.join("schemas", "generate-message-suggestions.json")
-    generate_message_suggestions_request: GenerateMessageSuggestionsRequest = json.loads(event["body"])
+    path_to_schema: str = os.path.join("schemas", "generate_suggestions_request.json")
 
     with open(path_to_schema, "r", encoding="utf-8") as schema_file:
         schema: Any = json.load(schema_file)
-        validate(generate_message_suggestions_request, schema)
+        validate(request_body, schema)
 
 
-def validate_completion_response(response: GPT3CompletionResponse):
+def validate_completion_response(response: GPT3CompletionResponse) -> None:
     path_to_schema: str = os.path.join("schemas", "gpt3_completion_response.json")
 
     with open(path_to_schema, "r", encoding="utf-8") as schema_file:

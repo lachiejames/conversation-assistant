@@ -1,11 +1,6 @@
 import json
 
-from ..models import (
-    GenerateMessageSuggestionsRequest,
-    GPT3CompletionResponse,
-    LambdaEvent,
-    Suggestion,
-)
+from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, Suggestion
 
 MOCK_PROMPT = """
 The following is a conversation between Chad Johnson and Stacey, who is Chad Johnson's new match on a dating app.
@@ -52,7 +47,7 @@ MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
 }
 
 
-MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
+MOCK_REQUEST: GenerateSuggestionsRequest = {
     "previous_messages": [
         {
             "text": "hey there",
@@ -89,4 +84,4 @@ MOCK_REQUEST: GenerateMessageSuggestionsRequest = {
 
 MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
 
-MOCK_LAMBDA_EVENT: LambdaEvent = {"body": json.dumps(MOCK_REQUEST)}
+MOCK_RESPONSE: bytes = json.dumps({"results": MOCK_SUGGESTIONS}).encode()

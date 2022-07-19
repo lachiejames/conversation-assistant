@@ -99,6 +99,7 @@
           }
         },
         "required": [
+          "engine",
           "n",
           "temperature",
           "max_tokens",

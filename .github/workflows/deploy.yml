@@ -1,0 +1,71 @@
+name: Deploy to Prod
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+env:
+  GCP_SECRET_PATH: projects/conversation-assistant-android/secrets
+  PIPENV_VENV_IN_PROJECT: true
+  PIPENV_IGNORE_VIRTUALENVS: 1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: GCP Auth
+        id: auth
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Load Sample Request
+        run: |
+          echo "BEARER_TOKEN=$(gcloud auth print-identity-token)" >> $GITHUB_ENV
+
+          # Loads multiline string into environment variable for later use
+          echo "SAMPLE_REQUEST<<EOF" >> $GITHUB_ENV
+          cat e2e/mock_requests/work.json >> $GITHUB_ENV
+          echo EOF >> $GITHUB_ENV
+
+      - name: Set Python Version
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Pipenv
+        run: pip3 install pipenv
+
+      - name: Install Dependencies
+        run: pipenv run install-prod
+
+      # Cloud functions do not yet support installing from Pipfile.lock
+      - name: Export requirements.txt
+        run: pipenv run export-requirements > requirements.txt
+
+      - name: Deploy Cloud Function
+        id: deploy
+        uses: google-github-actions/deploy-cloud-functions@v0
+        with:
+          name: generate_suggestions
+          runtime: python39
+          secret_environment_variables: |-
+            OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
+
+      - name: Invoke Cloud Function
+        id: invoke
+        uses: fjogeleit/http-request-action@v1
+        with:
+          method: POST
+          url: ${{ steps.deploy.outputs.url }}
+          customHeaders: '{ "Content-Type": "application/json" }'
+          bearerToken: ${{ env.BEARER_TOKEN }}
+          data: ${{ env.SAMPLE_REQUEST }}
+
+      - name: Log Result
+        run: echo ${{ steps.invoke.outputs.response }}

@@ -1,14 +1,14 @@
 from .models import (
-    GenerateMessageSuggestionsRequest,
+    GenerateSuggestionsRequest,
     GPT3CompletionResponse,
     Message,
     Suggestion,
 )
 
 
-def generate_prompt(request: GenerateMessageSuggestionsRequest) -> str:
+def generate_prompt(request: GenerateSuggestionsRequest) -> str:
     my_name: str = request["settings"]["profile_params"]["name"]
-    my_age: int = request["settings"]["profile_params"]["age"]
+    my_age: str = request["settings"]["profile_params"]["age"]
     my_pronouns: str = request["settings"]["profile_params"]["pronouns"]
     my_location: str = request["settings"]["profile_params"]["location"]
     my_occupation: str = request["settings"]["profile_params"]["occupation"]

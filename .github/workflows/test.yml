@@ -1,0 +1,58 @@
+name: Test
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+env:
+  GCP_PROJECT_NAME: conversation-assistant-android
+  PIPENV_VENV_IN_PROJECT: true
+  PIPENV_IGNORE_VIRTUALENVS: 1
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: GCP Auth
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: GCP Load Secrets
+        id: gcp_secrets
+        uses: google-github-actions/get-secretmanager-secrets@v0
+        with:
+          secrets: |-
+            OPENAI_API_KEY:${{ env.GCP_PROJECT_NAME }}/OPENAI_API_KEY
+
+      - name: Set Python Version
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Pipenv
+        run: pip3 install pipenv
+
+      - name: Install Dependencies
+        run: pipenv run install-ci
+
+      - name: Validate Types
+        run: pipenv run check-types
+
+      - name: Lint
+        run: pipenv run lint
+
+      - name: Unit Test
+        run: pipenv run test
+
+      - name: E2E Test
+        run: pipenv run teste2e
+        env:
+          OPENAI_API_KEY: ${{ steps.gcp_secrets.outputs.OPENAI_API_KEY }}

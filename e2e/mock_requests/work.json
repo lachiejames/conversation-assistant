@@ -1,0 +1,38 @@
+{
+  "previous_messages": [
+    {
+      "id": 10,
+      "dateCreated": "2022-07-10",
+      "text": "Johnson, you were supposed to have that feature out yesterday.  What is going on?",
+      "author": "Richard"
+    }
+  ],
+  "settings": {
+    "id": 0,
+    "dateCreated": "2022-07-10",
+    "conversation_params": {
+      "their_name": "Richard",
+      "their_relationship_to_me": "Boss",
+      "tone_of_chat": "Professional"
+    },
+    "profile_params": {
+      "name": "Chad Johnson",
+      "age": "26",
+      "pronouns": "he/him",
+      "location": "Camberwell, Melbourne",
+      "occupation": "Software Dev",
+      "hobbies": "App development, playing with my dog Willow",
+      "self_description": "A bit of a joker"
+    },
+    "gpt3_params": {
+      "engine": "text-davinci-002",
+      "n": 1,
+      "temperature": 0.9,
+      "max_tokens": 50,
+      "top_p": 1.0,
+      "best_of": 1,
+      "frequency_penalty": 2.0,
+      "presence_penalty": 2.0
+    }
+  }
+}

@@ -1,6 +1,6 @@
 from ..models import (
     ConversationParams,
-    GenerateMessageSuggestionsRequest,
+    GenerateSuggestionsRequest,
     Message,
     ProfileParams,
     Suggestion,
@@ -14,19 +14,19 @@ from .mocks import (
 )
 
 
-def test_map_completion_response_to_suggestions_returns_expected_suggestions():
+def test_map_completion_response_to_suggestions_returns_expected_suggestions() -> None:
     suggestions: list[Suggestion] = map_completion_response_to_suggestions(MOCK_GPT3_COMPLETION_RESPONSE)
 
     assert suggestions == MOCK_SUGGESTIONS
 
 
-def test_generate_prompt__when_all_params_defined___then_returns_prompt_containing_all_params():
-    prompt: list[Message] = generate_prompt(MOCK_REQUEST)
+def test_generate_prompt__when_all_params_defined___then_returns_prompt_containing_all_params() -> None:
+    prompt: str = generate_prompt(MOCK_REQUEST)
 
     assert prompt == MOCK_PROMPT
 
 
-def test_generate_prompt__when_all_params_are_empty___then_returns_silly_looking_prompt_without_raising_error():
+def test_generate_prompt__when_all_params_are_empty___then_returns_silly_looking_prompt_without_raising_error() -> None:
     mock_profile_params: ProfileParams = {
         "name": "",
         "age": "",
@@ -44,7 +44,7 @@ def test_generate_prompt__when_all_params_are_empty___then_returns_silly_looking
 
     mock_previous_messages: list[Message] = []
 
-    request: GenerateMessageSuggestionsRequest = {
+    request: GenerateSuggestionsRequest = {
         "previous_messages": mock_previous_messages,
         "settings": {
             "profile_params": mock_profile_params,
@@ -63,6 +63,6 @@ The tone of this conversation is .
 
 :"""
 
-    prompt: list[Message] = generate_prompt(request)
+    prompt: str = generate_prompt(request)
 
     assert prompt == expected_silly_prompt

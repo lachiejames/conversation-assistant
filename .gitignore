@@ -15,3 +15,5 @@
 .env
 cov.xml
 requirements.txt
+
+gha-creds-*.json
