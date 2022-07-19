@@ -58,14 +58,6 @@ jobs:
             OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
 
       - name: Invoke Cloud Function
-        run: |
-          curl -X POST https://us-central1-conversation-assistant-android.cloudfunctions.net/generate_suggestions \
-            -H "Authorization:bearer $(gcloud auth print-identity-token)" \
-            -H "Content-Type:application/json" \
-            -d "pmh" \
-            || exit 1
-
-      - name: Invoke Cloud Function
         id: invoke
         uses: fjogeleit/http-request-action@v1
         with:

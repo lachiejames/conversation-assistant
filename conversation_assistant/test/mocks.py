@@ -47,7 +47,7 @@ MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
 }
 
 
-MOCK_REQUEST_BODY: GenerateSuggestionsRequest = {
+MOCK_REQUEST: GenerateSuggestionsRequest = {
     "previous_messages": [
         {
             "text": "hey there",
