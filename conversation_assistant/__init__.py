@@ -1,6 +1,7 @@
 # pylint: disable=unused-import
 from .generator import fetch_suggestions
 from .gpt3 import fetch_completion
+from .language import translate_text
 from .models import (
     ConversationParams,
     GenerateSuggestionsRequest,
