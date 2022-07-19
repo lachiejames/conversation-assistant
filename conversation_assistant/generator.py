@@ -5,16 +5,15 @@ from .translate import detect_input_lang
 
 
 def fetch_suggestions(request: GenerateSuggestionsRequest) -> list[Suggestion]:
-    messages_str = str([message["text"] for message in request["previous_messages"]])
-    input_lang: str = detect_input_lang(messages_str)
+    conversation_sample = str([message["text"] for message in request["previous_messages"]])
+    input_lang: str = detect_input_lang(conversation_sample)
     print(f"Detected input language: '{input_lang}'")
 
     translated_prompt: str = generate_prompt(request, input_lang)
     print(f"Constructed prompt:\n'{translated_prompt}'")
 
-    my_name: str = request["settings"]["profile_params"]["name"]
-    their_name: str = request["settings"]["conversation_params"]["their_name"]
-    stop_indicator: list[str] = get_stop_indicator(my_name, their_name)
+
+    stop_indicator: list[str] = get_stop_indicator(request)
 
     completion_response: GPT3CompletionResponse = fetch_completion(translated_prompt, request["settings"]["gpt3_params"], stop_indicator)
     print(f"Fetched GPT3 completion response - {completion_response}")
