@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 
 import flask
 
-from conversation_assistant.models import Suggestion
+from conversation_assistant import Suggestion
 from main import generate_suggestions
 
 

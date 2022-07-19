@@ -53,5 +53,7 @@ def run_generate_suggestions(request_body: Union[Any, None]) -> Response:
         except (ValueError, ValidationError) as error:
             return respond_with_400(error)
 
+    # Used to catch any exception that is not caught by the above try block
+    # pylint: disable=broad-except
     except Exception as error:
         return respond_with_500(error)
