@@ -1,4 +1,4 @@
-from ..language import translate_text
+from ..translate import translate_text
 
 # NOTE: these tests make live requests to the Google Translate API
 
