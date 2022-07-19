@@ -84,4 +84,4 @@ MOCK_REQUEST_BODY: GenerateSuggestionsRequest = {
 
 MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
 
-MOCK_RESPONSE: str = json.dumps({"results": MOCK_SUGGESTIONS}).encode()
+MOCK_RESPONSE: bytes = json.dumps({"results": MOCK_SUGGESTIONS}).encode()

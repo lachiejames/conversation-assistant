@@ -1,5 +1,5 @@
 import json
-from typing import Any, Union
+from typing import Any, Union, cast
 
 from flask import Response
 from jsonschema import ValidationError
@@ -45,6 +45,9 @@ def run_generate_suggestions(request_body: Union[Any, None]) -> Response:
     try:
         try:
             validate_request(request_body)
+
+            # If we reach this point, the request must be of type 'GenerateSuggestionsRequest'
+            request_body = cast(GenerateSuggestionsRequest, request_body)
             return respond_with_200(request_body)
 
         except (ValueError, ValidationError) as error:
