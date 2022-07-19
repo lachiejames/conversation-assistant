@@ -41,7 +41,7 @@ jobs:
         run: pip3 install pipenv
 
       - name: Install Dependencies
-        run: pipenv run install
+        run: pipenv run install-ci
 
       - name: Validate Types
         run: pipenv run check-types
