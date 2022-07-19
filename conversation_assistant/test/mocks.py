@@ -2,13 +2,15 @@ import json
 
 from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, Suggestion
 
-MOCK_PROMPT = """
+MOCK_PROMPT_PREFIX = """
 The following is a conversation between Chad Johnson and Stacey, who is Chad Johnson's new match on a dating app.
 Chad Johnson is a 26 year old Software Developer who lives in Camberwell, Victoria, Australia.
 Chad Johnson's pronouns are he/him.
 Chad Johnson's favourite hobbies include coding, reading books, and people watching.
 Chad Johnson can be described as mysterious, yet intriguing.
-The tone of this conversation is chill.
+The tone of this conversation is chill."""
+
+MOCK_PROMPT = f"""{MOCK_PROMPT_PREFIX}
 
 Stacey: hey there
 Chad Johnson:"""
