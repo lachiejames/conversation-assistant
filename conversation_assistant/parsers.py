@@ -7,6 +7,9 @@ from .models import (
 from .translate import translate_text
 
 
+DEFAULT_LANGUAGE = "en"
+
+
 def generate_prompt(request: GenerateSuggestionsRequest, input_lang: str) -> str:
     my_name: str = request["settings"]["profile_params"]["name"]
     my_age: str = request["settings"]["profile_params"]["age"]
@@ -32,15 +35,16 @@ The tone of this conversation is {tone_of_chat}.
 
 """
 
-    translated_prompt: str = translate_text(prompt, input_lang)
+    if input_lang != DEFAULT_LANGUAGE:
+        prompt = translate_text(prompt, input_lang)
 
     for message in previous_messages:
-        translated_prompt += f"{message['author']}: {message['text']}\n"
+        prompt += f"{message['author']}: {message['text']}\n"
 
     # Generate the next message from the perspective of the 'me' (the user)
-    translated_prompt += f"{my_name}:"
+    prompt += f"{my_name}:"
 
-    return translated_prompt
+    return prompt
 
 
 def map_completion_response_to_suggestions(response: GPT3CompletionResponse) -> list[Suggestion]:
