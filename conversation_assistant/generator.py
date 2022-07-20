@@ -12,9 +12,7 @@ def fetch_suggestions(request: GenerateSuggestionsRequest) -> list[Suggestion]:
     translated_prompt: str = generate_prompt(request, input_lang)
     print(f"Constructed prompt:\n'{translated_prompt}'")
 
-
     stop_indicator: list[str] = get_stop_indicator(request)
-
     completion_response: GPT3CompletionResponse = fetch_completion(translated_prompt, request["settings"]["gpt3_params"], stop_indicator)
     print(f"Fetched GPT3 completion response - {completion_response}")
 
