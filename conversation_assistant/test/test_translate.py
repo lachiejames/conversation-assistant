@@ -1,8 +1,11 @@
+from unittest.mock import MagicMock, patch
+
+from conversation_assistant.test.mocks import MOCK_TRANSLATION_RESPONSE
+
 from ..translate import translate_text
 
-# NOTE: these tests make live requests to the Google Translate API
 
-
+@patch("conversation_assistant.translate.Client.translate", MagicMock(return_value=MOCK_TRANSLATION_RESPONSE))
 def test_translate_text__when_en_to_it__then_translates_text_correctly() -> None:
     en_text = "Johnson, you were supposed to have that feature out yesterday.  What is going on?"
     it_text = translate_text(text=en_text, target_lang="it")

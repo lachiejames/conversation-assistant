@@ -4,6 +4,8 @@ TranslateResponse = TypedDict(
     "TranslateResponse",
     {
         "translatedText": str,
+        "detectedSourceLanguage": str,
+        "input": str,
     },
 )
 
@@ -11,7 +13,7 @@ DetectLangResponse = TypedDict(
     "DetectLangResponse",
     {
         "language": str,
-        "confidence": int,
-        "input": "str",
+        "input": str,
+        "confidence": float,
     },
 )

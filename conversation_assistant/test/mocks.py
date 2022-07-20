@@ -1,6 +1,12 @@
 import json
 
-from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, Suggestion
+from ..models import (
+    DetectLangResponse,
+    GenerateSuggestionsRequest,
+    GPT3CompletionResponse,
+    Suggestion,
+    TranslateResponse,
+)
 
 MOCK_PROMPT_PREFIX = """
 The following is a conversation between Chad Johnson and Stacey, who is Chad Johnson's new match on a dating app.
@@ -97,5 +103,18 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
 }
 
 MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
+
+MOCK_DETECT_LANG_RESPONSE: DetectLangResponse = {
+    "language": "en",
+    "input": "Johnson, you were supposed to have that feature out yesterday.  What is going on?",
+    "confidence": 0.99,
+}
+
+MOCK_TRANSLATION_RESPONSE: TranslateResponse = {
+    "translatedText": "Johnson, avresti dovuto pubblicare quel film ieri. Cosa sta succedendo?",
+    "detectedSourceLanguage": "en",
+    "input": "Johnson, you were supposed to have that feature out yesterday.  What is going on?",
+}
+
 
 MOCK_RESPONSE: bytes = json.dumps({"results": MOCK_SUGGESTIONS}).encode()

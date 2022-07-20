@@ -6,7 +6,6 @@ from .models import (
 )
 from .translate import translate_text
 
-
 DEFAULT_LANGUAGE = "en"
 
 
