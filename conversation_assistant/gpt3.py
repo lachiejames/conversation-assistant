@@ -2,7 +2,7 @@ import os
 
 from openai import Completion
 
-from .models import GPT3CompletionResponse, GPT3Params, GenerateSuggestionsRequest
+from .models import GenerateSuggestionsRequest, GPT3CompletionResponse, GPT3Params
 from .validators import validate_completion_response
 
 
