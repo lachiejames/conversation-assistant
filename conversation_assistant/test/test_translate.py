@@ -1,15 +1,37 @@
 from unittest.mock import MagicMock, patch
 
-from conversation_assistant.test.mocks import MOCK_TRANSLATION_RESPONSE, MOCK_DETECT_LANG_RESPONSE
+import pytest
 
+from ..models import DetectLangResponse, TranslateResponse
 from ..translate import detect_input_lang, translate_text
 
+MOCK_DETECT_LANG_SUCCESS_RESPONSE: DetectLangResponse = {
+    "language": "en",
+    "input": "Johnson, you were supposed to have that feature out yesterday.  What is going on?",
+    "confidence": 0.99,
+}
 
-@patch("conversation_assistant.translate.Client.detect_language", MagicMock(return_value=MOCK_DETECT_LANG_RESPONSE))
-def test_detect_input_lang__when_1_lang_returned__then_return_that_lang() -> None:
+MOCK_DETECT_LANG_FAILURE_RESPONSE: DetectLangResponse = {"language": "und", "confidence": 1, "input": ""}
+
+MOCK_TRANSLATION_RESPONSE: TranslateResponse = {
+    "translatedText": "Johnson, avresti dovuto pubblicare quel film ieri. Cosa sta succedendo?",
+    "detectedSourceLanguage": "en",
+    "input": "Johnson, you were supposed to have that feature out yesterday.  What is going on?",
+}
+
+
+@patch("conversation_assistant.translate.Client.detect_language", MagicMock(return_value=MOCK_DETECT_LANG_SUCCESS_RESPONSE))
+def test_detect_input_lang__when_lang_returned__then_return_that_lang() -> None:
     en_text = "Johnson, you were supposed to have that feature out yesterday.  What is going on?"
     it_text = detect_input_lang(text=en_text)
     assert it_text == "en"
+
+
+@patch("conversation_assistant.translate.Client.detect_language", MagicMock(return_value=MOCK_DETECT_LANG_FAILURE_RESPONSE))
+def test_detect_input_lang__when_no_langs_returned__then_throw_error() -> None:
+    en_text = "Johnson, you were supposed to have that feature out yesterday.  What is going on?"
+    with pytest.raises(ValueError):
+        detect_input_lang(text=en_text)
 
 
 @patch("conversation_assistant.translate.Client.translate", MagicMock(return_value=MOCK_TRANSLATION_RESPONSE))

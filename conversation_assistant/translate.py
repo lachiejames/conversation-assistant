@@ -3,6 +3,8 @@ from google.cloud.translate_v2.client import Client
 
 from .models import DetectLangResponse, TranslateResponse
 
+UNDEFINED_LANG = "und"
+
 
 def detect_input_lang(text: str) -> str:
     """
@@ -16,11 +18,9 @@ def detect_input_lang(text: str) -> str:
     response: DetectLangResponse = Client().detect_language(text)
     detected_lang = response["language"]
 
-    if isinstance(detected_lang, str):
+    if isinstance(detected_lang, str) and detected_lang is not UNDEFINED_LANG:
         return detected_lang
-    if isinstance(detected_lang, list) and len(detected_lang) > 0:
-        return detected_lang[0]
-    raise Exception(f"Failed to detect language: {response}")
+    raise ValueError(f"Failed to detect language: {response}")
 
 
 def translate_text(text: str, target_lang: str) -> str:
