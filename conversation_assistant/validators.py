@@ -8,7 +8,7 @@ from .models import GPT3CompletionResponse
 
 
 def validate_request(request_body: Union[Any, None]) -> None:
-    if request_body is None:
+    if request_body == None:
         raise ValueError("Request body is required")
 
     path_to_schema: str = os.path.join("schemas", "generate_suggestions_request.json")

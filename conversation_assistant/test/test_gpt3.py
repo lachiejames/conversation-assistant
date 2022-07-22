@@ -25,7 +25,7 @@ def test_fetch_completion__when_gpt3_request_succeeds__then_returns_response() -
 
     response = fetch_completion(MOCK_PROMPT, mock_gpt3_params, MOCK_STOP_INDICATOR)
 
-    assert response is MOCK_GPT3_COMPLETION_RESPONSE
+    assert response == MOCK_GPT3_COMPLETION_RESPONSE
 
 
 @patch("conversation_assistant.gpt3.Completion.create", MagicMock(side_effect=LookupError))
