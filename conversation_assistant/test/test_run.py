@@ -1,10 +1,13 @@
+import json
 from unittest.mock import MagicMock, patch
 
 from flask import Response
 from jsonschema import ValidationError
 
 from ..run import run_generate_suggestions
-from .mocks import MOCK_REQUEST, MOCK_RESPONSE, MOCK_SUGGESTIONS
+from .mocks import MOCK_REQUEST, MOCK_SUGGESTIONS
+
+MOCK_RESPONSE: bytes = json.dumps({"results": MOCK_SUGGESTIONS}).encode()
 
 
 @patch("conversation_assistant.run.fetch_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
@@ -31,22 +34,22 @@ def test_run_generate_suggestions__when_event_is_invalid__then_response_code_is_
 
 @patch(
     "conversation_assistant.run.validate_request",
-    MagicMock(side_effect=ValidationError("test")),
+    MagicMock(side_effect=ValidationError("an error occurred")),
 )
 def test_run_generate_suggestions__when_event_is_invalid__then_returns_error_message() -> None:
     empty_event: dict[str, str] = {}
     response: Response = run_generate_suggestions(empty_event)
 
-    assert response.data == b"Invalid request body: test"
+    assert response.data == b"an error occurred"
 
 
-@patch("conversation_assistant.run.validate_request", MagicMock(side_effect=RuntimeError("test")))
+@patch("conversation_assistant.run.validate_request", MagicMock(side_effect=RuntimeError("an error occurred")))
 def test_run_generate_suggestions__when_internal_error_raised__then_response_code_is_500() -> None:
     response: Response = run_generate_suggestions(MOCK_REQUEST)
     assert response.status_code == 500
 
 
-@patch("conversation_assistant.run.validate_request", MagicMock(side_effect=RuntimeError("test")))
+@patch("conversation_assistant.run.validate_request", MagicMock(side_effect=RuntimeError("an error occurred")))
 def test_run_generate_suggestions__when_internal_error_raised__then_returns_error_message() -> None:
     response: Response = run_generate_suggestions(MOCK_REQUEST)
-    assert response.data == b"Something went wrong: test"
+    assert response.data == b"an error occurred"

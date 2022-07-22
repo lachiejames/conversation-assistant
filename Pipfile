@@ -1,4 +1,5 @@
 [packages]
+google-cloud-translate = "==2.0.1"
 jsonschema = "==4.4.0"
 mypy = "==0.950"
 numpy = "==1.22.3"
@@ -13,9 +14,11 @@ pytest = "==7.1.2"
 pytest-cov = "==3.0.0"
 pytest-mock = "==3.7.0"
 types-jsonschema = "==4.4.4"
+types-six = "==1.16.18"
 
 [scripts]
 check-types = "python -m mypy conversation_assistant e2e main.py"
+start = "python -m flask run --port 8081"
 export-requirements = "pipenv lock -r"
 format = "bash -c 'python -m black conversation_assistant e2e main.py && python -m isort conversation_assistant e2e main.py'"
 install-ci = "pipenv install --dev --deploy"

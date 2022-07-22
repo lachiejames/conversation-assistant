@@ -4,9 +4,12 @@ from .models import (
     Message,
     Suggestion,
 )
+from .translate import translate_text
+
+DEFAULT_LANGUAGE = "en"
 
 
-def generate_prompt(request: GenerateSuggestionsRequest) -> str:
+def generate_prompt(request: GenerateSuggestionsRequest, input_lang: str) -> str:
     my_name: str = request["settings"]["profile_params"]["name"]
     my_age: str = request["settings"]["profile_params"]["age"]
     my_pronouns: str = request["settings"]["profile_params"]["pronouns"]
@@ -30,6 +33,9 @@ The following is a conversation between {my_name} and {their_name}, who is {my_n
 The tone of this conversation is {tone_of_chat}.
 
 """
+
+    if input_lang != DEFAULT_LANGUAGE:
+        prompt = translate_text(prompt, input_lang)
 
     for message in previous_messages:
         prompt += f"{message['author']}: {message['text']}\n"

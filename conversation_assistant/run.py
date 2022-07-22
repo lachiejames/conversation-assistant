@@ -26,7 +26,7 @@ def respond_with_200(request: GenerateSuggestionsRequest) -> Response:
 
 def respond_with_400(error: Exception) -> Response:
     return Response(
-        response=f"Invalid request body: {error}",
+        response=str(error),
         status=400,
         headers=HEADERS,
     )
@@ -34,7 +34,7 @@ def respond_with_400(error: Exception) -> Response:
 
 def respond_with_500(error: Exception) -> Response:
     return Response(
-        response=f"Something went wrong: {error}",
+        response=str(error),
         status=500,
         headers=HEADERS,
     )

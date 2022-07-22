@@ -5,21 +5,15 @@ from jsonschema import ValidationError
 
 from ..gpt3 import fetch_completion, get_stop_indicator
 from ..models import GPT3Params
-from .mocks import (
-    MOCK_GPT3_COMPLETION_RESPONSE,
-    MOCK_PROMPT,
-    MOCK_REQUEST,
-    MOCK_STOP_INDICATOR,
-)
+from .mocks import MOCK_GPT3_COMPLETION_RESPONSE, MOCK_PROMPT, MOCK_REQUEST
+
+MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
 
 
-def test_get_stop_indicator__returns_list_of_inputs() -> None:
-    my_name = MOCK_REQUEST["settings"]["profile_params"]["name"]
-    their_name = MOCK_REQUEST["settings"]["conversation_params"]["their_name"]
+def test_get_stop_indicator__returns_2_indicators() -> None:
+    stop_indicator = get_stop_indicator(request=MOCK_REQUEST)
 
-    stop_indicator = get_stop_indicator(my_name=my_name, their_name=their_name)
-
-    assert stop_indicator == MOCK_STOP_INDICATOR
+    assert len(stop_indicator) == 2
 
 
 @patch("conversation_assistant.gpt3.Completion.create", MagicMock(return_value=MOCK_GPT3_COMPLETION_RESPONSE))
@@ -28,7 +22,7 @@ def test_fetch_completion__when_gpt3_request_succeeds__then_returns_response() -
 
     response = fetch_completion(MOCK_PROMPT, mock_gpt3_params, MOCK_STOP_INDICATOR)
 
-    assert response is MOCK_GPT3_COMPLETION_RESPONSE
+    assert response == MOCK_GPT3_COMPLETION_RESPONSE
 
 
 @patch("conversation_assistant.gpt3.Completion.create", MagicMock(side_effect=LookupError))

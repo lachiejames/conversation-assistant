@@ -2,12 +2,15 @@ import os
 
 from openai import Completion
 
-from .models import GPT3CompletionResponse, GPT3Params
+from .models import GenerateSuggestionsRequest, GPT3CompletionResponse, GPT3Params
 from .validators import validate_completion_response
 
 
-def get_stop_indicator(my_name: str, their_name: str) -> list[str]:
+def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
     """Prevents GPT3 from returning a full conversation instead of just 1 message"""
+
+    my_name: str = request["settings"]["profile_params"]["name"]
+    their_name: str = request["settings"]["conversation_params"]["their_name"]
 
     return [f"{my_name}: ", f"{their_name}: "]
 

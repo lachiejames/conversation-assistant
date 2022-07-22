@@ -21,7 +21,7 @@ def test_map_completion_response_to_suggestions_returns_expected_suggestions() -
 
 
 def test_generate_prompt__when_all_params_defined___then_returns_prompt_containing_all_params() -> None:
-    prompt: str = generate_prompt(MOCK_REQUEST)
+    prompt: str = generate_prompt(MOCK_REQUEST, "en")
 
     assert prompt == MOCK_PROMPT
 
@@ -63,6 +63,6 @@ The tone of this conversation is .
 
 :"""
 
-    prompt: str = generate_prompt(request)
+    prompt: str = generate_prompt(request, "en")
 
     assert prompt == expected_silly_prompt
