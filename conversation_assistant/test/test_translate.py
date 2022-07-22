@@ -1,8 +1,15 @@
 from unittest.mock import MagicMock, patch
 
-from conversation_assistant.test.mocks import MOCK_TRANSLATION_RESPONSE
+from conversation_assistant.test.mocks import MOCK_TRANSLATION_RESPONSE, MOCK_DETECT_LANG_RESPONSE
 
-from ..translate import translate_text
+from ..translate import detect_input_lang, translate_text
+
+
+@patch("conversation_assistant.translate.Client.detect_language", MagicMock(return_value=MOCK_DETECT_LANG_RESPONSE))
+def test_detect_input_lang__when_1_lang_returned__then_return_that_lang() -> None:
+    en_text = "Johnson, you were supposed to have that feature out yesterday.  What is going on?"
+    it_text = detect_input_lang(text=en_text)
+    assert it_text == "en"
 
 
 @patch("conversation_assistant.translate.Client.translate", MagicMock(return_value=MOCK_TRANSLATION_RESPONSE))

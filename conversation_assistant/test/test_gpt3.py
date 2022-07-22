@@ -13,7 +13,7 @@ from .mocks import (
 )
 
 
-def test_get_stop_indicator__returns_list_of_message_prefixes() -> None:
+def test_get_stop_indicator__returns_2_indicators() -> None:
     stop_indicator = get_stop_indicator(request=MOCK_REQUEST)
 
     assert len(stop_indicator) == 2

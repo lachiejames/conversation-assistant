@@ -12,9 +12,9 @@ Can generate suggestions in any language, within any context.
 
 3. Uses the context parameters to generate a 'prompt' in English
 
-4. Prompt is translated to the detected language. This ensures that GPT3's message suggestion will be in the detected language.
+4. Prompt is translated to the detected language. This ensures that GPT3's message suggestion will also be in the detected language.
 
-5. Conversation is appended to the prompt
+5. Conversation history is appended to the prompt
 
 6. [GPT3 Completion response](https://beta.openai.com/docs/guides/completion) returns a 'completion' that includes the probable next message for the conversation. This is the 'suggestion'.
 
@@ -94,7 +94,9 @@ pipenv run start
 
 Then use `Postman` to make a POST request to `http://localhost:8081/`. Your request body must be JSON that matches the schema in `schemas/generate_suggestions_request.json`. Sample request bodies can be found in `e2e/mock_requests`.
 
-To enable debug mode, use this `launch.json` config:
+## VSCode settings
+
+To debug the function locally, use this `launch.json` config:
 
 ```
     {
@@ -110,4 +112,14 @@ To enable debug mode, use this `launch.json` config:
       "args": ["run", "--port", "8081", "--no-debugger", "--no-reload"],
       "jinja": true
     }
+```
+
+To debug tests locally with [Test Explorer](littlefoxteam.vscode-python-test-adapter), use this `settings.json` config:
+
+```
+{
+  "python.testing.pytestArgs": ["conversation_assistant", "e2e"],
+  "python.testing.pytestEnabled": true,
+  "python.formatting.provider": "black",
+}
 ```
