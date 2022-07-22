@@ -17,4 +17,6 @@ cov.xml
 requirements.txt
 
 gha-creds-*.json
-google-application-credentials.json
+google-application-credentials*.json
+.terraform/
+.terraform.lock.hcl
