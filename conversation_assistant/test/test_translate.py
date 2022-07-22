@@ -13,13 +13,7 @@ MOCK_DETECT_LANG_SUCCESS_RESPONSE: DetectLangResponse = {
 
 MOCK_DETECT_LANG_FAILURE_RESPONSE: DetectLangResponse = {"language": "und", "confidence": 1, "input": ""}
 
-MOCK_TRANSLATION_SUCCESS_RESPONSE: TranslateResponse = {
-    "translatedText": "Johnson, avresti dovuto pubblicare quel film ieri. Cosa sta succedendo?",
-    "detectedSourceLanguage": "en",
-    "input": "Johnson, you were supposed to have that feature out yesterday.  What is going on?",
-}
-
-MOCK_TRANSLATION_FAILURE_RESPONSE: TranslateResponse = {
+MOCK_TRANSLATION_RESPONSE: TranslateResponse = {
     "translatedText": "Johnson, avresti dovuto pubblicare quel film ieri. Cosa sta succedendo?",
     "detectedSourceLanguage": "en",
     "input": "Johnson, you were supposed to have that feature out yesterday.  What is going on?",
@@ -40,15 +34,8 @@ def test_detect_input_lang__when_undefined_received_returned__then_raises_error(
         detect_input_lang(text=en_text)
 
 
-@patch("conversation_assistant.translate.Client.translate", MagicMock(return_value=MOCK_TRANSLATION_SUCCESS_RESPONSE))
+@patch("conversation_assistant.translate.Client.translate", MagicMock(return_value=MOCK_TRANSLATION_RESPONSE))
 def test_translate_text__when_translation_received__then_returns_translated_text() -> None:
     en_text = "Johnson, you were supposed to have that feature out yesterday.  What is going on?"
     it_text = translate_text(text=en_text, target_lang="it")
     assert it_text == "Johnson, avresti dovuto pubblicare quel film ieri. Cosa sta succedendo?"
-
-
-@patch("conversation_assistant.translate.Client.translate", MagicMock(return_value=MOCK_TRANSLATION_FAILURE_RESPONSE))
-def test_translate_text__when_invalid_response_received__then_raises_error() -> None:
-    en_text = "Johnson, you were supposed to have that feature out yesterday.  What is going on?"
-    trans_en_text = translate_text(text=en_text, target_lang="en")
-    assert en_text == trans_en_text

@@ -1,12 +1,4 @@
-import json
-
-from ..models import (
-    DetectLangResponse,
-    GenerateSuggestionsRequest,
-    GPT3CompletionResponse,
-    Suggestion,
-    TranslateResponse,
-)
+from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, Suggestion
 
 MOCK_PROMPT_PREFIX = """
 The following is a conversation between Chad Johnson and Stacey, who is Chad Johnson's new match on a dating app.
@@ -101,8 +93,3 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
         },
     },
 }
-
-MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
-
-
-MOCK_RESPONSE: bytes = json.dumps({"results": MOCK_SUGGESTIONS}).encode()

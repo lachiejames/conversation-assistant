@@ -18,7 +18,7 @@ def detect_input_lang(text: str) -> str:
     response: DetectLangResponse = Client().detect_language(text)
     detected_lang = response["language"]
 
-    if isinstance(detected_lang, str) and detected_lang != UNDEFINED_LANG:
+    if detected_lang != UNDEFINED_LANG:
         return detected_lang
     raise ValueError(f"Failed to detect language: {response}")
 
@@ -35,7 +35,4 @@ def translate_text(text: str, target_lang: str) -> str:
     response: TranslateResponse = Client().translate(text, target_language=target_lang)
     translated_text: str = response["translatedText"]
 
-    if isinstance(translated_text, str):
-        return translated_text
-
-    raise ValueError(f"Failed to translate: {response}")
+    return translated_text

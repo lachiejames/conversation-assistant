@@ -5,12 +5,9 @@ from jsonschema import ValidationError
 
 from ..gpt3 import fetch_completion, get_stop_indicator
 from ..models import GPT3Params
-from .mocks import (
-    MOCK_GPT3_COMPLETION_RESPONSE,
-    MOCK_PROMPT,
-    MOCK_REQUEST,
-    MOCK_STOP_INDICATOR,
-)
+from .mocks import MOCK_GPT3_COMPLETION_RESPONSE, MOCK_PROMPT, MOCK_REQUEST
+
+MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
 
 
 def test_get_stop_indicator__returns_2_indicators() -> None:
