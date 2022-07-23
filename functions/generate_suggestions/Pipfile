@@ -17,15 +17,15 @@ types-jsonschema = "==4.4.4"
 types-six = "==1.16.18"
 
 [scripts]
-check-types = "python -m mypy generate_suggestions e2e main.py"
+check-types = "python -m mypy src e2e main.py"
 start = "python -m flask run --port 8081"
 export-requirements = "pipenv lock -r"
-format = "bash -c 'python -m black generate_suggestions e2e main.py && python -m isort generate_suggestions e2e main.py'"
+format = "bash -c 'python -m black src e2e main.py && python -m isort src e2e main.py'"
 install-ci = "pipenv install --dev --deploy"
 install-dev = "pipenv install --dev"
 install-prod = "pipenv install --deploy"
-lint = "python -m pylint generate_suggestions e2e main.py"
-test = "python -m pytest generate_suggestions --cov=./generate_suggestions --cov-fail-under=90 --cov-branch --cov-report xml:cov.xml"
+lint = "python -m pylint src e2e main.py"
+test = "python -m pytest src --cov=./src --cov-fail-under=90 --cov-branch --cov-report xml:cov.xml"
 teste2e = "python -m pytest e2e"
 
 [requires]

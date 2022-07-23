@@ -1,6 +1,6 @@
 .git
 .github
-generate_suggestions/test
+src/test
 e2e
 
 .gitignore
