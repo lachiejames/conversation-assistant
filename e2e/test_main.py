@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 import flask
 
 from conversation_assistant import Suggestion, detect_input_lang
-from main import generate_suggestions
+from conversation_assistant.main import generate_suggestions
 
 
 def get_path_to_file(filename: str) -> str:
