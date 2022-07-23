@@ -1,6 +1,6 @@
-# terraform {
-#  backend "gcs" {
-#    bucket  = "${var.project}-${var.environment}-bucket-tfstate"
-#    prefix  = "terraform/state"
-#  }
-# }
+terraform {
+ backend "gcs" {
+   bucket  = "conversation-assistant-prod-bucket-tfstate"
+   prefix  = "terraform/state"
+ }
+}
