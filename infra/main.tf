@@ -11,8 +11,8 @@ provider "google" {
   credentials = file("../google-application-credentials.json")
 
   project = "${var.project}-${var.environment}"
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  region  = var.region
+  zone    = var.zone
 }
 
 resource "google_storage_bucket" "default" {

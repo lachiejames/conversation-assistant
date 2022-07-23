@@ -1,3 +1,9 @@
+variable "project" {
+  type        = string
+  description = "Application Name"
+  default     = "conversation-assistant"
+}
+
 variable "environment" {
   type        = string
   description = "'dev' or 'prod'"
@@ -10,8 +16,9 @@ variable "region" {
   default     = "us-west1"
 }
 
-variable "project" {
+variable "zone" {
   type        = string
-  description = "Application Name"
-  default     = "conversation-assistant"
+  description = "GCP default zone"
+  default     = "us-west1-a"
 }
+
