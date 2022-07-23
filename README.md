@@ -118,7 +118,7 @@ To debug tests locally with [Test Explorer](littlefoxteam.vscode-python-test-ada
 
 ```
 {
-  "python.testing.pytestArgs": ["conversation_assistant", "e2e"],
+  "python.testing.pytestArgs": ["generate_suggestions", "e2e"],
   "python.testing.pytestEnabled": true,
   "python.formatting.provider": "black",
 }

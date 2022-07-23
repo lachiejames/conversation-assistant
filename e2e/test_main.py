@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 
 import flask
 
-from conversation_assistant import Suggestion, detect_input_lang
+from generate_suggestions import Suggestion, detect_input_lang
 from main import generate_suggestions
 
 
@@ -53,7 +53,7 @@ def test_generate_suggestions__when_request_is_malformed__then_returns_400(app: 
         assert response.data == b"Request body is required"
 
 
-@patch("conversation_assistant.run.respond_with_200", MagicMock(side_effect=RuntimeError("an error occurred")))
+@patch("generate_suggestions.run.respond_with_200", MagicMock(side_effect=RuntimeError("an error occurred")))
 def test_generate_suggestions__when_other_error_raised__then_returns_500(app: flask.Flask) -> None:
     with open(get_path_to_file("work.json"), "r", encoding="utf-8") as example_request_file:
         with app.test_request_context(json=json.load(example_request_file)):

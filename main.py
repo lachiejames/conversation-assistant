@@ -2,7 +2,7 @@ from typing import Any, Union
 
 from flask import Request, Response
 
-from conversation_assistant import run_generate_suggestions
+from generate_suggestions import run_generate_suggestions
 
 
 def generate_suggestions(request: Request) -> Response:
