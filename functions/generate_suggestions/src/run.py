@@ -4,9 +4,9 @@ from typing import Any, Union, cast
 from flask import Response
 from jsonschema import ValidationError
 
-from .generator import fetch_suggestions
+from .api import fetch_suggestions
 from .models import GenerateSuggestionsRequest, GenerateSuggestionsResponse, Suggestion
-from .validators import validate_request
+from .utils import validate_request
 
 HEADERS = {
     "Content-Type": "application/json",

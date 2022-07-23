@@ -1,7 +1,7 @@
 import six
 from google.cloud.translate_v2.client import Client
 
-from .models import DetectLangResponse, TranslateResponse
+from ..models import DetectLangResponse, TranslateResponse
 
 UNDEFINED_LANG = "und"
 

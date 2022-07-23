@@ -1,13 +1,13 @@
 from unittest.mock import MagicMock, patch
 
-from ..generator import fetch_suggestions
-from ..models import Suggestion
-from .mocks import (
+from ...models import Suggestion
+from ...test.mocks import (
     MOCK_GPT3_COMPLETION_RESPONSE,
     MOCK_PROMPT_PREFIX,
     MOCK_REQUEST,
     MOCK_SUGGESTIONS,
 )
+from ..generator import fetch_suggestions
 
 
 @patch("src.generator.fetch_completion", MagicMock(return_value=MOCK_GPT3_COMPLETION_RESPONSE))
