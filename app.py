@@ -1,9 +1,8 @@
 import flask
 
-import main
 
 app = flask.Flask(__name__)
-
+from conversation_assistant import main
 
 @app.route("/", methods=["POST"])
 def generate() -> flask.Response:
