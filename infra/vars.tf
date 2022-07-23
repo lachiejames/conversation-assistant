@@ -22,3 +22,8 @@ variable "zone" {
   default     = "us-west1-a"
 }
 
+variable "function_name" {
+  type        = string
+  description = "GCP default zone"
+  default     = "generate-suggestions"
+}
