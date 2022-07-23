@@ -17,16 +17,16 @@ types-jsonschema = "==4.4.4"
 types-six = "==1.16.18"
 
 [scripts]
-check-types = "python -m mypy conversation_assistant e2e"
+check-types = "python -m mypy ./"
 export-requirements = "pipenv lock -r"
-format = "bash -c 'python -m black conversation_assistant e2e && python -m isort conversation_assistant e2e'"
+format = "bash -c 'python -m black ./ && python -m isort ./'"
 install-ci = "pipenv install --dev --deploy"
 install-dev = "pipenv install --dev"
 install-prod = "pipenv install --deploy"
-lint = "python -m pylint conversation_assistant e2e"
+lint = "python -m pylint ./"
 start = "python -m flask run --port 8081"
-test = "python -m pytest conversation_assistant --cov=./conversation_assistant --cov-fail-under=90 --cov-branch --cov-report xml:cov.xml"
-teste2e = "python -m pytest e2e"
+test = "python -m pytest ./ --cov=./ --cov-fail-under=90 --cov-branch --cov-report xml:cov.xml"
+teste2e = "python -m pytest ./e2e"
 
 [requires]
 python_version = "3.9"
