@@ -4,7 +4,7 @@ from typing import Any, Union
 
 from jsonschema import validate
 
-from .models import GPT3CompletionResponse
+from ..models import GPT3CompletionResponse
 
 
 def validate_request(request_body: Union[Any, None]) -> None:

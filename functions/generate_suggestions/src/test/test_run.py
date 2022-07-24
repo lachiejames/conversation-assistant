@@ -10,21 +10,21 @@ from .mocks import MOCK_REQUEST, MOCK_SUGGESTIONS
 MOCK_RESPONSE: bytes = json.dumps({"results": MOCK_SUGGESTIONS}).encode()
 
 
-@patch("conversation_assistant.run.fetch_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
+@patch("src.run.fetch_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
 def test_run_generate_suggestions__when_event_is_valid__then_response_code_is_200() -> None:
     response = run_generate_suggestions(MOCK_REQUEST)
 
     assert response.status_code == 200
 
 
-@patch("conversation_assistant.run.fetch_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
+@patch("src.run.fetch_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
 def test_run_generate_suggestions__when_event_is_valid__then_returns_results() -> None:
     response = run_generate_suggestions(MOCK_REQUEST)
 
     assert response.data == MOCK_RESPONSE
 
 
-@patch("conversation_assistant.run.validate_request", MagicMock(side_effect=ValidationError("test")))
+@patch("src.run.validate_request", MagicMock(side_effect=ValidationError("test")))
 def test_run_generate_suggestions__when_event_is_invalid__then_response_code_is_400() -> None:
     empty_event: dict[str, str] = {}
     response = run_generate_suggestions(empty_event)
@@ -33,7 +33,7 @@ def test_run_generate_suggestions__when_event_is_invalid__then_response_code_is_
 
 
 @patch(
-    "conversation_assistant.run.validate_request",
+    "src.run.validate_request",
     MagicMock(side_effect=ValidationError("an error occurred")),
 )
 def test_run_generate_suggestions__when_event_is_invalid__then_returns_error_message() -> None:
@@ -43,13 +43,13 @@ def test_run_generate_suggestions__when_event_is_invalid__then_returns_error_mes
     assert response.data == b"an error occurred"
 
 
-@patch("conversation_assistant.run.validate_request", MagicMock(side_effect=RuntimeError("an error occurred")))
+@patch("src.run.validate_request", MagicMock(side_effect=RuntimeError("an error occurred")))
 def test_run_generate_suggestions__when_internal_error_raised__then_response_code_is_500() -> None:
     response: Response = run_generate_suggestions(MOCK_REQUEST)
     assert response.status_code == 500
 
 
-@patch("conversation_assistant.run.validate_request", MagicMock(side_effect=RuntimeError("an error occurred")))
+@patch("src.run.validate_request", MagicMock(side_effect=RuntimeError("an error occurred")))
 def test_run_generate_suggestions__when_internal_error_raised__then_returns_error_message() -> None:
     response: Response = run_generate_suggestions(MOCK_REQUEST)
     assert response.data == b"an error occurred"

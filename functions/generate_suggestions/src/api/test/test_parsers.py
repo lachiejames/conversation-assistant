@@ -1,17 +1,17 @@
-from ..models import (
+from ...models import (
     ConversationParams,
     GenerateSuggestionsRequest,
     Message,
     ProfileParams,
     Suggestion,
 )
-from ..parsers import generate_prompt, map_completion_response_to_suggestions
-from .mocks import (
+from ...test.mocks import (
     MOCK_GPT3_COMPLETION_RESPONSE,
     MOCK_PROMPT,
     MOCK_REQUEST,
     MOCK_SUGGESTIONS,
 )
+from ..parsers import generate_prompt, map_completion_response_to_suggestions
 
 
 def test_map_completion_response_to_suggestions_returns_expected_suggestions() -> None:

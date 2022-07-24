@@ -1,6 +1,6 @@
 .git
 .github
-conversation_assistant/test
+src/test
 e2e
 
 .gitignore

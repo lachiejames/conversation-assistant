@@ -2,8 +2,8 @@ import os
 
 from openai import Completion
 
-from .models import GenerateSuggestionsRequest, GPT3CompletionResponse, GPT3Params
-from .validators import validate_completion_response
+from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, GPT3Params
+from ..utils import validate_completion_response
 
 
 def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
