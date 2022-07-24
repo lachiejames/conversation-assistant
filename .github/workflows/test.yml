@@ -44,23 +44,23 @@ jobs:
         run: pip3 install pipenv
 
       - name: Install Dependencies
-        working-directory: ${{ matrix.function }}
+        working-directory: functions/${{ matrix.function }}
         run: pipenv run install-ci
 
       - name: Validate Types
-        working-directory: ${{ matrix.function }}
+        working-directory: functions/${{ matrix.function }}
         run: pipenv run check-types
 
       - name: Lint
-        working-directory: ${{ matrix.function }}
+        working-directory: functions/${{ matrix.function }}
         run: pipenv run lint
 
       - name: Unit Test
-        working-directory: ${{ matrix.function }}
+        working-directory: functions/${{ matrix.function }}
         run: pipenv run test
 
       - name: E2E Test
-        working-directory: ${{ matrix.function }}
+        working-directory: functions/${{ matrix.function }}
         env:
           OPENAI_API_KEY: ${{ steps.gcp_secrets.outputs.OPENAI_API_KEY }}
         run: pipenv run teste2e
