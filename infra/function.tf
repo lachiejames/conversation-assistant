@@ -24,7 +24,7 @@ resource "google_cloudfunctions_function" "function" {
   description = "Generates message suggestions for a user to respond with based upon their conversation history, and some context parameters"
   runtime     = "python39"
 
-  available_memory_mb          = 1024
+  available_memory_mb          = 512
   source_archive_bucket        = google_storage_bucket.bucket.name
   source_archive_object        = google_storage_bucket_object.object.name
   trigger_http                 = true

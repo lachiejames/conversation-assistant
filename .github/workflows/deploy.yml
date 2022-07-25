@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [master, feat/migrate-to-terraform]
+    branches: [master]
   workflow_dispatch:
 
 env:

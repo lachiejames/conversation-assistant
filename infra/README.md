@@ -6,6 +6,8 @@ Before this can be deployed, you must do the following:
 
 2. Create a Service Account and download the credentials
 
+3. Add permissions to your Service accounts until it looks like this: [GCP Service Accounts](.github/assets/gcp-service-account.png)
+
 3. Enable the following APIs
 
    - Secret Manager API
