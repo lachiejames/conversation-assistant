@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("../google-application-credentials.json")
+  # credentials = file("../google-application-credentials.json")
 
   project = "${var.project}-${var.environment}"
   region  = var.region

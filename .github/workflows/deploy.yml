@@ -1,19 +1,22 @@
-name: Deploy to Prod
+name: Deploy
 
 on:
   push:
-    branches: [master]
+    branches: [master, feat/migrate-to-terraform]
   workflow_dispatch:
 
 env:
   GCP_SECRET_PATH: projects/conversation-assistant-android/secrets
   PIPENV_VENV_IN_PROJECT: true
   PIPENV_IGNORE_VIRTUALENVS: 1
+  PATH_TO_FUNCTION: functions/generate_suggestions
+  PATH_TO_INFRA: infra
+  FUNCTION_URL: https://us-west1-conversation-assistant-prod.cloudfunctions.net/generate-suggestions-function
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -25,6 +28,7 @@ jobs:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Load Sample Request
+        working-directory: ${{ env.PATH_TO_FUNCTION }}
         run: |
           echo "BEARER_TOKEN=$(gcloud auth print-identity-token)" >> $GITHUB_ENV
 
@@ -39,30 +43,42 @@ jobs:
           python-version: "3.9"
 
       - name: Install Pipenv
+        working-directory: ${{ env.PATH_TO_FUNCTION }}
         run: pip3 install pipenv
 
       - name: Install Dependencies
+        working-directory: ${{ env.PATH_TO_FUNCTION }}
         run: pipenv run install-prod
 
       # Cloud functions do not yet support installing from Pipfile.lock
       - name: Export requirements.txt
+        working-directory: ${{ env.PATH_TO_FUNCTION }}
         run: pipenv run export-requirements > requirements.txt
 
-      - name: Deploy Cloud Function
-        id: deploy
-        uses: google-github-actions/deploy-cloud-functions@v0
-        with:
-          name: generate_suggestions
-          runtime: python39
-          secret_environment_variables: |-
-            OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
+      - name: Terraform setup
+        working-directory: ${{ env.PATH_TO_INFRA }}
+        run: terraform init
+
+      - name: Terraform deploy
+        working-directory: ${{ env.PATH_TO_INFRA }}
+        run: terraform apply -auto-approve
+
+      # - name: Deploy Cloud Function
+      #   working-directory: infra
+      #   id: deploy
+      #   uses: google-github-actions/deploy-cloud-functions@v0
+      #   with:
+      #     name: generate_suggestions
+      #     runtime: python39
+      #     secret_environment_variables: |-
+      #       OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
 
       - name: Invoke Cloud Function
         id: invoke
         uses: fjogeleit/http-request-action@v1
         with:
           method: POST
-          url: ${{ steps.deploy.outputs.url }}
+          url: ${{ env.FUNCTION_URL }}
           customHeaders: '{ "Content-Type": "application/json" }'
           bearerToken: ${{ env.BEARER_TOKEN }}
           data: ${{ env.SAMPLE_REQUEST }}
