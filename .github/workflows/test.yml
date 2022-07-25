@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  GCP_PROJECT_NAME: conversation-assistant-prod
+  GCP_PROJECT_NAME: conversation-assistant-dev
   PIPENV_VENV_IN_PROJECT: true
   PIPENV_IGNORE_VIRTUALENVS: 1
 

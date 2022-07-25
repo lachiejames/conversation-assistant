@@ -11,7 +11,7 @@ env:
   PIPENV_IGNORE_VIRTUALENVS: 1
   PATH_TO_FUNCTION: functions/generate_suggestions
   PATH_TO_INFRA: infra
-  FUNCTION_URL: https://us-west1-conversation-assistant-${{ env.ENVIRONMENT }}.cloudfunctions.net/generate-suggestions-function
+  FUNCTION_URL: https://us-west1-conversation-assistant-dev.cloudfunctions.net/generate-suggestions-function
 
 jobs:
   deploy:
@@ -57,7 +57,7 @@ jobs:
 
       - name: Terraform setup
         working-directory: ${{ env.PATH_TO_INFRA }}
-        run: terraform init
+        run: terraform init -var="environment=${{ env.ENVIRONMENT }}"
 
       - name: Terraform deploy
         working-directory: ${{ env.PATH_TO_INFRA }}
