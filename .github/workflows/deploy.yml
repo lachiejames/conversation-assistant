@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
 
 env:
-  GCP_SECRET_PATH: projects/conversation-assistant-android/secrets
   PIPENV_VENV_IN_PROJECT: true
   PIPENV_IGNORE_VIRTUALENVS: 1
   PATH_TO_FUNCTION: functions/generate_suggestions
