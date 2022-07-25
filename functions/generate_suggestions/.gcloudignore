@@ -1,18 +1,21 @@
-.git
-.github
-src/test
-e2e
-
-.gitignore
+__pycache__
+.coverage
+.env
+.mypy_cache
 .pylintrc
+.pytest_cache
+.venv
+*.pyc
 CHANGELOG.md
-README.md
 conftest.py
 cov.xml
+e2e
 Pipfile
 Pipfile.lock
 pyproject.toml
 pytest.ini
+README.md
+src/test
 
 # Generated from Pipfile.lock before deployment
 !requirements.txt

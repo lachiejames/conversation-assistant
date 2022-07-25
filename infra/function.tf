@@ -7,7 +7,7 @@ resource "google_storage_bucket" "bucket" {
 data "archive_file" "source" {
   type        = "zip"
   source_dir  = "../functions/generate_suggestions"
-  output_path = "/tmp/function.zip"
+  output_path = "../build/generate_suggestions/function.zip"
 }
 
 resource "google_storage_bucket_object" "object" {
@@ -22,7 +22,7 @@ resource "google_cloudfunctions_function" "function" {
   description = "Generates message suggestions for a user to respond with based upon their conversation history, and some context parameters"
   runtime     = "python39"
 
-  available_memory_mb          = 512
+  available_memory_mb          = 1024
   source_archive_bucket        = google_storage_bucket.bucket.name
   source_archive_object        = google_storage_bucket_object.object.name
   trigger_http                 = true
@@ -31,12 +31,12 @@ resource "google_cloudfunctions_function" "function" {
   entry_point                  = "generate_suggestions"
 }
 
-# # Create IAM entry so all users can invoke the function
-# resource "google_cloudfunctions_function_iam_member" "invoker" {
-#   project        = google_cloudfunctions_function.function.project
-#   region         = google_cloudfunctions_function.function.region
-#   cloud_function = google_cloudfunctions_function.function.name
+# Create IAM entry so all users can invoke the function
+resource "google_cloudfunctions_function_iam_member" "invoker" {
+  project        = google_cloudfunctions_function.function.project
+  region         = google_cloudfunctions_function.function.region
+  cloud_function = google_cloudfunctions_function.function.name
 
-#   role   = "roles/cloudfunctions.invoker"
-#   member = "allUsers"
-# }
+  role   = "roles/cloudfunctions.invoker"
+  member = "allUsers"
+}
