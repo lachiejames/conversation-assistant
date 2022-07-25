@@ -1,5 +1,5 @@
 provider "google" {
-  project = "${var.project}-${var.environment}"
-  region  = var.region
-  zone    = var.zone
+  project = "${local.project}-${var.environment}"
+  region  = local.region
+  zone    = local.zone
 }

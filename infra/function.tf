@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "bucket" {
-  name     = "${var.project}-${var.environment}-bucket-${var.function_name}"
+  name     = "${local.project}-${var.environment}-bucket-${var.function_name}"
   location = "US"
 }
 
