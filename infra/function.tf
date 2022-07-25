@@ -33,9 +33,13 @@ resource "google_cloudfunctions_function" "function" {
   entry_point                  = "generate_suggestions"
 
   secret_environment_variables {
-    key = data.google_secret_manager_secret_version.OPENAI_API_KEY.secret
+    key     = data.google_secret_manager_secret_version.OPENAI_API_KEY.secret
     secret  = data.google_secret_manager_secret_version.OPENAI_API_KEY.secret
     version = "latest"
+  }
+
+  timeouts {
+    create = "20m"
   }
 }
 

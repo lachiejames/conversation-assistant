@@ -61,7 +61,9 @@ jobs:
 
       - name: Terraform deploy
         working-directory: ${{ env.PATH_TO_INFRA }}
-        run: terraform apply -auto-approve
+        run: |
+          export TF_LOG=DEBUG 
+          terraform apply -auto-approve
 
       # - name: Deploy Cloud Function
       #   working-directory: infra
