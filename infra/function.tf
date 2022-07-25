@@ -37,11 +37,8 @@ resource "google_cloudfunctions_function" "function" {
     secret  = data.google_secret_manager_secret_version.OPENAI_API_KEY.secret
     version = "latest"
   }
-
-  timeouts {
-    create = "20m"
-  }
 }
+
 
 # # Create IAM entry so all users can invoke the function
 # resource "google_cloudfunctions_function_iam_member" "invoker" {

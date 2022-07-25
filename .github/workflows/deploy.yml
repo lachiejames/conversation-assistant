@@ -61,9 +61,7 @@ jobs:
 
       - name: Terraform deploy
         working-directory: ${{ env.PATH_TO_INFRA }}
-        run: |
-          export TF_LOG=DEBUG 
-          terraform apply -auto-approve
+        run: terraform apply -auto-approve
 
       - name: Invoke Cloud Function
         id: invoke
