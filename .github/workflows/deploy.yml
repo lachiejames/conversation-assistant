@@ -65,16 +65,6 @@ jobs:
           export TF_LOG=DEBUG 
           terraform apply -auto-approve
 
-      # - name: Deploy Cloud Function
-      #   working-directory: infra
-      #   id: deploy
-      #   uses: google-github-actions/deploy-cloud-functions@v0
-      #   with:
-      #     name: generate_suggestions
-      #     runtime: python39
-      #     secret_environment_variables: |-
-      #       OPENAI_API_KEY=${{ env.GCP_SECRET_PATH }}/OPENAI_API_KEY
-
       - name: Invoke Cloud Function
         id: invoke
         uses: fjogeleit/http-request-action@v1
