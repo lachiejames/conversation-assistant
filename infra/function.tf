@@ -11,7 +11,9 @@ data "archive_file" "source" {
 }
 
 resource "google_storage_bucket_object" "object" {
-  name         = "${var.function_name}.zip"
+  # Forces function redeployment whenever `terraform apply` runs, ensuring it uses the latest code
+  name = "${var.function_name}.${data.archive_file.source.output_md5}.zip"
+
   content_type = "application/zip"
   source       = data.archive_file.source.output_path
   bucket       = google_storage_bucket.bucket.name
@@ -29,6 +31,12 @@ resource "google_cloudfunctions_function" "function" {
   https_trigger_security_level = "SECURE_ALWAYS"
   timeout                      = 60
   entry_point                  = "generate_suggestions"
+
+  secret_environment_variables {
+    key = data.google_secret_manager_secret_version.OPENAI_API_KEY.secret
+    secret  = data.google_secret_manager_secret_version.OPENAI_API_KEY.secret
+    version = "latest"
+  }
 }
 
 # # Create IAM entry so all users can invoke the function
