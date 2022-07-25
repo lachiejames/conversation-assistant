@@ -2,7 +2,7 @@ name: Deploy to Prod
 
 on:
   push:
-    branches: [master]
+    branches: [master, feat/migrate-to-terraform]
   workflow_dispatch:
 
 env:
