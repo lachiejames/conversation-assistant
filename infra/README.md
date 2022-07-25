@@ -8,11 +8,12 @@ Before this can be deployed, you must do the following:
 
 3. Enable the following APIs
 
-   - Secret Manager API
    - Cloud Build API
-   - Compute Engine API
-   - Cloud Translation API
    - Cloud Functions API
+   - Cloud Storage API
+   - Cloud Translation API
+   - Compute Engine API
+   - Secret Manager API
 
 4. Add permissions to your Service accounts until it looks like this:
 
@@ -21,3 +22,19 @@ Before this can be deployed, you must do the following:
 5. Add the following secrets to Secret Manager
 
    - OPENAI_API_KEY
+
+6. Create a [Cloud Storage bucket](https://cloud.google.com/docs/terraform/resource-management/store-state) to store Terraform state
+
+7. In your terminal, sign into your GCP account
+
+```
+gcloud auth application-default login
+```
+
+8. To deploy infra
+
+```
+cd infra
+terraform init -backend-config="environment=dev"
+terraform deploy -var="environment=dev"
+```
