@@ -26,7 +26,7 @@ jobs:
       - name: GCP Auth
         uses: google-github-actions/auth@v0
         with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+          credentials_json: ${{ secrets.DEV_GCP_CREDENTIALS }}
 
       - name: GCP Load Secrets
         id: gcp_secrets

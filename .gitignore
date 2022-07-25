@@ -20,7 +20,7 @@ requirements.txt
 
 # GCP
 gha-creds-*.json
-google-application-credentials*.json
+gcp-credentials*.json
 
 # terraform
 **/.terraform/*
