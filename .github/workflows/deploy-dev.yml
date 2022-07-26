@@ -57,7 +57,7 @@ jobs:
 
       - name: Terraform setup
         working-directory: ${{ env.PATH_TO_INFRA }}
-        run: terraform init -backend-config="environment=${{ env.ENVIRONMENT }}"
+        run: terraform init # -backend-config="environment=${{ env.ENVIRONMENT }}"
 
       - name: Terraform deploy
         working-directory: ${{ env.PATH_TO_INFRA }}
