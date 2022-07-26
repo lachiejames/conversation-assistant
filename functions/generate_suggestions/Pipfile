@@ -1,4 +1,5 @@
 [packages]
+functions-framework = "==3.1.0"
 google-cloud-translate = "==2.0.1"
 jsonschema = "==4.4.0"
 mypy = "==0.950"
@@ -18,13 +19,13 @@ types-six = "==1.16.18"
 
 [scripts]
 check-types = "python -m mypy src e2e main.py"
-start = "python -m flask run --port 8081"
 export-requirements = "pipenv lock -r"
 format = "bash -c 'python -m black src e2e main.py && python -m isort src e2e main.py'"
 install-ci = "pipenv install --dev --deploy"
 install-dev = "pipenv install --dev"
 install-prod = "pipenv install --deploy"
 lint = "python -m pylint src e2e main.py"
+start = "python -m flask run --port 8081"
 test = "python -m pytest src --cov=./src --cov-fail-under=90 --cov-branch --cov-report xml:cov.xml"
 teste2e = "python -m pytest e2e"
 
