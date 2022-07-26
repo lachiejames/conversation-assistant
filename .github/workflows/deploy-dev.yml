@@ -7,6 +7,7 @@ on:
 
 env:
   ENVIRONMENT: dev
+  TF_STATE_BUCKET: conversation-assistant-dev-bucket-tfstate
   PIPENV_VENV_IN_PROJECT: true
   PIPENV_IGNORE_VIRTUALENVS: 1
   PATH_TO_FUNCTION: functions/generate_suggestions
@@ -57,7 +58,7 @@ jobs:
 
       - name: Terraform setup
         working-directory: ${{ env.PATH_TO_INFRA }}
-        run: terraform init # -backend-config="environment=${{ env.ENVIRONMENT }}"
+        run: terraform init -backend-config="bucket=${{ env.TF_STATE_BUCKET }}"
 
       - name: Terraform deploy
         working-directory: ${{ env.PATH_TO_INFRA }}
