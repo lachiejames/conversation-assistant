@@ -12,7 +12,8 @@ data "archive_file" "source" {
 
 resource "google_storage_bucket_object" "object" {
   # Forces function redeployment whenever `terraform apply` runs, ensuring it uses the latest code
-  name = "${var.function_name}.${data.archive_file.source.output_md5}.zip"
+  # name = "${var.function_name}.${data.archive_file.source.output_md5}.zip"
+  name = "${var.function_name}.zip"
 
   content_type = "application/zip"
   source       = data.archive_file.source.output_path
