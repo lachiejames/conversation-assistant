@@ -25,10 +25,10 @@ Before this can be deployed, you must do the following:
 
 6. Create a [Cloud Storage bucket](https://cloud.google.com/docs/terraform/resource-management/store-state) to store Terraform state
 
-7. In your terminal, sign into your GCP account
+7. In your terminal, sign into your GCP account using the service account credentials
 
 ```
-gcloud auth application-default login
+gcloud auth activate-service-account deploy@conversation-assistant-dev.iam.gserviceaccount.com --key-file=/Users/lachiejames/dev/conversation-assistant/gcp-credentials-dev.json     
 ```
 
 8. To deploy infra
