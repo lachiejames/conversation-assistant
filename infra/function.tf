@@ -48,5 +48,5 @@ resource "google_cloudfunctions_function_iam_member" "invoker" {
 
   role   = "roles/cloudfunctions.invoker"
   # Only allow invocations from users signed into a Google Account
-  member = "allAuthenticatedUsers"
+  member = "allUsers"
 }
