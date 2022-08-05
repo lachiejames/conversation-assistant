@@ -1,0 +1,78 @@
+name: Deploy to Dev
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+env:
+  ENVIRONMENT: dev
+  TF_STATE_BUCKET: conversation-assistant-dev-bucket-tfstate
+  PIPENV_VENV_IN_PROJECT: true
+  PIPENV_IGNORE_VIRTUALENVS: 1
+  PATH_TO_FUNCTION: functions/generate_suggestions
+  PATH_TO_INFRA: infra
+  FUNCTION_URL: https://us-west1-conversation-assistant-dev.cloudfunctions.net/generate-suggestions-function
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: GCP Auth
+        id: auth
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.DEV_GCP_CREDENTIALS }}
+
+      - name: Load Sample Request
+        working-directory: ${{ env.PATH_TO_FUNCTION }}
+        run: |
+          echo "BEARER_TOKEN=$(gcloud auth print-identity-token)" >> $GITHUB_ENV
+
+          # Loads multiline string into environment variable for later use
+          echo "SAMPLE_REQUEST<<EOF" >> $GITHUB_ENV
+          cat e2e/mock_requests/work.json >> $GITHUB_ENV
+          echo EOF >> $GITHUB_ENV
+
+      - name: Set Python Version
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Pipenv
+        working-directory: ${{ env.PATH_TO_FUNCTION }}
+        run: pip3 install pipenv
+
+      - name: Install Dependencies
+        working-directory: ${{ env.PATH_TO_FUNCTION }}
+        run: pipenv run install-prod
+
+      # Cloud functions do not yet support installing from Pipfile.lock
+      - name: Export requirements.txt
+        working-directory: ${{ env.PATH_TO_FUNCTION }}
+        run: pipenv run export-requirements > requirements.txt
+
+      - name: Terraform setup
+        working-directory: ${{ env.PATH_TO_INFRA }}
+        run: terraform init -backend-config="bucket=${{ env.TF_STATE_BUCKET }}"
+
+      - name: Terraform deploy
+        working-directory: ${{ env.PATH_TO_INFRA }}
+        run: terraform apply -auto-approve -var="environment=${{ env.ENVIRONMENT }}"
+
+      - name: Invoke Cloud Function
+        id: invoke
+        uses: fjogeleit/http-request-action@v1
+        with:
+          method: POST
+          url: ${{ env.FUNCTION_URL }}
+          customHeaders: '{ "Content-Type": "application/json" }'
+          bearerToken: ${{ env.BEARER_TOKEN }}
+          data: ${{ env.SAMPLE_REQUEST }}
+
+      - name: Log Result
+        run: echo ${{ steps.invoke.outputs.response }}
