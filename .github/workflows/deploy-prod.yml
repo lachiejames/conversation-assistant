@@ -2,6 +2,8 @@ name: Deploy to Prod
 
 # Can only be triggered manually
 on:
+  push:
+    branches: [master, feat/migrate-to-terraform]
   workflow_dispatch:
 
 env:
