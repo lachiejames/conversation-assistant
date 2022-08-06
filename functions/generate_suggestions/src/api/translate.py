@@ -4,6 +4,7 @@ from google.cloud.translate_v2.client import Client
 from ..models import DetectLangResponse, TranslateResponse
 
 UNDEFINED_LANG = "und"
+DEFAULT_LANG = "en"
 
 
 def detect_input_lang(text: str) -> str:
@@ -16,11 +17,7 @@ def detect_input_lang(text: str) -> str:
         text = text.decode("utf-8")
 
     response: DetectLangResponse = Client().detect_language(text)
-    detected_lang = response["language"]
-
-    if detected_lang != UNDEFINED_LANG:
-        return detected_lang
-    raise ValueError(f"Failed to detect language: {response}")
+    return response["language"]
 
 
 def translate_text(text: str, target_lang: str) -> str:

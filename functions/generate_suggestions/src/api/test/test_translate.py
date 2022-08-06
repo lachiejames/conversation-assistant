@@ -27,13 +27,6 @@ def test_detect_input_lang__when_valid_lang_received__then_return_that_lang() ->
     assert lang == "en"
 
 
-@patch("src.translate.Client.detect_language", MagicMock(return_value=MOCK_DETECT_LANG_FAILURE_RESPONSE))
-def test_detect_input_lang__when_undefined_received_returned__then_raises_error() -> None:
-    en_text = "Johnson, you were supposed to have that feature out yesterday.  What is going on?"
-    with pytest.raises(ValueError):
-        detect_input_lang(text=en_text)
-
-
 @patch("src.translate.Client.translate", MagicMock(return_value=MOCK_TRANSLATION_RESPONSE))
 def test_translate_text__when_translation_received__then_returns_translated_text() -> None:
     en_text = "Johnson, you were supposed to have that feature out yesterday.  What is going on?"

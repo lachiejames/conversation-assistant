@@ -4,9 +4,7 @@ from ..models import (
     Message,
     Suggestion,
 )
-from .translate import translate_text
-
-DEFAULT_LANGUAGE = "en"
+from .translate import DEFAULT_LANG, UNDEFINED_LANG, translate_text
 
 
 def generate_prompt(request: GenerateSuggestionsRequest, input_lang: str) -> str:
@@ -34,7 +32,7 @@ The tone of this conversation is {tone_of_chat}.
 
 """
 
-    if input_lang != DEFAULT_LANGUAGE:
+    if input_lang != DEFAULT_LANG and input_lang != UNDEFINED_LANG:
         prompt = translate_text(prompt, input_lang)
 
     for message in previous_messages:
