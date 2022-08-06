@@ -82,7 +82,7 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
             "tone_of_chat": "chill",
         },
         "gpt3_params": {
-            "engine": "text-davinci-002",
+            "engine": "text-curie-001",
             "n": 1,
             "temperature": 0.7,
             "max_tokens": 50,
