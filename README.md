@@ -35,3 +35,5 @@ I can be described as:
 - 
 
 I want to be able to get good suggestions right off the bat, without filling out any details.  
+
+Add the ability to return multiple suggestions at once.
