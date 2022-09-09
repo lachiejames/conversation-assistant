@@ -1,0 +1,1 @@
+In my spare time, I like to {{ hobbies }}
