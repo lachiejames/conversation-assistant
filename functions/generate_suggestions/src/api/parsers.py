@@ -13,7 +13,7 @@ def generate_prompt(request: GenerateSuggestionsRequest, input_lang: str) -> str
         autoescape=select_autoescape(),
         keep_trailing_newline=True,
     )
-    template = env.get_template("nothing_missing.md")
+    template = env.get_template("all_missing.md")
 
     return template.render(
         my_name=request["settings"]["profile_params"]["name"],
