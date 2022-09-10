@@ -109,7 +109,7 @@ MOCK_REQUEST_NO_NAMES = MOCK_REQUEST | {
 }
 
 MOCK_REQUEST_NOTHING = {
-    "previous_messages": [ ],
+    "previous_messages": [],
     "settings": {
         "profile_params": {
             "name": "",
