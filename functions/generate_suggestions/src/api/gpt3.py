@@ -5,6 +5,8 @@ from openai import Completion
 from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, GPT3Params
 from ..utils import validate_completion_response
 
+def is_empty(field: str) -> bool:
+    return len(field) == 0
 
 def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
     """Prevents GPT3 from returning a full conversation instead of just 1 message"""
@@ -12,7 +14,14 @@ def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
     my_name: str = request["settings"]["profile_params"]["name"]
     their_name: str = request["settings"]["conversation_params"]["their_name"]
 
-    return [f"{my_name}: ", f"{their_name}: "]
+    if (is_empty(my_name) and is_empty(their_name)):
+        return ["me:", "them:"]
+    elif is_empty(my_name):
+        return ["me:", f"{their_name}:"]
+    elif is_empty(their_name):
+        return [f"{my_name}:", "them:"]
+    else:
+        return [f"{my_name}:", f"{their_name}:"]
 
 
 def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[str]) -> GPT3CompletionResponse:
