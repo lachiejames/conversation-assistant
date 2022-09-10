@@ -62,7 +62,15 @@ MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
 MOCK_REQUEST: GenerateSuggestionsRequest = {
     "previous_messages": [
         {
-            "text": "hey there",
+            "text": "Hey Chad!",
+            "is_my_message": False,
+        },
+        {
+            "text": "What's crackin babydoll",
+            "is_my_message": True,
+        },
+        {
+            "text": "I think I'm pregnant...",
             "is_my_message": False,
         },
     ],
@@ -108,32 +116,30 @@ MOCK_REQUEST_NO_NAMES = MOCK_REQUEST | {
     }
 }
 
-MOCK_REQUEST_NOTHING = {
-    "previous_messages": [],
-    "settings": {
-        "profile_params": {
-            "name": "",
-            "age": "",
-            "pronouns": "",
-            "location": "",
-            "occupation": "",
-            "hobbies": "",
-            "self_description": "",
+
+MOCK_REQUEST_NO_MESSAGES = MOCK_REQUEST | {"previous_messages": []}
+
+
+MOCK_REQUEST_NO_NAMES_NO_MESSAGES = MOCK_REQUEST_NO_NAMES | MOCK_REQUEST_NO_MESSAGES
+
+
+MOCK_REQUEST_NOTHING = (
+    MOCK_REQUEST_NO_NAMES
+    | MOCK_REQUEST_NO_MESSAGES
+    | {
+        "settings": {
+            "profile_params": {
+                "age": "",
+                "pronouns": "",
+                "location": "",
+                "occupation": "",
+                "hobbies": "",
+                "self_description": "",
+            },
+            "conversation_params": {
+                "their_relationship_to_me": "",
+                "tone_of_chat": "",
+            },
         },
-        "conversation_params": {
-            "their_name": "",
-            "their_relationship_to_me": "",
-            "tone_of_chat": "",
-        },
-        "gpt3_params": {
-            "engine": "text-curie-001",
-            "n": 1,
-            "temperature": 1.0,
-            "max_tokens": 50,
-            "top_p": 1.0,
-            "best_of": 1,
-            "frequency_penalty": 1.0,
-            "presence_penalty": 1.0,
-        },
-    },
-}
+    }
+)

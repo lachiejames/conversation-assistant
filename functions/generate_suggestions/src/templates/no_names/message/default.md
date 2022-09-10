@@ -1,5 +1,5 @@
 {% for message in previous_messages %}
-{% if message['isMyMessage'] %}
+{% if message['is_my_message'] %}
 Me: {{ message['text'] }}
 {% else %}
 Them: {{ message['text'] }}
