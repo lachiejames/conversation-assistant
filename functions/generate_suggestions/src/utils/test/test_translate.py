@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, patch
 
 from ...models import DetectLangResponse, TranslateResponse
-from ...utils import detect_input_lang, translate_text
+from .. import detect_input_lang, translate_text
 
 MOCK_DETECT_LANG_SUCCESS_RESPONSE: DetectLangResponse = {
     "language": "en",
