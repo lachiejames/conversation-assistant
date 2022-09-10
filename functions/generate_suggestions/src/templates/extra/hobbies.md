@@ -1,1 +1,1 @@
-In my spare time, I like to {{ hobbies }}
+{{ my_name }}'s hobbies include {{ hobbies }}.
