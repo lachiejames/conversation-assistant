@@ -5,9 +5,9 @@ from ..models import (
     Suggestion,
 )
 from ..prompt import construct_prompt
+from ..utils import detect_input_lang
 from .gpt3 import fetch_completion, get_stop_indicator
 from .parse import map_completion_response_to_suggestions
-from .translate import detect_input_lang
 
 
 def stringify_previous_messages(previous_messages: list[Message]) -> str:

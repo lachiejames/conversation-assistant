@@ -5,13 +5,14 @@ from ...models import (
     ProfileParams,
     Suggestion,
 )
+from ...prompt import construct_prompt
 from ...test.mocks import (
     MOCK_GPT3_COMPLETION_RESPONSE,
     MOCK_PROMPT,
     MOCK_REQUEST,
     MOCK_SUGGESTIONS,
 )
-from ..parse import construct_prompt, map_completion_response_to_suggestions
+from ..parse import map_completion_response_to_suggestions
 
 
 def test_map_completion_response_to_suggestions_returns_expected_suggestions() -> None:

@@ -1,5 +1,5 @@
-from ..api import DEFAULT_LANG, UNDEFINED_LANG, translate_text
 from ..models import GenerateSuggestionsRequest
+from ..utils import DEFAULT_LANG, UNDEFINED_LANG, translate_text
 from .extra import render_extra_template
 from .intro import render_intro_template
 from .message import render_message_template
