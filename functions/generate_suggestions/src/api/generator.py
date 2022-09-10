@@ -4,8 +4,9 @@ from ..models import (
     Message,
     Suggestion,
 )
+from ..prompt import construct_prompt
 from .gpt3 import fetch_completion, get_stop_indicator
-from .parsers import construct_prompt, map_completion_response_to_suggestions
+from .parse import map_completion_response_to_suggestions
 from .translate import detect_input_lang
 
 

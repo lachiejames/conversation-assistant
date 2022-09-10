@@ -11,7 +11,7 @@ from ...test.mocks import (
     MOCK_REQUEST,
     MOCK_SUGGESTIONS,
 )
-from ..parsers import construct_prompt, map_completion_response_to_suggestions
+from ..parse import construct_prompt, map_completion_response_to_suggestions
 
 
 def test_map_completion_response_to_suggestions_returns_expected_suggestions() -> None:

@@ -18,12 +18,11 @@ def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
 
     if is_empty(my_name) and is_empty(their_name):
         return ["me:", "them:"]
-    elif is_empty(my_name):
+    if is_empty(my_name):
         return ["me:", f"{their_name}:"]
-    elif is_empty(their_name):
+    if is_empty(their_name):
         return [f"{my_name}:", "them:"]
-    else:
-        return [f"{my_name}:", f"{their_name}:"]
+    return [f"{my_name}:", f"{their_name}:"]
 
 
 def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[str]) -> GPT3CompletionResponse:

@@ -1,7 +1,5 @@
 from unittest.mock import MagicMock, patch
 
-import pytest
-
 from ...models import DetectLangResponse, TranslateResponse
 from ..translate import detect_input_lang, translate_text
 
