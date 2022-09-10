@@ -24,6 +24,7 @@ Stacey: Hey Chad!
 Chad Johnson: What's crackin babydoll
 
 Stacey: I think I'm pregnant...
+
 Chad Johnson:"""
     assert prompt == expected_prompt
 
@@ -37,6 +38,7 @@ Chad Johnson lives in Camberwell, Victoria, Australia.
 Chad Johnson's occupation is Software Engineer.
 Chad Johnson's hobbies include coding, hanging out with my dog.
 People describe Chad Johnson as a cool guy who always knows the right thing to say.
+
 Chad Johnson:"""
     assert prompt == expected_prompt
 
@@ -56,6 +58,7 @@ Them: Hey Chad!
 Me: What's crackin babydoll
 
 Them: I think I'm pregnant...
+
 Me:"""
     assert prompt == expected_prompt
 
@@ -69,6 +72,7 @@ Chad Johnson lives in Camberwell, Victoria, Australia.
 Chad Johnson's occupation is Software Engineer.
 Chad Johnson's hobbies include coding, hanging out with my dog.
 People describe Chad Johnson as a cool guy who always knows the right thing to say.
+
 Chad Johnson:"""
     assert prompt == expected_prompt
 
@@ -76,5 +80,6 @@ Chad Johnson:"""
 def test_construct_prompt__when_nothing_given__then_return_expected_string() -> None:
     prompt = construct_prompt(MOCK_REQUEST_NOTHING, input_lang=DEFAULT_LANG)
     expected_prompt = """The following is a conversation that I had.
+
 Me:"""
     assert prompt == expected_prompt

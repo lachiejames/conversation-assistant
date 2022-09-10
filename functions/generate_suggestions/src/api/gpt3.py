@@ -11,13 +11,12 @@ def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
 
     my_name: str = request["settings"]["profile_params"]["name"]
     their_name: str = request["settings"]["conversation_params"]["their_name"]
+    their_relationship_to_me: str = request["settings"]["conversation_params"]["their_relationship_to_me"]
 
     if is_not_empty(my_name) and is_not_empty(their_name):
         return [f"{my_name}:", f"{their_name}:"]
-    if is_not_empty(my_name):
-        return [f"{my_name}:", "them:"]
-    if is_not_empty(their_name):
-        return ["me:", f"{their_name}:"]
+    if is_not_empty(my_name) and is_not_empty(their_relationship_to_me):
+        return [f"{my_name}:", f"{their_relationship_to_me}:"]
     return ["me:", "them:"]
 
 
