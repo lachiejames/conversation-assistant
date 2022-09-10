@@ -15,7 +15,7 @@
               "type": "boolean"
             }
           },
-          "required": ["text", "author", "is_my_message"]
+          "required": ["text", "is_my_message"]
         }
       ]
     },

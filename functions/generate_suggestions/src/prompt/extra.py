@@ -32,7 +32,7 @@ def select_extra_templates(
 
 def render_extra_template(request: GenerateSuggestionsRequest) -> str:
     selected_templates: list[str] = select_extra_templates(
-        path_prefix=choose_path_prefix(request),
+        path_prefix=f"{choose_path_prefix(request)}/extra",
         age=request["settings"]["profile_params"]["age"],
         pronouns=request["settings"]["profile_params"]["pronouns"],
         location=request["settings"]["profile_params"]["location"],

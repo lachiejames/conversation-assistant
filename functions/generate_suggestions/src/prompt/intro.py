@@ -11,6 +11,6 @@ def select_intro_template(path_prefix: str) -> str:
 
 def render_intro_template(request: GenerateSuggestionsRequest) -> str:
     selected_template = select_intro_template(
-        path_prefix=choose_path_prefix(request),
+        path_prefix=f"{choose_path_prefix(request)}/intro",
     )
     return render_template(request, selected_template)

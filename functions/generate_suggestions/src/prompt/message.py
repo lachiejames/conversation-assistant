@@ -7,13 +7,13 @@ def select_message_template(path_prefix: str, previous_messages: list[Message]) 
     are_messages_given = len(previous_messages) > 0
 
     if are_messages_given:
-        return f"{path_prefix}/message/default.md"
-    return f"{path_prefix}/message/no_messages.md"
+        return f"{path_prefix}/default.md"
+    return f"{path_prefix}/no_messages.md"
 
 
 def render_message_template(request: GenerateSuggestionsRequest) -> str:
     selected_template = select_message_template(
-        path_prefix=choose_path_prefix(request),
+        path_prefix=f"{choose_path_prefix(request)}/message",
         previous_messages=request["previous_messages"],
     )
     return render_template(request, selected_template)
