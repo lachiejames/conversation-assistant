@@ -7,7 +7,7 @@ from ...test.mocks import (
     MOCK_REQUEST,
     MOCK_SUGGESTIONS,
 )
-from ..generator import generate_suggestions
+from ..generate import generate_suggestions
 
 
 @patch("src.generator.fetch_completion", MagicMock(return_value=MOCK_GPT3_COMPLETION_RESPONSE))

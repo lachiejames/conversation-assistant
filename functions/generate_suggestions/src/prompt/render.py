@@ -3,7 +3,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from ..models import GenerateSuggestionsRequest
 
 template_env = Environment(
-    loader=PackageLoader(package_name="src", package_path="prompt_templates"),
+    loader=PackageLoader(package_name="src"),
     autoescape=select_autoescape(),
     keep_trailing_newline=True,
 )

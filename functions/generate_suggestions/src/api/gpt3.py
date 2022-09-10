@@ -3,11 +3,7 @@ import os
 from openai import Completion
 
 from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, GPT3Params
-from ..utils import validate_completion_response
-
-
-def is_empty(field: str) -> bool:
-    return len(field) == 0
+from ..utils import validate_completion_response, is_not_empty
 
 
 def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
@@ -16,13 +12,13 @@ def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
     my_name: str = request["settings"]["profile_params"]["name"]
     their_name: str = request["settings"]["conversation_params"]["their_name"]
 
-    if is_empty(my_name) and is_empty(their_name):
-        return ["me:", "them:"]
-    if is_empty(my_name):
-        return ["me:", f"{their_name}:"]
-    if is_empty(their_name):
+    if is_not_empty(my_name) and is_not_empty(their_name):
+        return [f"{my_name}:", f"{their_name}:"]
+    if is_not_empty(my_name):
         return [f"{my_name}:", "them:"]
-    return [f"{my_name}:", f"{their_name}:"]
+    if is_not_empty(their_name):
+        return ["me:", f"{their_name}:"]
+    return ["me:", f"them:"]
 
 
 def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[str]) -> GPT3CompletionResponse:
