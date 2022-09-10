@@ -1,1 +1,1 @@
-My pronouns are {{ my_pronouns }}.
+I am {{ my_age }} years old.

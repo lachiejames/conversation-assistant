@@ -1,1 +1,1 @@
-{{ my_name }}'s pronouns are {{ my_pronouns }}.
+{{ my_name }} is {{ my_age }} years old.

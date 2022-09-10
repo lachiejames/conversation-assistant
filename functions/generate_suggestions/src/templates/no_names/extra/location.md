@@ -1,1 +1,1 @@
-My lives in {{ my_location }}.
+I live in {{ my_location }}.

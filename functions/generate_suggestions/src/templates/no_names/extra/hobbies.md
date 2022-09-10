@@ -1,1 +1,1 @@
-My hobbies include {{ hobbies }}.
+My hobbies include {{ my_hobbies }}.

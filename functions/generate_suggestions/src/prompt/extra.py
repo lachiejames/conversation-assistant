@@ -16,15 +16,15 @@ def select_extra_templates(
 
     if is_not_empty(age):
         extra_templates.append(f"{path_prefix}/age.md")
-    elif is_not_empty(pronouns):
+    if is_not_empty(pronouns):
         extra_templates.append(f"{path_prefix}/pronouns.md")
-    elif is_not_empty(location):
+    if is_not_empty(location):
         extra_templates.append(f"{path_prefix}/location.md")
-    elif is_not_empty(occupation):
+    if is_not_empty(occupation):
         extra_templates.append(f"{path_prefix}/occupation.md")
-    elif is_not_empty(hobbies):
+    if is_not_empty(hobbies):
         extra_templates.append(f"{path_prefix}/hobbies.md")
-    elif is_not_empty(self_description):
+    if is_not_empty(self_description):
         extra_templates.append(f"{path_prefix}/self_description.md")
 
     return extra_templates

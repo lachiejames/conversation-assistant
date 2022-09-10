@@ -74,7 +74,7 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
             "location": "Camberwell, Victoria, Australia",
             "occupation": "Software Engineer",
             "hobbies": "coding, hanging out with my dog",
-            "self_description": "a cool person who always knows the right thing to say.",
+            "self_description": "a cool guy who always knows the right thing to say",
         },
         "conversation_params": {
             "their_name": "Stacey",
