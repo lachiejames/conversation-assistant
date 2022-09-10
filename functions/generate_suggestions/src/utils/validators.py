@@ -4,7 +4,7 @@ from typing import Any, Union
 
 from jsonschema import validate
 
-from ..models import GPT3CompletionResponse,GenerateSuggestionsRequest
+from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse
 
 
 def validate_request(request_body: Union[Any, None]) -> None:
@@ -29,7 +29,12 @@ def validate_completion_response(response: GPT3CompletionResponse) -> None:
 def is_not_empty(field: str) -> bool:
     return len(field) > 0
 
-def has_names(request: GenerateSuggestionsRequest) -> bool:
+
+def choose_path_prefix(request: GenerateSuggestionsRequest) -> str:
     my_name = request["settings"]["profile_params"]["name"]
     their_name = request["settings"]["conversation_params"]["their_name"]
-    return is_not_empty(my_name) and is_not_empty(their_name)
+    has_names = is_not_empty(my_name) and is_not_empty(their_name)
+
+    if has_names:
+        return "names"
+    return "no_names"

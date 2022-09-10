@@ -1,11 +1,10 @@
 from ..models import GenerateSuggestionsRequest
-from ..utils import is_not_empty
+from ..utils import choose_path_prefix, is_not_empty
 from .render import render_template
-
-EXTRA_PATH = "extra"
 
 
 def select_extra_templates(
+    path_prefix: str,
     age: str,
     pronouns: str,
     location: str,
@@ -16,23 +15,24 @@ def select_extra_templates(
     extra_templates = []
 
     if is_not_empty(age):
-        extra_templates.append(f"{EXTRA_PATH}/age.md")
+        extra_templates.append(f"{path_prefix}/age.md")
     elif is_not_empty(pronouns):
-        extra_templates.append(f"{EXTRA_PATH}/pronouns.md")
+        extra_templates.append(f"{path_prefix}/pronouns.md")
     elif is_not_empty(location):
-        extra_templates.append(f"{EXTRA_PATH}/location.md")
+        extra_templates.append(f"{path_prefix}/location.md")
     elif is_not_empty(occupation):
-        extra_templates.append(f"{EXTRA_PATH}/occupation.md")
+        extra_templates.append(f"{path_prefix}/occupation.md")
     elif is_not_empty(hobbies):
-        extra_templates.append(f"{EXTRA_PATH}/hobbies.md")
+        extra_templates.append(f"{path_prefix}/hobbies.md")
     elif is_not_empty(self_description):
-        extra_templates.append(f"{EXTRA_PATH}/self_description.md")
+        extra_templates.append(f"{path_prefix}/self_description.md")
 
     return extra_templates
 
 
 def render_extra_template(request: GenerateSuggestionsRequest) -> str:
     selected_templates: list[str] = select_extra_templates(
+        path_prefix=choose_path_prefix(request),
         age=request["settings"]["profile_params"]["age"],
         pronouns=request["settings"]["profile_params"]["pronouns"],
         location=request["settings"]["profile_params"]["location"],
