@@ -1,4 +1,3 @@
-from ...models import Suggestion
 from ...test.mocks import MOCK_REQUEST, MOCK_REQUEST_NO_NAMES, MOCK_REQUEST_NOTHING
 from ..intro import render_intro_template
 

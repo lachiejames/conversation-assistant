@@ -1,3 +1,5 @@
+from typing import cast
+
 from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, Suggestion
 
 MOCK_PROMPT_PREFIX = """
@@ -102,44 +104,53 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
     },
 }
 
-MOCK_REQUEST_NO_NAMES = MOCK_REQUEST | {
-    "settings": MOCK_REQUEST["settings"]
+MOCK_REQUEST_NO_NAMES: GenerateSuggestionsRequest = cast(
+    GenerateSuggestionsRequest,
+    MOCK_REQUEST
     | {
-        "profile_params": MOCK_REQUEST["settings"]["profile_params"]
+        "settings": MOCK_REQUEST["settings"]
         | {
-            "name": "",
-        },
-        "conversation_params": MOCK_REQUEST["settings"]["conversation_params"]
+            "profile_params": MOCK_REQUEST["settings"]["profile_params"]
+            | {
+                "name": "",
+            },
+            "conversation_params": MOCK_REQUEST["settings"]["conversation_params"]
+            | {
+                "their_name": "",
+            },
+        }
+    },
+)
+
+
+MOCK_REQUEST_NO_MESSAGES: GenerateSuggestionsRequest = cast(GenerateSuggestionsRequest, MOCK_REQUEST | {"previous_messages": []})
+
+
+MOCK_REQUEST_NO_NAMES_NO_MESSAGES: GenerateSuggestionsRequest = MOCK_REQUEST_NO_NAMES | MOCK_REQUEST_NO_MESSAGES
+
+
+MOCK_REQUEST_NOTHING: GenerateSuggestionsRequest = cast(
+    GenerateSuggestionsRequest,
+    (
+        MOCK_REQUEST_NO_NAMES
+        | MOCK_REQUEST_NO_MESSAGES
         | {
-            "their_name": "",
-        },
-    }
-}
-
-
-MOCK_REQUEST_NO_MESSAGES = MOCK_REQUEST | {"previous_messages": []}
-
-
-MOCK_REQUEST_NO_NAMES_NO_MESSAGES = MOCK_REQUEST_NO_NAMES | MOCK_REQUEST_NO_MESSAGES
-
-
-MOCK_REQUEST_NOTHING = (
-    MOCK_REQUEST_NO_NAMES
-    | MOCK_REQUEST_NO_MESSAGES
-    | {
-        "settings": {
-            "profile_params": {
-                "age": "",
-                "pronouns": "",
-                "location": "",
-                "occupation": "",
-                "hobbies": "",
-                "self_description": "",
+            "settings": {
+                "profile_params": {
+                    "name": "",
+                    "age": "",
+                    "pronouns": "",
+                    "location": "",
+                    "occupation": "",
+                    "hobbies": "",
+                    "self_description": "",
+                },
+                "conversation_params": {
+                    "their_name": "",
+                    "their_relationship_to_me": "",
+                    "tone_of_chat": "",
+                },
             },
-            "conversation_params": {
-                "their_relationship_to_me": "",
-                "tone_of_chat": "",
-            },
-        },
-    }
+        }
+    ),
 )

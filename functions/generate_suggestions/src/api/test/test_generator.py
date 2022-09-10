@@ -3,7 +3,6 @@ from unittest.mock import MagicMock, patch
 from ...models import Suggestion
 from ...test.mocks import (
     MOCK_GPT3_COMPLETION_RESPONSE,
-    MOCK_PROMPT_PREFIX,
     MOCK_REQUEST,
     MOCK_SUGGESTIONS,
 )
