@@ -69,3 +69,24 @@ Gloria: cringe
 Lachie James:
 
 # Damn a lot of these messages suck.  How do I make the prompts generate an awesome opening line?  I need to not sound so robotic in the input
+
+Prompt stages:
+
+Stage 1 - intro - my name, their name, this is a conversation
+- my_name
+- their_name
+Stage 2 - extra - Add any extra properties that are passed
+- age
+- pronouns
+- location
+- hobbies
+- self_description
+Stage 3 - messages - add any previous messages
+- previous_messages
+Stage 4 - suggestion - add name
+- my_name
+
+If my_name or their_name is omitted, we should just omit both names for now.  We can get more detailed later.
+
+We will have to use a different template that uses me/them
+

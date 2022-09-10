@@ -10,6 +10,13 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 def is_empty(field: str) -> bool:
     return len(field) == 0
 
+def get_template_env() -> Environment:
+    return Environment(
+        loader=PackageLoader(package_name="src", package_path="templates"),
+        autoescape=select_autoescape(),
+        keep_trailing_newline=True,
+    )
+
 
 def select_intro_template(my_name: str, their_name: str) -> str:
     if is_empty(my_name) or is_empty(their_name):
@@ -29,7 +36,7 @@ def select_extra_templates(hobbies: str, self_description: str) -> list[str]:
     return extra_templates
 
 
-def select_templates(request: GenerateSuggestionsRequest) -> list[str]:
+def choose_prompt_templates(request: GenerateSuggestionsRequest) -> list[str]:
     templates = []
     templates.append(
         select_intro_template(
@@ -47,16 +54,13 @@ def select_templates(request: GenerateSuggestionsRequest) -> list[str]:
     return templates
 
 
-def generate_prompt(request: GenerateSuggestionsRequest, input_lang: str) -> str:
+def construct_prompt(request: GenerateSuggestionsRequest, input_lang: str) -> str:
     prompt = ""
-    env = Environment(
-        loader=PackageLoader(package_name="src", package_path="templates"),
-        autoescape=select_autoescape(),
-        keep_trailing_newline=True,
-    )
+    template_env = get_template_env()
+    selected_templates = choose_prompt_templates(request)
 
-    for template in select_templates(request):
-        prompt += env.get_template(template).render(
+    for template in choose_prompt_templates(request):
+        prompt += template_env.get_template(template).render(
             my_name=request["settings"]["profile_params"]["name"],
             my_age=request["settings"]["profile_params"]["age"],
             my_pronouns=request["settings"]["profile_params"]["pronouns"],
@@ -72,11 +76,11 @@ def generate_prompt(request: GenerateSuggestionsRequest, input_lang: str) -> str
     if input_lang != DEFAULT_LANG and input_lang != UNDEFINED_LANG:
         prompt = translate_text(prompt, input_lang)
 
-    prompt += env.get_template("messages.md").render(
+    prompt += template_env.get_template("messages.md").render(
         previous_messages=request["previous_messages"],
     )
 
-    prompt += env.get_template("suggestion.md").render(
+    prompt += template_env.get_template("suggestion.md").render(
         my_name=request["settings"]["profile_params"]["name"],
     )
 

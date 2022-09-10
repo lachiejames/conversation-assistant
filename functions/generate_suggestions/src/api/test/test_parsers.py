@@ -11,7 +11,7 @@ from ...test.mocks import (
     MOCK_REQUEST,
     MOCK_SUGGESTIONS,
 )
-from ..parsers import generate_prompt, map_completion_response_to_suggestions
+from ..parsers import construct_prompt, map_completion_response_to_suggestions
 
 
 def test_map_completion_response_to_suggestions_returns_expected_suggestions() -> None:
@@ -20,13 +20,13 @@ def test_map_completion_response_to_suggestions_returns_expected_suggestions() -
     assert suggestions == MOCK_SUGGESTIONS
 
 
-def test_generate_prompt__when_all_params_defined___then_returns_prompt_containing_all_params() -> None:
-    prompt: str = generate_prompt(MOCK_REQUEST, "en")
+def test_construct_prompt__when_all_params_defined___then_returns_prompt_containing_all_params() -> None:
+    prompt: str = construct_prompt(MOCK_REQUEST, "en")
 
     assert prompt == MOCK_PROMPT
 
 
-def test_generate_prompt__when_all_params_are_empty___then_returns_silly_looking_prompt_without_raising_error() -> None:
+def test_construct_prompt__when_all_params_are_empty___then_returns_silly_looking_prompt_without_raising_error() -> None:
     mock_profile_params: ProfileParams = {
         "name": "",
         "age": "",
@@ -63,6 +63,6 @@ The tone of this conversation is .
 
 :"""
 
-    prompt: str = generate_prompt(request, "en")
+    prompt: str = construct_prompt(request, "en")
 
     assert prompt == expected_silly_prompt
