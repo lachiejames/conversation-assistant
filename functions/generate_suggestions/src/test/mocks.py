@@ -69,17 +69,17 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
     "settings": {
         "profile_params": {
             "name": "Chad Johnson",
-            "age": "26",
+            "age": "27",
             "pronouns": "he/him",
             "location": "Camberwell, Victoria, Australia",
-            "occupation": "Software Developer",
-            "hobbies": "coding, reading books, and people watching",
+            "occupation": "Software Engineer",
+            "hobbies": "coding, hanging out with my dog",
             "self_description": "mysterious, yet intriguing",
         },
         "conversation_params": {
             "their_name": "Stacey",
-            "their_relationship_to_me": "new match on a dating app",
-            "tone_of_chat": "chill",
+            "their_relationship_to_me": "friend",
+            "tone_of_chat": "casual",
         },
         "gpt3_params": {
             "engine": "text-curie-001",
@@ -92,4 +92,18 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
             "presence_penalty": 2.0,
         },
     },
+}
+
+MOCK_REQUEST_NO_NAMES = MOCK_REQUEST | {
+    "settings": MOCK_REQUEST["settings"]
+    | {
+        "profile_params": MOCK_REQUEST["settings"]["profile_params"]
+        | {
+            "name": "",
+        },
+        "conversation_params": MOCK_REQUEST["settings"]["conversation_params"]
+        | {
+            "their_name": "",
+        },
+    }
 }
