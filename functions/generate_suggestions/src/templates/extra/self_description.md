@@ -1,1 +1,1 @@
-People describe {{ my_name }} as {{ self_description }}.
+People describe {{ my_name }} as {{ my_self_description }}.
