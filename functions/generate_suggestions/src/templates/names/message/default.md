@@ -1,3 +1,7 @@
 {% for message in previous_messages %}
-{{ message['author'] }}: {{ message['text'] }}
+{% if message['isMyMessage'] %}
+{{ my_name }}: {{ message['text'] }}
+{% else %}
+{{ their_name }}: {{ message['text'] }}
+{% endif %}
 {% endfor %}

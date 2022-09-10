@@ -11,11 +11,11 @@
             "text": {
               "type": "string"
             },
-            "author": {
-              "type": "string"
+            "is_my_message": {
+              "type": "boolean"
             }
           },
-          "required": ["text", "author"]
+          "required": ["text", "author", "is_my_message"]
         }
       ]
     },

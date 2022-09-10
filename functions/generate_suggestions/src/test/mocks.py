@@ -63,7 +63,7 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
     "previous_messages": [
         {
             "text": "hey there",
-            "author": "Stacey",
+            "is_my_message": False,
         },
     ],
     "settings": {
