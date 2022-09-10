@@ -11,11 +11,11 @@ def is_empty(field: str) -> bool:
     return len(field) == 0
 
 
-def select_base_template(my_name: str, their_name: str) -> str:
+def select_intro_template(my_name: str, their_name: str) -> str:
     if is_empty(my_name) or is_empty(their_name):
-        return "names_missing.md"
+        return "intro/no_names.md"
     else:
-        return "nothing_missing.md"
+        return "intro/complete.md"
 
 
 def select_extra_templates(hobbies: str, self_description: str) -> list[str]:
@@ -32,7 +32,7 @@ def select_extra_templates(hobbies: str, self_description: str) -> list[str]:
 def select_templates(request: GenerateSuggestionsRequest) -> list[str]:
     templates = []
     templates.append(
-        select_base_template(
+        select_intro_template(
             my_name=request["settings"]["profile_params"]["name"],
             their_name=request["settings"]["conversation_params"]["their_name"],
         ),
