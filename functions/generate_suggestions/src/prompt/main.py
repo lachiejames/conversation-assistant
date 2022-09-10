@@ -11,6 +11,8 @@ def construct_prompt(request: GenerateSuggestionsRequest, input_lang: str) -> st
     prompt += render_intro_template(request)
     prompt += render_extra_template(request)
 
+    # By default, the prompt intro/extra stages are in English.  If a different language is detected
+    # in the previous_messages, the intro/extra stages will be translated to that language.
     if input_lang not in (DEFAULT_LANG, UNDEFINED_LANG):
         prompt = translate_text(prompt, input_lang)
 
