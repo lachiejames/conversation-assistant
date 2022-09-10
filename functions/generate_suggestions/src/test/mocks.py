@@ -74,7 +74,7 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
             "location": "Camberwell, Victoria, Australia",
             "occupation": "Software Engineer",
             "hobbies": "coding, hanging out with my dog",
-            "self_description": "mysterious, yet intriguing",
+            "self_description": "a cool person who always knows the right thing to say.",
         },
         "conversation_params": {
             "their_name": "Stacey",
@@ -84,12 +84,12 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
         "gpt3_params": {
             "engine": "text-curie-001",
             "n": 1,
-            "temperature": 0.7,
+            "temperature": 1.0,
             "max_tokens": 50,
             "top_p": 1.0,
             "best_of": 1,
-            "frequency_penalty": 2.0,
-            "presence_penalty": 2.0,
+            "frequency_penalty": 1.0,
+            "presence_penalty": 1.0,
         },
     },
 }
@@ -106,4 +106,34 @@ MOCK_REQUEST_NO_NAMES = MOCK_REQUEST | {
             "their_name": "",
         },
     }
+}
+
+MOCK_REQUEST_NOTHING = {
+    "previous_messages": [ ],
+    "settings": {
+        "profile_params": {
+            "name": "",
+            "age": "",
+            "pronouns": "",
+            "location": "",
+            "occupation": "",
+            "hobbies": "",
+            "self_description": "",
+        },
+        "conversation_params": {
+            "their_name": "",
+            "their_relationship_to_me": "",
+            "tone_of_chat": "",
+        },
+        "gpt3_params": {
+            "engine": "text-curie-001",
+            "n": 1,
+            "temperature": 1.0,
+            "max_tokens": 50,
+            "top_p": 1.0,
+            "best_of": 1,
+            "frequency_penalty": 1.0,
+            "presence_penalty": 1.0,
+        },
+    },
 }
