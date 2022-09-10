@@ -18,11 +18,15 @@ def select_base_template(my_name: str, their_name: str) -> str:
         return "nothing_missing.md"
 
 
-def select_extra_templates(my_name: str, their_name: str) -> list[str]:
-    if is_empty(my_name) or is_empty(their_name):
-        return "names_missing.md"
-    else:
-        return "nothing_missing.md"
+def select_extra_templates(hobbies: str, self_description: str) -> list[str]:
+    extra_templates = []
+
+    if not is_empty(hobbies):
+        extra_templates.append("extras/hobbies.md")
+    elif not is_empty(self_description):
+        extra_templates.append("extras/self_description.md")
+
+    return extra_templates
 
 
 def select_templates(request: GenerateSuggestionsRequest) -> list[str]:
@@ -35,8 +39,8 @@ def select_templates(request: GenerateSuggestionsRequest) -> list[str]:
     ),
     templates.extend(
         select_extra_templates(
-            my_name=request["settings"]["profile_params"]["name"],
-            their_name=request["settings"]["conversation_params"]["their_name"],
+            hobbies=request["settings"]["profile_params"]["hobbies"],
+            self_description=request["settings"]["profile_params"]["self_description"],
         ),
     )
 
@@ -46,7 +50,7 @@ def select_templates(request: GenerateSuggestionsRequest) -> list[str]:
 def generate_prompt(request: GenerateSuggestionsRequest, input_lang: str) -> str:
     prompt = ""
     env = Environment(
-        loader=PackageLoader(package_name="src"),
+        loader=PackageLoader(package_name="src", package_path="templates"),
         autoescape=select_autoescape(),
         keep_trailing_newline=True,
     )
@@ -67,8 +71,14 @@ def generate_prompt(request: GenerateSuggestionsRequest, input_lang: str) -> str
 
     if input_lang != DEFAULT_LANG and input_lang != UNDEFINED_LANG:
         prompt = translate_text(prompt, input_lang)
-    
-    prompt += env.get_template("messages.md").render(previous_messages=request["previous_messages"])
+
+    prompt += env.get_template("messages.md").render(
+        previous_messages=request["previous_messages"],
+    )
+
+    prompt += env.get_template("suggestion.md").render(
+        my_name=request["settings"]["profile_params"]["name"],
+    )
 
     return prompt
 
