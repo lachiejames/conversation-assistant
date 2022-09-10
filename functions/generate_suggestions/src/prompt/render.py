@@ -1,12 +1,13 @@
-from ..models import GenerateSuggestionsRequest
-
 from jinja2 import Environment, PackageLoader, select_autoescape
 
+from ..models import GenerateSuggestionsRequest
+
 template_env = Environment(
-    loader=PackageLoader(package_path="prompt_templates"),
+    loader=PackageLoader(package_name="src", package_path="prompt_templates"),
     autoescape=select_autoescape(),
     keep_trailing_newline=True,
 )
+
 
 def render_template(request: GenerateSuggestionsRequest, template: str) -> str:
     return template_env.get_template(template).render(

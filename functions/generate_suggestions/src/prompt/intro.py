@@ -1,6 +1,6 @@
-from .render import render_template
-from ..utils import is_not_empty
 from ..models import GenerateSuggestionsRequest
+from ..utils import is_not_empty
+from .render import render_template
 
 INTRO_PATH = "intro"
 
@@ -17,4 +17,4 @@ def render_intro_template(request: GenerateSuggestionsRequest) -> str:
         my_name=request["settings"]["profile_params"]["name"],
         their_name=request["settings"]["conversation_params"]["their_name"],
     )
-    return render_template(selected_template, request)
+    return render_template(request, selected_template)

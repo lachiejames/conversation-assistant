@@ -1,6 +1,6 @@
-from .render import render_template
-from ..utils import is_not_empty
 from ..models import GenerateSuggestionsRequest
+from ..utils import is_not_empty
+from .render import render_template
 
 INTRO_PATH = "extra"
 

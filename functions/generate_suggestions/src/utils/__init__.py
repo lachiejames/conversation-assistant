@@ -1,2 +1,2 @@
 # pylint: disable=unused-import
-from .validators import validate_completion_response, validate_request,is_not_empty
+from .validators import is_not_empty, validate_completion_response, validate_request
