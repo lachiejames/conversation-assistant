@@ -24,3 +24,6 @@ def validate_completion_response(response: GPT3CompletionResponse) -> None:
     with open(path_to_schema, "r", encoding="utf-8") as schema_file:
         schema: Any = json.load(schema_file)
         validate(response, schema)
+
+def is_not_empty(field: str) -> bool:
+    return len(field) > 0
