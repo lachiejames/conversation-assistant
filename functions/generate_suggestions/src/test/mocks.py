@@ -88,8 +88,8 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
         },
         "conversation_params": {
             "their_name": "Stacey",
-            "their_relationship_to_me": "friend",
-            "tone_of_chat": "casual",
+            "their_relationship_to_me": "Friend",
+            "tone_of_chat": "Casual",
         },
         "gpt3_params": {
             "engine": "text-curie-001",
@@ -125,8 +125,43 @@ MOCK_REQUEST_NO_NAMES: GenerateSuggestionsRequest = cast(
 
 MOCK_REQUEST_NO_MESSAGES: GenerateSuggestionsRequest = cast(GenerateSuggestionsRequest, MOCK_REQUEST | {"previous_messages": []})
 
+MOCK_REQUEST_NO_NAMES_NO_MESSAGES: GenerateSuggestionsRequest = cast(
+    GenerateSuggestionsRequest,
+    MOCK_REQUEST
+    | {
+        "settings": MOCK_REQUEST["settings"]
+        | {
+            "profile_params": MOCK_REQUEST["settings"]["profile_params"]
+            | {
+                "name": "",
+            },
+            "conversation_params": MOCK_REQUEST["settings"]["conversation_params"]
+            | {
+                "their_name": "",
+            },
+        },
+        "previous_messages": [],
+    },
+)
 
-MOCK_REQUEST_NO_NAMES_NO_MESSAGES: GenerateSuggestionsRequest = MOCK_REQUEST_NO_NAMES | MOCK_REQUEST_NO_MESSAGES
+MOCK_REQUEST_NO_NAMES_NO_RELATIONSHIP: GenerateSuggestionsRequest = cast(
+    GenerateSuggestionsRequest,
+    MOCK_REQUEST
+    | {
+        "settings": MOCK_REQUEST["settings"]
+        | {
+            "profile_params": MOCK_REQUEST["settings"]["profile_params"]
+            | {
+                "name": "",
+            },
+            "conversation_params": MOCK_REQUEST["settings"]["conversation_params"]
+            | {
+                "their_name": "",
+                "their_relationship_to_me": "",
+            },
+        }
+    },
+)
 
 
 MOCK_REQUEST_NOTHING: GenerateSuggestionsRequest = cast(

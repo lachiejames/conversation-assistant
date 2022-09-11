@@ -13,7 +13,7 @@ from ..main import construct_prompt
 
 def test_construct_prompt__when_names_and_messages_given__then_return_string_with_names() -> None:
     prompt = construct_prompt(MOCK_REQUEST, input_lang=DEFAULT_LANG)
-    expected_prompt = """The following is a casual conversation between Chad Johnson and Stacey, who is Chad Johnson's friend.
+    expected_prompt = """The following is a Casual conversation between Chad Johnson and Stacey, who is Chad Johnson's Friend.
 Chad Johnson is 27 years old.
 Chad Johnson's pronouns are he/him.
 Chad Johnson lives in Camberwell, Victoria, Australia.
@@ -33,7 +33,7 @@ Chad Johnson:"""
 
 def test_construct_prompt__when_names_and_no_messages_given__then_return_expected_string() -> None:
     prompt = construct_prompt(MOCK_REQUEST_NO_MESSAGES, input_lang=DEFAULT_LANG)
-    expected_prompt = """The following is a casual conversation between Chad Johnson and Stacey, who is Chad Johnson's friend.
+    expected_prompt = """The following is a Casual conversation between Chad Johnson and Stacey, who is Chad Johnson's Friend.
 Chad Johnson is 27 years old.
 Chad Johnson's pronouns are he/him.
 Chad Johnson lives in Camberwell, Victoria, Australia.
@@ -47,7 +47,7 @@ Chad Johnson:"""
 
 def test_construct_prompt__when_no_names_and_messages_given__then_return_expected_string() -> None:
     prompt = construct_prompt(MOCK_REQUEST_NO_NAMES, input_lang=DEFAULT_LANG)
-    expected_prompt = """The following is a casual conversation that I had with my friend.
+    expected_prompt = """The following is a Casual conversation that I had with my Friend.
 I am 27 years old.
 My pronouns are he/him.
 I live in Camberwell, Victoria, Australia.
@@ -55,11 +55,11 @@ My occupation is Software Engineer.
 My hobbies include coding, hanging out with my dog.
 People describe me as a cool guy who always knows the right thing to say.
 
-Them: Hey Chad!
+Friend: Hey Chad!
 
 Me: What's crackin babydoll
 
-Them: I think I'm pregnant...
+Friend: I think I'm pregnant...
 
 Me:"""
     assert prompt == expected_prompt
@@ -67,15 +67,15 @@ Me:"""
 
 def test_construct_prompt__when_no_names_and_no_messages_given__then_return_expected_string() -> None:
     prompt = construct_prompt(MOCK_REQUEST_NO_NAMES_NO_MESSAGES, input_lang=DEFAULT_LANG)
-    expected_prompt = """The following is a casual conversation between Chad Johnson and Stacey, who is Chad Johnson's friend.
-Chad Johnson is 27 years old.
-Chad Johnson's pronouns are he/him.
-Chad Johnson lives in Camberwell, Victoria, Australia.
-Chad Johnson's occupation is Software Engineer.
-Chad Johnson's hobbies include coding, hanging out with my dog.
-People describe Chad Johnson as a cool guy who always knows the right thing to say.
+    expected_prompt = """The following is a Casual conversation that I had with my Friend.
+I am 27 years old.
+My pronouns are he/him.
+I live in Camberwell, Victoria, Australia.
+My occupation is Software Engineer.
+My hobbies include coding, hanging out with my dog.
+People describe me as a cool guy who always knows the right thing to say.
 
-Chad Johnson:"""
+Me:"""
     assert prompt == expected_prompt
 
 
@@ -93,7 +93,7 @@ def test_construct_prompt__when_names_and_messages_given_and_lang_not_english__t
 ) -> None:
     alt_lang = "it"
     construct_prompt(MOCK_REQUEST, input_lang=alt_lang)
-    expected_translate_input = """The following is a casual conversation between Chad Johnson and Stacey, who is Chad Johnson's friend.
+    expected_translate_input = """The following is a Casual conversation between Chad Johnson and Stacey, who is Chad Johnson's Friend.
 Chad Johnson is 27 years old.
 Chad Johnson's pronouns are he/him.
 Chad Johnson lives in Camberwell, Victoria, Australia.
@@ -110,7 +110,7 @@ def test_construct_prompt__when_names_and_no_messages_given__then_translate_intr
 ) -> None:
     alt_lang = "it"
     construct_prompt(MOCK_REQUEST_NO_MESSAGES, input_lang=alt_lang)
-    expected_translate_input = """The following is a casual conversation between Chad Johnson and Stacey, who is Chad Johnson's friend.
+    expected_translate_input = """The following is a Casual conversation between Chad Johnson and Stacey, who is Chad Johnson's Friend.
 Chad Johnson is 27 years old.
 Chad Johnson's pronouns are he/him.
 Chad Johnson lives in Camberwell, Victoria, Australia.
@@ -127,7 +127,7 @@ def test_construct_prompt__when_no_names_and_messages_given__then_translate_intr
 ) -> None:
     alt_lang = "it"
     construct_prompt(MOCK_REQUEST_NO_NAMES, input_lang=alt_lang)
-    expected_translate_input = """The following is a casual conversation that I had with my friend.
+    expected_translate_input = """The following is a Casual conversation that I had with my Friend.
 I am 27 years old.
 My pronouns are he/him.
 I live in Camberwell, Victoria, Australia.
@@ -144,13 +144,13 @@ def test_construct_prompt__when_no_names_and_no_messages_given__then_translate_i
 ) -> None:
     alt_lang = "it"
     construct_prompt(MOCK_REQUEST_NO_NAMES_NO_MESSAGES, input_lang=alt_lang)
-    expected_translate_input = """The following is a casual conversation between Chad Johnson and Stacey, who is Chad Johnson's friend.
-Chad Johnson is 27 years old.
-Chad Johnson's pronouns are he/him.
-Chad Johnson lives in Camberwell, Victoria, Australia.
-Chad Johnson's occupation is Software Engineer.
-Chad Johnson's hobbies include coding, hanging out with my dog.
-People describe Chad Johnson as a cool guy who always knows the right thing to say.
+    expected_translate_input = """The following is a Casual conversation that I had with my Friend.
+I am 27 years old.
+My pronouns are he/him.
+I live in Camberwell, Victoria, Australia.
+My occupation is Software Engineer.
+My hobbies include coding, hanging out with my dog.
+People describe me as a cool guy who always knows the right thing to say.
 """
     translate_text_spy.assert_called_once_with(expected_translate_input, alt_lang)
 
