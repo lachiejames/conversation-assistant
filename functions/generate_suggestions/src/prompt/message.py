@@ -4,7 +4,7 @@ from .render import render_template
 
 
 def select_message_template(path_prefix: str, their_relationship_to_me: str, previous_messages: list[Message]) -> str:
-    are_names_given = path_prefix == "names/message"
+    are_names_given = path_prefix.startswith("names")
     are_messages_given = len(previous_messages) > 0
     is_their_relationship_to_me_given = is_not_empty(their_relationship_to_me)
 
