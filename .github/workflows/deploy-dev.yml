@@ -54,7 +54,7 @@ jobs:
       # Cloud functions do not yet support installing from Pipfile.lock
       - name: Export requirements.txt
         working-directory: ${{ env.PATH_TO_FUNCTION }}
-        run: pipenv run pipenv lock -r > requirements.txt
+        run: pipenv run export-requirements
 
       - name: Terraform setup
         working-directory: ${{ env.PATH_TO_INFRA }}
