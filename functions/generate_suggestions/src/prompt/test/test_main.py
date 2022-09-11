@@ -5,8 +5,8 @@ from ...test.mocks import (
     MOCK_REQUEST_NO_NAMES_NO_MESSAGES,
     MOCK_REQUEST_NOTHING,
 )
-from ..main import construct_prompt
 from ...utils import DEFAULT_LANG, UNDEFINED_LANG
+from ..main import construct_prompt
 
 
 def test_construct_prompt__when_names_and_mains_given__then_return_string_with_names() -> None:

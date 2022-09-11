@@ -1,5 +1,5 @@
 from ..models import GenerateSuggestionsRequest, Message
-from ..utils import choose_path_prefix,is_not_empty
+from ..utils import choose_path_prefix, is_not_empty
 from .render import render_template
 
 

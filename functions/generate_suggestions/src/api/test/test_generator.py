@@ -1,11 +1,7 @@
 from unittest.mock import MagicMock, patch
 
 from ...models import Suggestion
-from ...test.mocks import (
-    MOCK_GPT3_COMPLETION_RESPONSE,
-    MOCK_REQUEST,
-    MOCK_SUGGESTIONS,
-)
+from ...test.mocks import MOCK_GPT3_COMPLETION_RESPONSE, MOCK_REQUEST, MOCK_SUGGESTIONS
 from ..generate import generate_suggestions
 
 
