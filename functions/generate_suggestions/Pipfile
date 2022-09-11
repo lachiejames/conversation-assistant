@@ -20,7 +20,7 @@ types-six = "==1.16.18"
 
 [scripts]
 check-types = "python -m mypy src e2e main.py"
-export-requirements = "pipenv lock -r"
+export-requirements = "pipenv requirements"
 format = "bash -c 'python -m black src e2e main.py && python -m isort src e2e main.py'"
 install-ci = "pipenv install --dev --deploy"
 install-dev = "pipenv install --dev"
