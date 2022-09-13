@@ -1,12 +1,8 @@
-name: Daily Firestore Backup
+name: Firestore Backup Prod
 
-# on:
-#   schedule:
-#     - cron: "0 0 * * *"
-#   workflow_dispatch:
 on:
-  push:
-    branches: [fix/omit-missing-params-from-prompt]
+  schedule:
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 env:
