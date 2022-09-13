@@ -1,12 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
+  "required": ["choices", "created", "id", "model", "object"],
   "properties": {
     "choices": {
       "type": "array",
       "items": [
         {
           "type": "object",
+          "required": ["finish_reason", "index", "logprobs", "text"],
           "properties": {
             "finish_reason": {
               "type": "string"
@@ -20,8 +22,7 @@
             "text": {
               "type": "string"
             }
-          },
-          "required": ["finish_reason", "index", "logprobs", "text"]
+          }
         }
       ]
     },
@@ -37,6 +38,5 @@
     "object": {
       "type": "string"
     }
-  },
-  "required": ["choices", "created", "id", "model", "object"]
+  }
 }

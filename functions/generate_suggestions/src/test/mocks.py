@@ -96,10 +96,10 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
             "n": 1,
             "temperature": 1.0,
             "max_tokens": 50,
-            "top_p": 1.0,
             "best_of": 1,
             "frequency_penalty": 1.0,
             "presence_penalty": 1.0,
+            "user": "abc123",
         },
     },
 }
