@@ -10,14 +10,14 @@ from .mocks import MOCK_REQUEST, MOCK_SUGGESTIONS
 MOCK_RESPONSE: bytes = json.dumps({"results": MOCK_SUGGESTIONS}).encode()
 
 
-@patch("src.run.fetch_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
+@patch("src.run.generate_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
 def test_run_generate_suggestions__when_event_is_valid__then_response_code_is_200() -> None:
     response = run_generate_suggestions(MOCK_REQUEST)
 
     assert response.status_code == 200
 
 
-@patch("src.run.fetch_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
+@patch("src.run.generate_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
 def test_run_generate_suggestions__when_event_is_valid__then_returns_results() -> None:
     response = run_generate_suggestions(MOCK_REQUEST)
 

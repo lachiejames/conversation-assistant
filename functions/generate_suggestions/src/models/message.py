@@ -4,6 +4,6 @@ Message = TypedDict(
     "Message",
     {
         "text": str,
-        "author": str,
+        "is_my_message": bool,
     },
 )

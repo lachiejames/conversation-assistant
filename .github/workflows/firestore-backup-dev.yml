@@ -1,0 +1,25 @@
+name: Firestore Backup Dev
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+env:
+  GCP_PROJECT_NAME: conversation-assistant-dev
+  GCP_BUCKET: gs://conversation-assistant-dev-bucket-firestore-backup
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GCP Auth
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.DEV_GCP_CREDENTIALS }}
+
+      - name: GCP Setup
+        uses: google-github-actions/setup-gcloud@v0
+
+      - name: Export Firestore data
+        run: gcloud firestore export $GCP_BUCKET

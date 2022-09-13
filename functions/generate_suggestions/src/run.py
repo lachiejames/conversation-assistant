@@ -4,7 +4,7 @@ from typing import Any, Union, cast
 from flask import Response
 from jsonschema import ValidationError
 
-from .api import fetch_suggestions
+from .api import generate_suggestions
 from .models import GenerateSuggestionsRequest, GenerateSuggestionsResponse, Suggestion
 from .utils import validate_request
 
@@ -14,7 +14,7 @@ HEADERS = {
 
 
 def respond_with_200(request: GenerateSuggestionsRequest) -> Response:
-    suggestions: list[Suggestion] = fetch_suggestions(request)
+    suggestions: list[Suggestion] = generate_suggestions(request)
     response: GenerateSuggestionsResponse = {"results": suggestions}
 
     return Response(
