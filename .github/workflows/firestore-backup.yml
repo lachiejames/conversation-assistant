@@ -19,7 +19,7 @@ jobs:
     steps:
       # - run: echo "GCP_DEV_CREDENTIALS_BASE64=$( ${{ secrets. }} )" >> $GITHUB_ENV
 
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud
         with:
           credentials_json: ${{ secrets.DEV_GCP_CREDENTIALS }}
 
