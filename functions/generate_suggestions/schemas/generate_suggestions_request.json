@@ -85,9 +85,6 @@
           "max_tokens": {
             "type": "integer"
           },
-          "top_p": {
-            "type": "number"
-          },
           "best_of": {
             "type": "integer"
           },
@@ -96,6 +93,9 @@
           },
           "presence_penalty": {
             "type": "number"
+          },
+          "user": {
+            "type": "string"
           }
         },
         "required": [
@@ -103,10 +103,10 @@
           "n",
           "temperature",
           "max_tokens",
-          "top_p",
           "best_of",
           "frequency_penalty",
-          "presence_penalty"
+          "presence_penalty",
+          "user"
         ]
       },
       "required": ["profile_params", "conversation_params", "gpt3_params"]

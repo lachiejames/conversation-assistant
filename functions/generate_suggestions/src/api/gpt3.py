@@ -34,10 +34,10 @@ def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[
         n=gpt3_params["n"],
         max_tokens=gpt3_params["max_tokens"],
         best_of=gpt3_params["best_of"],
-        top_p=gpt3_params["top_p"],
         frequency_penalty=gpt3_params["frequency_penalty"],
         presence_penalty=gpt3_params["presence_penalty"],
         stop=stop_indicator,
+        user=gpt3_params["user"],
     )
 
     validate_completion_response(response)
