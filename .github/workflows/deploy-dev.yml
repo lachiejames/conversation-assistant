@@ -2,7 +2,7 @@ name: Deploy to Dev
 
 on:
   push:
-    branches: [master, fix/omit-missing-params-from-prompt]
+    branches: [master]
   workflow_dispatch:
 
 env:

@@ -1,13 +1,18 @@
 name: Daily Firestore Backup
 
+# on:
+#   schedule:
+#     - cron: "0 0 * * *"
+#   workflow_dispatch:
 on:
-  schedule:
-    - cron: "0 0 * * *"
+  push:
+    branches: [fix/omit-missing-params-from-prompt]
   workflow_dispatch:
 
 env:
   GCP_PROJECT_NAME: conversation-assistant-dev
-  GCP_BUCKET: gs://YOUR-BUCKET
+  GCP_BUCKET: gs://conversation-assistant-dev-bucket-firestore-backup
+
 
 jobs:
   backup:
