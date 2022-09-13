@@ -1,12 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
+  "required": ["previous_messages", "settings"],
   "properties": {
     "previous_messages": {
       "type": "array",
+      "required": ["profile_params", "conversation_params", "gpt3_params"],
       "items": [
         {
           "type": "object",
+          "required": ["text", "is_my_message"],
           "properties": {
             "text": {
               "type": "string"
@@ -14,14 +17,22 @@
             "is_my_message": {
               "type": "boolean"
             }
-          },
-          "required": ["text", "is_my_message"]
+          }
         }
       ]
     },
     "settings": {
       "profile_params": {
         "type": "object",
+        "required": [
+          "name",
+          "age",
+          "pronouns",
+          "location",
+          "occupation",
+          "hobbies",
+          "self_description"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -44,19 +55,11 @@
           "self_description": {
             "type": "string"
           }
-        },
-        "required": [
-          "name",
-          "age",
-          "pronouns",
-          "location",
-          "occupation",
-          "hobbies",
-          "self_description"
-        ]
+        }
       },
       "conversation_params": {
         "type": "object",
+        "required": ["their_name", "their_relationship_to_me", "tone_of_chat"],
         "properties": {
           "their_name": {
             "type": "string"
@@ -67,11 +70,20 @@
           "tone_of_chat": {
             "type": "string"
           }
-        },
-        "required": ["their_name", "their_relationship_to_me", "tone_of_chat"]
+        }
       },
       "gpt3_params": {
         "type": "object",
+        "required": [
+          "engine",
+          "n",
+          "temperature",
+          "max_tokens",
+          "best_of",
+          "frequency_penalty",
+          "presence_penalty",
+          "user"
+        ],
         "properties": {
           "engine": {
             "type": "string"
@@ -97,20 +109,8 @@
           "user": {
             "type": "string"
           }
-        },
-        "required": [
-          "engine",
-          "n",
-          "temperature",
-          "max_tokens",
-          "best_of",
-          "frequency_penalty",
-          "presence_penalty",
-          "user"
-        ]
-      },
-      "required": ["profile_params", "conversation_params", "gpt3_params"]
+        }
+      }
     }
-  },
-  "required": ["previous_messages", "settings"]
+  }
 }
