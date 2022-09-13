@@ -17,14 +17,19 @@ jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
-      # - run: echo "GCP_DEV_CREDENTIALS_BASE64=$( ${{ secrets. }} )" >> $GITHUB_ENV
-
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud
+      - name: GCP Auth
+        id: auth
+        uses: google-github-actions/auth@v0
         with:
           credentials_json: ${{ secrets.DEV_GCP_CREDENTIALS }}
+
+      - name: GCP Setup
+        uses: google-github-actions/setup-gcloud@v0.6.0
 
       - run: gcloud info
 
       - run: gcloud config set project $GCP_PROJECT_NAME
+
+      - run: gcloud info
 
       - run: gcloud firestore export $GCP_BUCKET
