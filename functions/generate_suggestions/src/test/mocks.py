@@ -34,6 +34,15 @@ MOCK_SUGGESTIONS_ITALIAN: list[Suggestion] = [
 ]
 
 MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
+    "created": 1640749603,
+    "id": "cmpl-4KKDDxKagCnzfBz74m0I5lwpToXjm",
+    "model": "davinci-instruct-v3:2021-11-19",
+    "object": "text_completion",
+    "usage": {
+        "completion_tokens": 7,
+        "prompt_tokens": 135,
+        "total_tokens": 142,
+    },
     "choices": [
         {
             "finish_reason": "stop",
@@ -54,10 +63,6 @@ MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
             "text": "From your profile it looks like we have a lot in common so I'd love to chat with you more if you're interested?",
         },
     ],
-    "created": 1640749603,
-    "id": "cmpl-4KKDDxKagCnzfBz74m0I5lwpToXjm",
-    "model": "davinci-instruct-v3:2021-11-19",
-    "object": "text_completion",
 }
 
 

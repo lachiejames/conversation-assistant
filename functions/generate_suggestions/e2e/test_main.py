@@ -19,7 +19,7 @@ def test_generate_suggestions__when_valid_request_received__then_returns_1_sugge
             response: flask.Response = generate_suggestions(flask.request)
 
             parsed_response: Any = json.loads(response.data)
-            suggestions: List[Suggestion] = parsed_response["results"]
+            suggestions: List[Suggestion] = parsed_response["suggestions"]
 
             assert response.status_code == 200
             assert len(suggestions) == 1
@@ -31,7 +31,7 @@ def test_generate_suggestions__when_messages_in_italian__then_suggestion_in_ital
             response: flask.Response = generate_suggestions(flask.request)
 
             parsed_response: Any = json.loads(response.data)
-            suggestions: List[Suggestion] = parsed_response["results"]
+            suggestions: List[Suggestion] = parsed_response["suggestions"]
 
             assert response.status_code == 200
             assert detect_input_lang(suggestions[0]["text"]) == "it"

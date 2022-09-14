@@ -1,27 +1,12 @@
 from typing_extensions import TypedDict
 
+from .gpt3_completion_response import GPT3Usage
 from .suggestion import Suggestion
-
-GPT3Usage = TypedDict(
-    "GenerateSuggestionsResponse",
-    {
-        "results": list[Suggestion],
-        "usage": {
-            "completion_tokens": int,
-            "prompt_tokens": int,
-            "total_tokens": int,
-        },
-    },
-)
 
 GenerateSuggestionsResponse = TypedDict(
     "GenerateSuggestionsResponse",
     {
-        "results": list[Suggestion],
-        "gpt3_usage": {
-            "completion_tokens": int,
-            "prompt_tokens": int,
-            "total_tokens": int,
-        },
+        "suggestions": list[Suggestion],
+        "gpt3_usage": GPT3Usage,
     },
 )

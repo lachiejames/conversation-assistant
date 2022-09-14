@@ -5,20 +5,25 @@ from flask import Response
 from jsonschema import ValidationError
 
 from ..run import run_generate_suggestions
-from .mocks import MOCK_REQUEST, MOCK_SUGGESTIONS
+from .mocks import MOCK_GPT3_COMPLETION_RESPONSE, MOCK_REQUEST, MOCK_SUGGESTIONS
 
-MOCK_RESPONSE: bytes = json.dumps({"results": MOCK_SUGGESTIONS}).encode()
+MOCK_RESPONSE: bytes = json.dumps(
+    {
+        "suggestions": MOCK_SUGGESTIONS,
+        "gpt3_usage": MOCK_GPT3_COMPLETION_RESPONSE["usage"],
+    }
+).encode()
 
 
-@patch("src.run.generate_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
+@patch("src.run.generate_suggestions", MagicMock(return_value=MOCK_RESPONSE))
 def test_run_generate_suggestions__when_event_is_valid__then_response_code_is_200() -> None:
     response = run_generate_suggestions(MOCK_REQUEST)
 
     assert response.status_code == 200
 
 
-@patch("src.run.generate_suggestions", MagicMock(return_value=MOCK_SUGGESTIONS))
-def test_run_generate_suggestions__when_event_is_valid__then_returns_results() -> None:
+@patch("src.run.generate_suggestions", MagicMock(return_value=MOCK_RESPONSE))
+def test_run_generate_suggestions__when_event_is_valid__then_returns_suggestions() -> None:
     response = run_generate_suggestions(MOCK_REQUEST)
 
     assert response.data == MOCK_RESPONSE
