@@ -23,7 +23,12 @@ def generate_suggestions(request: GenerateSuggestionsRequest) -> list[Suggestion
     print(f"Constructed prompt:\n'{translated_prompt}'")
 
     stop_indicator: list[str] = get_stop_indicator(request)
-    completion_response: GPT3CompletionResponse = fetch_completion(translated_prompt, request["settings"]["gpt3_params"], stop_indicator)
+    completion_response: GPT3CompletionResponse = fetch_completion(
+        prompt=translated_prompt,
+        gpt3_params=request["settings"]["gpt3_params"],
+        stop_indicator=stop_indicator,
+        uid=request["uid"],
+    )
     print(f"Fetched GPT3 completion response - {completion_response}")
 
     suggestions: list[Suggestion] = map_completion_response_to_suggestions(completion_response)

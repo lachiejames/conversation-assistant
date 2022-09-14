@@ -51,6 +51,7 @@ Settings = TypedDict(
 GenerateSuggestionsRequest = TypedDict(
     "GenerateSuggestionsRequest",
     {
+        "uid": str,
         "previous_messages": list[Message],
         "settings": Settings,
     },
