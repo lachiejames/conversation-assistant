@@ -42,7 +42,7 @@ def test_generate_suggestions__when_request_is_missing_required_properties__then
         response: flask.Response = generate_suggestions(flask.request)
 
         assert response.status_code == 400
-        assert b"'previous_messages' is a required property" in response.data
+        assert b"'uid' is a required property" in response.data
 
 
 def test_generate_suggestions__when_request_is_malformed__then_returns_400(app: flask.Flask) -> None:

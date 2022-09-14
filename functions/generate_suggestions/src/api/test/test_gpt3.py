@@ -14,6 +14,7 @@ from ...test.mocks import (
 from ..gpt3 import fetch_completion, get_stop_indicator
 
 MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
+MOCK_USER_ID = MOCK_REQUEST["uid"]
 
 
 def test_get_stop_indicator__returns_2_indicators() -> None:
@@ -44,7 +45,7 @@ def test_get_stop_indicator__when_nothing_given__then_returns_me_and_relationshi
 def test_fetch_completion__when_gpt3_request_succeeds__then_returns_response() -> None:
     mock_gpt3_params: GPT3Params = MOCK_REQUEST["settings"]["gpt3_params"]
 
-    response = fetch_completion(MOCK_PROMPT, mock_gpt3_params, MOCK_STOP_INDICATOR)
+    response = fetch_completion(MOCK_PROMPT, mock_gpt3_params, MOCK_STOP_INDICATOR, MOCK_USER_ID)
 
     assert response == MOCK_GPT3_COMPLETION_RESPONSE
 
@@ -54,7 +55,7 @@ def test_fetch_completion__when_gpt3_request_fails__then_raises_error() -> None:
     mock_gpt3_params: GPT3Params = MOCK_REQUEST["settings"]["gpt3_params"]
 
     with pytest.raises(LookupError):
-        fetch_completion(MOCK_PROMPT, mock_gpt3_params, MOCK_STOP_INDICATOR)
+        fetch_completion(MOCK_PROMPT, mock_gpt3_params, MOCK_STOP_INDICATOR, MOCK_USER_ID)
 
 
 @patch("src.gpt3.Completion.create", MagicMock(return_value={"this": "will fail"}))
@@ -62,4 +63,4 @@ def test_fetch_completion__when_gpt3_request_succeeds_but_validation_fails__then
     mock_gpt3_params: GPT3Params = MOCK_REQUEST["settings"]["gpt3_params"]
 
     with pytest.raises(ValidationError):
-        fetch_completion(MOCK_PROMPT, mock_gpt3_params, MOCK_STOP_INDICATOR)
+        fetch_completion(MOCK_PROMPT, mock_gpt3_params, MOCK_STOP_INDICATOR, MOCK_USER_ID)

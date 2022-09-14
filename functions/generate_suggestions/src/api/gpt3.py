@@ -23,7 +23,7 @@ def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
     return ["Me:", "Them:"]
 
 
-def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[str]) -> GPT3CompletionResponse:
+def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[str], uid: str) -> GPT3CompletionResponse:
     """Depends on OPENAI_API_KEY environment variable"""
 
     response: GPT3CompletionResponse = Completion.create(
@@ -37,7 +37,7 @@ def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[
         frequency_penalty=gpt3_params["frequency_penalty"],
         presence_penalty=gpt3_params["presence_penalty"],
         stop=stop_indicator,
-        user=gpt3_params["user"],
+        user=uid,
     )
 
     validate_completion_response(response)
