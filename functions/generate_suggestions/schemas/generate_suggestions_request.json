@@ -1,8 +1,11 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "required": ["previous_messages", "settings"],
+  "required": ["uid", "previous_messages", "settings"],
   "properties": {
+    "uid": {
+      "type": "string"
+    },
     "previous_messages": {
       "type": "array",
       "required": ["profile_params", "conversation_params", "gpt3_params"],
@@ -81,8 +84,7 @@
           "max_tokens",
           "best_of",
           "frequency_penalty",
-          "presence_penalty",
-          "user"
+          "presence_penalty"
         ],
         "properties": {
           "engine": {

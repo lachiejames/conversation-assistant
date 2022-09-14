@@ -62,6 +62,7 @@ MOCK_GPT3_COMPLETION_RESPONSE: GPT3CompletionResponse = {
 
 
 MOCK_REQUEST: GenerateSuggestionsRequest = {
+    "uid": "abc123",
     "previous_messages": [
         {
             "text": "Hey Chad!",

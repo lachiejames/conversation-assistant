@@ -1,15 +1,12 @@
 {
+  "uid": "d2cc5FWoF9ds3l8cB75I23tQBMJ3",
   "previous_messages": [
     {
-      "id": 10,
-      "dateCreated": "2022-07-10",
       "text": "Johnson, you were supposed to have that feature out yesterday.  What is going on?",
       "is_my_message": false
     }
   ],
   "settings": {
-    "id": 0,
-    "dateCreated": "2022-07-10",
     "conversation_params": {
       "their_name": "Richard",
       "their_relationship_to_me": "Boss",
@@ -27,12 +24,11 @@
     "gpt3_params": {
       "engine": "text-curie-001",
       "n": 1,
-      "temperature": 0.9,
+      "temperature": 1.0,
       "max_tokens": 50,
-      "top_p": 1.0,
       "best_of": 1,
-      "frequency_penalty": 2.0,
-      "presence_penalty": 2.0
+      "frequency_penalty": 1.0,
+      "presence_penalty": 1.0
     }
   }
 }
