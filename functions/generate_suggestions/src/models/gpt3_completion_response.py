@@ -10,6 +10,15 @@ GPT3CompletionChoices = TypedDict(
     },
 )
 
+GPT3Usage = TypedDict(
+    "GPT3Usage",
+    {
+        "completion_tokens": int,
+        "prompt_tokens": int,
+        "total_tokens": int,
+    },
+)
+
 
 GPT3CompletionResponse = TypedDict(
     "GPT3CompletionResponse",
@@ -19,5 +28,6 @@ GPT3CompletionResponse = TypedDict(
         "id": str,
         "model": str,
         "object": str,
+        "usage": GPT3Usage,
     },
 )
