@@ -7,7 +7,7 @@ from ..run import run_generate_suggestions
 from .mocks import MOCK_REQUEST, MOCK_RESPONSE
 
 
-@patch("src.run.generate_suggestions", MagicMock(return_value=generate_suggestions))
+@patch("src.run.generate_suggestions", MagicMock(return_value=MOCK_RESPONSE))
 def test_run_generate_suggestions__when_event_is_valid__then_response_code_is_200() -> None:
     response = run_generate_suggestions(MOCK_REQUEST)
 
