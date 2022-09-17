@@ -2,7 +2,7 @@ from unittest.mock import MagicMock, patch
 
 from flask import Response
 from jsonschema import ValidationError
-
+import json
 from ..run import run_generate_suggestions
 from .mocks import MOCK_REQUEST, MOCK_RESPONSE
 
@@ -18,7 +18,7 @@ def test_run_generate_suggestions__when_event_is_valid__then_response_code_is_20
 def test_run_generate_suggestions__when_event_is_valid__then_returns_suggestions() -> None:
     response = run_generate_suggestions(MOCK_REQUEST)
 
-    assert response.data == MOCK_RESPONSE
+    assert response.data == json.dumps(MOCK_RESPONSE).encode()
 
 
 @patch("src.run.validate_request", MagicMock(side_effect=ValidationError("test")))

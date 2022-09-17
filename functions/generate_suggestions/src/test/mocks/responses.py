@@ -1,6 +1,6 @@
 import json
 
-from ...models import Suggestion
+from ...models import GenerateSuggestionsResponse, Suggestion
 from .gpt3_responses import MOCK_GPT3_COMPLETION_RESPONSE
 
 MOCK_SUGGESTIONS: list[Suggestion] = [
@@ -13,9 +13,7 @@ MOCK_SUGGESTIONS_ITALIAN: list[Suggestion] = [
     {"text": "Ehi! Sono Chad, 26 anni e uno sviluppatore di software. E tu?"},
 ]
 
-MOCK_RESPONSE: bytes = json.dumps(
-    {
-        "suggestions": MOCK_SUGGESTIONS,
-        "gpt3_usage": MOCK_GPT3_COMPLETION_RESPONSE["usage"],
-    }
-).encode()
+MOCK_RESPONSE: GenerateSuggestionsResponse = {
+    "suggestions": MOCK_SUGGESTIONS,
+    "gpt3_usage": MOCK_GPT3_COMPLETION_RESPONSE["usage"],
+}
