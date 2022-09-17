@@ -1,8 +1,9 @@
+import json
 from unittest.mock import MagicMock, patch
 
 from flask import Response
 from jsonschema import ValidationError
-import json
+
 from ..run import run_generate_suggestions
 from .mocks import MOCK_REQUEST, MOCK_RESPONSE
 

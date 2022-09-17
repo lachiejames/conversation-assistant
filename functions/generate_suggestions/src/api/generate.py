@@ -21,7 +21,7 @@ def generate_suggestions(request: GenerateSuggestionsRequest) -> GenerateSuggest
     print(f"Detected conversation language: '{input_lang}'")
 
     translated_prompt: str = construct_prompt(request, input_lang)
-    print(f"Constructed prompt")
+    print("Constructed prompt")
 
     stop_indicator: list[str] = get_stop_indicator(request)
     completion_response: GPT3CompletionResponse = fetch_completion(
@@ -30,10 +30,10 @@ def generate_suggestions(request: GenerateSuggestionsRequest) -> GenerateSuggest
         stop_indicator=stop_indicator,
         uid=request["uid"],
     )
-    print(f"Fetched GPT3 completion response")
+    print("Fetched GPT3 completion response")
 
     suggestions: list[Suggestion] = map_completion_response_to_suggestions(completion_response)
-    print(f"Generated suggestions")
+    print("Generated suggestions")
 
     return {
         "suggestions": suggestions,

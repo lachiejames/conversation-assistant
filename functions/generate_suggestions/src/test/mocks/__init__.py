@@ -1,3 +1,4 @@
+# pylint: disable=unused-import
 from .gpt3_responses import MOCK_GPT3_COMPLETION_RESPONSE
 from .prompts import MOCK_PROMPT, MOCK_PROMPT_ITALIAN, MOCK_PROMPT_PREFIX
 from .requests import (
@@ -8,9 +9,4 @@ from .requests import (
     MOCK_REQUEST_NO_NAMES_NO_RELATIONSHIP,
     MOCK_REQUEST_NOTHING,
 )
-from .responses import (
-    MOCK_GPT3_COMPLETION_RESPONSE,
-    MOCK_RESPONSE,
-    MOCK_SUGGESTIONS,
-    MOCK_SUGGESTIONS_ITALIAN,
-)
+from .responses import MOCK_RESPONSE, MOCK_SUGGESTIONS, MOCK_SUGGESTIONS_ITALIAN

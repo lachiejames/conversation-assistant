@@ -1,5 +1,3 @@
-import json
-
 from ...models import GenerateSuggestionsResponse, Suggestion
 from .gpt3_responses import MOCK_GPT3_COMPLETION_RESPONSE
 
