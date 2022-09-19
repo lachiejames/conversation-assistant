@@ -7,11 +7,24 @@ from jsonschema import validate
 from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse
 
 
+def get_path_to_schema(schema_name: str) -> str:
+    return os.path.abspath(
+        os.path.join(
+            __file__,
+            "..",
+            "..",
+            "..",
+            "schemas",
+            schema_name,
+        )
+    )
+
+
 def validate_request(request_body: Union[Any, None]) -> None:
     if request_body is None:
         raise ValueError("Request body is required")
 
-    path_to_schema: str = os.path.join("schemas", "generate_suggestions_request.json")
+    path_to_schema: str = get_path_to_schema("generate_suggestions_request.json")
 
     with open(path_to_schema, "r", encoding="utf-8") as schema_file:
         schema: Any = json.load(schema_file)
@@ -19,7 +32,7 @@ def validate_request(request_body: Union[Any, None]) -> None:
 
 
 def validate_completion_response(response: GPT3CompletionResponse) -> None:
-    path_to_schema: str = os.path.join("schemas", "gpt3_completion_response.json")
+    path_to_schema: str = get_path_to_schema("gpt3_completion_response.json")
 
     with open(path_to_schema, "r", encoding="utf-8") as schema_file:
         schema: Any = json.load(schema_file)

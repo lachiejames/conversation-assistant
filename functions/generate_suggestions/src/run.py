@@ -5,7 +5,7 @@ from flask import Response
 from jsonschema import ValidationError
 
 from .api import generate_suggestions
-from .models import GenerateSuggestionsRequest, GenerateSuggestionsResponse, Suggestion
+from .models import GenerateSuggestionsRequest, GenerateSuggestionsResponse
 from .utils import validate_request
 
 HEADERS = {
@@ -14,8 +14,7 @@ HEADERS = {
 
 
 def respond_with_200(request: GenerateSuggestionsRequest) -> Response:
-    suggestions: list[Suggestion] = generate_suggestions(request)
-    response: GenerateSuggestionsResponse = {"results": suggestions}
+    response: GenerateSuggestionsResponse = generate_suggestions(request)
 
     return Response(
         response=json.dumps(response),
