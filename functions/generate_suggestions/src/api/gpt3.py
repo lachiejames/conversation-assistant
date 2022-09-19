@@ -37,7 +37,6 @@ def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[
         frequency_penalty=gpt3_params["frequency_penalty"],
         presence_penalty=gpt3_params["presence_penalty"],
         stop=stop_indicator,
-        user=uid,
     )
 
     validate_completion_response(response)
