@@ -107,6 +107,9 @@
           },
           "presence_penalty": {
             "type": "number"
+          },
+          "user": {
+            "type": "string"
           }
         }
       }
