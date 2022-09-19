@@ -41,7 +41,6 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
             "best_of": 1,
             "frequency_penalty": 1.0,
             "presence_penalty": 1.0,
-            "user": "abc123",
         },
     },
 }

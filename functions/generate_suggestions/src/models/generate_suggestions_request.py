@@ -34,7 +34,6 @@ GPT3Params = TypedDict(
         "best_of": int,
         "frequency_penalty": float,
         "presence_penalty": float,
-        "user": str,
     },
 )
 
