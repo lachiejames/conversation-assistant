@@ -23,17 +23,19 @@ def respond_with_200(request: GenerateSuggestionsRequest) -> Response:
     )
 
 
-def respond_with_400(error: Exception) -> Response:
+def respond_with_400(e: Exception) -> Response:
+    print(f"400 - {e}")
     return Response(
-        response=str(error),
+        response=str(e),
         status=400,
         headers=HEADERS,
     )
 
 
-def respond_with_500(error: Exception) -> Response:
+def respond_with_500(e: Exception) -> Response:
+    print(f"500 - {e}")
     return Response(
-        response=str(error),
+        response=str(e),
         status=500,
         headers=HEADERS,
     )
@@ -49,10 +51,10 @@ def run_generate_suggestions(request_body: Union[Any, None]) -> Response:
             request_body = cast(GenerateSuggestionsRequest, request_body)
             return respond_with_200(request_body)
 
-        except (ValueError, ValidationError) as error:
-            return respond_with_400(error)
+        except (ValueError, ValidationError) as e:
+            return respond_with_400(e)
 
     # Used to catch any exception that is not caught by the above try block
     # pylint: disable=broad-except
-    except Exception as error:
-        return respond_with_500(error)
+    except Exception as e:
+        return respond_with_500(e)
