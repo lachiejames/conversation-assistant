@@ -1,6 +1,6 @@
 [packages]
 Jinja2 = "==3.1.2"
-PyAudio = "==0.2.12"
+# PyAudio = "==0.2.12"
 functions-framework = "==3.1.0"
 google-cloud-speech = "==2.15.1"
 google-cloud-translate = "==2.0.1"
