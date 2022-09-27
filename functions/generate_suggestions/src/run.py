@@ -7,7 +7,6 @@ from jsonschema import ValidationError
 from .api import generate_suggestions
 from .models import GenerateSuggestionsRequest, GenerateSuggestionsResponse
 from .utils import validate_request
-from .transcribe import *
 
 HEADERS = {
     "Content-Type": "application/json",
