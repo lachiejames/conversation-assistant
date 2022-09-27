@@ -174,5 +174,5 @@ def main():
         listen_print_loop(responses)
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
