@@ -105,6 +105,12 @@ def listen_print_loop(responses):
         # the first result being considered, since once it's `is_final`, it
         # moves on to considering the next utterance.
         result = response.results[0]
+        if result.alternatives[0].words:
+            words_info = result.alternatives[0].words
+            # Printing out the output:
+            for word_info in words_info:
+                print(f"Speaker {word_info.speaker_tag}: {word_info.word}")
+
         if not result.alternatives:
             continue
 
@@ -125,7 +131,7 @@ def listen_print_loop(responses):
             num_chars_printed = len(transcript)
 
         else:
-            print(transcript + overwrite_chars)
+            # print(transcript + overwrite_chars)
 
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.
