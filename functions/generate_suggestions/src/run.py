@@ -7,9 +7,10 @@ from jsonschema import ValidationError
 from .api import generate_suggestions
 from .models import GenerateSuggestionsRequest, GenerateSuggestionsResponse
 from .utils import validate_request
-from .stream_identify import main
+from .stream_identify import stream_audio
 HEADERS = {
-    "Content-Type": "application/json",
+    "Content-Type": "application/text",
+    "Transfer-Encoding": "chunked"
 }
 
 
@@ -42,8 +43,8 @@ def respond_with_500(e: Exception) -> Response:
 
 
 # request_body typed as 'Any' until after validate_request(request_body)
-def run_generate_suggestions(request_body: Union[Any, None]) -> Response:
-    main()
+def run_generate_suggestions(request) -> Response:
+    stream_audio(request)
     # try:
     #     try:
     #         validate_request(request_body)

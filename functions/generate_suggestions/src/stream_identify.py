@@ -176,3 +176,37 @@ def main():
 
 # if __name__ == "__main__":
 #     main()
+
+def stream_audio(request):
+    language_code = "en-US"
+
+    client = speech.SpeechClient()
+
+    diarization_config = speech.SpeakerDiarizationConfig(
+        enable_speaker_diarization=True,
+        min_speaker_count=2,
+        max_speaker_count=10,
+    )
+
+    config = speech.RecognitionConfig(
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        sample_rate_hertz=RATE,
+        language_code=language_code,
+        diarization_config=diarization_config,
+    )
+
+    streaming_config = speech.StreamingRecognitionConfig(config=config, interim_results=True)
+    # requests = [speech.StreamingRecognizeRequest(audio_content=request.data)]
+
+    # responses = client.streaming_recognize(streaming_config, requests)
+
+    # listen_print_loop(responses)
+
+    with MicrophoneStream(RATE, CHUNK) as stream:
+        audio_generator = stream.generator()
+        requests = (speech.StreamingRecognizeRequest(audio_content=content) for content in audio_generator)
+
+        responses = client.streaming_recognize(streaming_config, requests)
+
+        # Now, put the transcription responses to use.
+        listen_print_loop(responses)

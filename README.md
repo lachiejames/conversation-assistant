@@ -34,5 +34,11 @@ So maybe I need a separate cloud function that:
 
 Ooh this page shows a working example of streaming with GCP speech to text directly from Android
 https://medium.com/@srinathsingh007/android-speech-to-text-using-google-cloud-api-58a89fa1bfaa
+Ah nevermind it doesn't actually work lol, and there's no github.
 
 Do I actually need the backend thing here?  I reckon it will be much more performant to do it from the Android device.  I'm going to try out this guys solution and see where that gets me.
+
+Let's try something simpler.  Let's aim to set up a streaming connection from android to local flask.  What do we need?
+
+- Okhttp stream - https://square.github.io/okhttp/recipes/#post-streaming-kt-java
+- flask running
