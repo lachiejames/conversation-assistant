@@ -142,22 +142,25 @@ def main():
     language_code = "en-US"  # a BCP-47 language tag
 
     client = speech.SpeechClient()
+
+    diarization_config = speech.SpeakerDiarizationConfig(
+        enable_speaker_diarization=True,
+        min_speaker_count=2,
+        max_speaker_count=10,
+    )
+
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=RATE,
         language_code=language_code,
+        diarization_config=diarization_config,
     )
 
-    streaming_config = speech.StreamingRecognitionConfig(
-        config=config, interim_results=True
-    )
+    streaming_config = speech.StreamingRecognitionConfig(config=config, interim_results=True)
 
     with MicrophoneStream(RATE, CHUNK) as stream:
         audio_generator = stream.generator()
-        requests = (
-            speech.StreamingRecognizeRequest(audio_content=content)
-            for content in audio_generator
-        )
+        requests = (speech.StreamingRecognizeRequest(audio_content=content) for content in audio_generator)
 
         responses = client.streaming_recognize(streaming_config, requests)
 
