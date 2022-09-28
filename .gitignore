@@ -27,3 +27,5 @@ gcp-credentials*.json
 *.tfstate
 *.tfstate.*
 .terraform.lock.hcl
+
+node_modules
