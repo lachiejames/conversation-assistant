@@ -1,6 +1,6 @@
 import os
 from scipy.io import wavfile
-from google.cloud.speech import RecognitionConfig, RecognitionAudio, SpeechClient
+from google.cloud.speech import RecognitionConfig, RecognitionAudio, SpeechClient, SpeakerDiarizationConfig
 import json
 from typing import Any, Union
 
@@ -31,6 +31,13 @@ def transcribe_input(input: str) -> str:
         encoding=RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=DEFAULT_SAMPLE_RATE,
         language_code=DEFAULT_LANG,
+        enable_automatic_punctuation=True,
+        enable_spoken_emojis=True,
+        diarization_config=SpeakerDiarizationConfig(
+            enable_speaker_diarization=True,
+            min_speaker_count=2,
+            max_speaker_count=2,
+        ),
     )
     response = client.recognize(config=config, audio=audio)
 
