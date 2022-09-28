@@ -7,10 +7,9 @@ from jsonschema import ValidationError
 from .api import generate_suggestions
 from .models import GenerateSuggestionsRequest, GenerateSuggestionsResponse
 from .utils import validate_request
-from .stream_identify import stream_audio
+
 HEADERS = {
-    "Content-Type": "application/text",
-    "Transfer-Encoding": "chunked"
+    "Content-Type": "application/json",
 }
 
 
@@ -43,20 +42,19 @@ def respond_with_500(e: Exception) -> Response:
 
 
 # request_body typed as 'Any' until after validate_request(request_body)
-def run_generate_suggestions(request) -> Response:
-    stream_audio(request)
-    # try:
-    #     try:
-    #         validate_request(request_body)
+def run_generate_suggestions(request_body: Union[Any, None]) -> Response:
+    try:
+        try:
+            validate_request(request_body)
 
-    #         # If we reach this point, the request must be of type 'GenerateSuggestionsRequest'
-    #         request_body = cast(GenerateSuggestionsRequest, request_body)
-    #         return respond_with_200(request_body)
+            # If we reach this point, the request must be of type 'GenerateSuggestionsRequest'
+            request_body = cast(GenerateSuggestionsRequest, request_body)
+            return respond_with_200(request_body)
 
-    #     except (ValueError, ValidationError) as e:
-    #         return respond_with_400(e)
+        except (ValueError, ValidationError) as e:
+            return respond_with_400(e)
 
-    # # Used to catch any exception that is not caught by the above try block
-    # # pylint: disable=broad-except
-    # except Exception as e:
-    #     return respond_with_500(e)
+    # Used to catch any exception that is not caught by the above try block
+    # pylint: disable=broad-except
+    except Exception as e:
+        return respond_with_500(e)

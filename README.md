@@ -48,3 +48,7 @@ Okay that's done, I can now have 2-way audio streaming between the browser and f
 Now how can we do the same with Android?
 
 Or maybe we should see how to return something from the endpoint first...
+
+Maybe I'll be better off just recording an audio file on Android and uploading that for now?
+
+If I'm doing that I may as well set up that lambda now.
