@@ -1,4 +1,4 @@
-# Function: generate_suggestions
+# Function: run_transcribe
 
 Generates message suggestions for a user to respond with based upon their conversation history, and some context parameters.
 
@@ -92,7 +92,7 @@ You can deploy the function locally with `flask` by running:
 pipenv run start
 ```
 
-Then use `Postman` to make a POST request to `http://localhost:8081/`. Your request body must be JSON that matches the schema in `schemas/generate_suggestions_request.json`. Sample request bodies can be found in `e2e/mock_requests`.
+Then use `Postman` to make a POST request to `http://localhost:8081/`. Your request body must be JSON that matches the schema in `schemas/transcribe_request.json`. Sample request bodies can be found in `e2e/mock_requests`.
 
 ## VSCode settings
 
@@ -118,7 +118,7 @@ To debug tests locally with [Test Explorer](littlefoxteam.vscode-python-test-ada
 
 ```
 {
-  "python.testing.pytestArgs": ["generate_suggestions", "e2e"],
+  "python.testing.pytestArgs": ["transcribe", "e2e"],
   "python.testing.pytestEnabled": true,
   "python.formatting.provider": "black",
 }
