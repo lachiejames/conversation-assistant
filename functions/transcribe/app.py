@@ -5,6 +5,6 @@ import main
 app = flask.Flask(__name__)
 
 
-@app.route("/generate-suggestions-function", methods=["POST"])
-def generate() -> flask.Response:
+@app.route("/transcribe-function", methods=["POST"])
+def transcribe() -> flask.Response:
     return main.transcribe(flask.request)

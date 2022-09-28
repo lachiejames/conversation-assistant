@@ -8,5 +8,4 @@ from src import run_transcribe
 
 @functions_framework.http
 def transcribe(request: Request) -> Response:
-    request_body: Union[Any, None] = request.get_json(silent=True)
-    return run_transcribe(request_body)
+    return run_transcribe(request.data)
