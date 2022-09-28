@@ -1,5 +1,3 @@
-from typing import Any, Union
-
 import functions_framework
 from flask import Request, Response
 

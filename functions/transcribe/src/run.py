@@ -1,61 +1,44 @@
-import os
-from scipy.io import wavfile
-from google.cloud.speech import RecognitionConfig, RecognitionAudio, SpeechClient, SpeakerDiarizationConfig
 import json
-from typing import Any, Union
+from typing import Any, Union, cast
 
 from flask import Response
 
-DEFAULT_SAMPLE_RATE = 44100
-DEFAULT_LANG = "en-US"
+from .models import TranscribeRequest, TranscribeResponse
+from .transcribe import transcribe_data
+
+HEADERS = {
+    "Content-Type": "application/json",
+}
 
 
-def run_transcribe(request_body: Union[Any, None]) -> Response:
+def respond_with_200(audio_data: str) -> Response:
+    response: TranscribeResponse = transcribe_data(audio_data)
+
     return Response(
+        response=json.dumps(response),
         status=200,
-        headers={
-            "Content-Type": "application/json",
-        },
-        response=json.dumps(
-            {
-                "body": transcribe_input(request_body),
-            }
-        ),
+        headers=HEADERS,
     )
 
 
-def transcribe_input(input: str) -> str:
-    client = SpeechClient()
-    audio = RecognitionAudio(content=input)
-    config = RecognitionConfig(
-        encoding=RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=DEFAULT_SAMPLE_RATE,
-        language_code=DEFAULT_LANG,
-        enable_automatic_punctuation=True,
-        enable_spoken_emojis=True,
-        diarization_config=SpeakerDiarizationConfig(
-            enable_speaker_diarization=True,
-            min_speaker_count=2,
-            max_speaker_count=2,
-        ),
+def respond_with_500(e: Exception) -> Response:
+    print(f"500 - {e}")
+    return Response(
+        response=str(e),
+        status=500,
+        headers=HEADERS,
     )
-    response = client.recognize(config=config, audio=audio)
-
-    return response.results[0].alternatives[0].transcript
 
 
-def transcribe_file(speech_file: str) -> str:
-    samplerate, _ = wavfile.read(speech_file)
-    client = SpeechClient()
-    with open(speech_file, "rb") as audio_file:
-        content = audio_file.read()
+# request_body typed as 'Any' until after validate_request(request_body)
+def run_transcribe(request_body: Union[Any, None]) -> Response:
+    try:
+        # TODO: add validation
 
-    audio = RecognitionAudio(content=content)
-    config = RecognitionConfig(
-        encoding=RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=samplerate,
-        language_code=DEFAULT_LANG,
-    )
-    response = client.recognize(config=config, audio=audio)
+        request_body = cast(TranscribeRequest, request_body)
+        return respond_with_200(request_body)
 
-    return response.results[0].alternatives[0].transcript
+    # Used to catch any exception that is not caught by the above try block
+    # pylint: disable=broad-except
+    except Exception as e:
+        return respond_with_500(e)
