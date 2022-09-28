@@ -42,3 +42,9 @@ Let's try something simpler.  Let's aim to set up a streaming connection from an
 
 - Okhttp stream - https://square.github.io/okhttp/recipes/#post-streaming-kt-java
 - flask running
+
+Okay that's done, I can now have 2-way audio streaming between the browser and flask
+
+Now how can we do the same with Android?
+
+Or maybe we should see how to return something from the endpoint first...
