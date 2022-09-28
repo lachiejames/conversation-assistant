@@ -196,17 +196,17 @@ def stream_audio(request):
     )
 
     streaming_config = speech.StreamingRecognitionConfig(config=config, interim_results=True)
-    # requests = [speech.StreamingRecognizeRequest(audio_content=request.data)]
+    requests = [speech.StreamingRecognizeRequest(audio_content=request.data)]
 
-    # responses = client.streaming_recognize(streaming_config, requests)
+    responses = client.streaming_recognize(streaming_config, requests)
 
-    # listen_print_loop(responses)
+    listen_print_loop(responses)
 
-    with MicrophoneStream(RATE, CHUNK) as stream:
-        audio_generator = stream.generator()
-        requests = (speech.StreamingRecognizeRequest(audio_content=content) for content in audio_generator)
+    # with MicrophoneStream(RATE, CHUNK) as stream:
+    #     audio_generator = stream.generator()
+    #     requests = (speech.StreamingRecognizeRequest(audio_content=content) for content in audio_generator)
 
-        responses = client.streaming_recognize(streaming_config, requests)
+    #     responses = client.streaming_recognize(streaming_config, requests)
 
-        # Now, put the transcription responses to use.
-        listen_print_loop(responses)
+    #     # Now, put the transcription responses to use.
+    #     listen_print_loop(responses)
