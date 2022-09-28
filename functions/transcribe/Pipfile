@@ -1,13 +1,8 @@
 [packages]
-Jinja2 = "==3.1.2"
-PyAudio = "==0.2.12"
 functions-framework = "==3.1.0"
-google-cloud-speech = "==2.15.1"
-google-cloud-translate = "==2.0.1"
 jsonschema = "==4.4.0"
 mypy = "==0.950"
 numpy = "==1.22.3"
-openai = "==0.18.1"
 scipy = "==1.9.1"
 six = "==1.16.0"
 
