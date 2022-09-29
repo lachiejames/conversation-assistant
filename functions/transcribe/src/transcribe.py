@@ -1,8 +1,12 @@
+from typing import cast
 from google.cloud.speech import (
     RecognitionAudio,
     RecognitionConfig,
     SpeakerDiarizationConfig,
     SpeechClient,
+    RecognizeResponse,
+    WordInfo,
+    SpeechRecognitionAlternative,
 )
 from scipy.io import wavfile
 
@@ -27,17 +31,22 @@ def transcribe_data(audio_data: str) -> TranscribeResponse:
             max_speaker_count=2,
         ),
     )
-    response = client.recognize(config=config, audio=audio)
+    response: RecognizeResponse = client.recognize(config=config, audio=audio)
 
     messages: list[Message] = []
-    for result in response.results:
-        for alternative in result.alternatives:
-            messages.append(
-                {
-                    "text": alternative.transcript,
-                    "is_my_message": alternative.words[0].speaker_tag == 0,
-                },
-            )
+
+    # First is usually the best
+    best_result: SpeechRecognitionAlternative = response.results[0].alternatives[0]
+    words: list[WordInfo] = cast(WordInfo, best_result.words)
+    for word in words:
+        author = "me" if word.speaker_tag == 0 else "them"
+        print(f"{author}: {word.word}")
+        # messages.append(
+        #     {
+        #         "text": " ".join([word.word for word in alternative.words]),
+        #         "is_my_message": alternative.words[0].speaker_tag == 0,
+        #     },
+        # )
 
     return {"messages": messages}
 
