@@ -16,6 +16,14 @@ DEFAULT_SAMPLE_RATE = 44100
 DEFAULT_LANG = "en-US"
 
 
+def is_my_word(word: WordInfo) -> bool:
+    return word.speaker_tag == 0
+
+
+def get_author(word: WordInfo) -> str:
+    return "me" if is_my_word(word) else "them"
+
+
 def transcribe_data(audio_data: str) -> TranscribeResponse:
     client = SpeechClient()
     audio = RecognitionAudio(content=audio_data)
@@ -38,15 +46,30 @@ def transcribe_data(audio_data: str) -> TranscribeResponse:
     # First is usually the best
     best_result: SpeechRecognitionAlternative = response.results[0].alternatives[0]
     words: list[WordInfo] = cast(WordInfo, best_result.words)
+
+    my_message = ""
+    their_message = ""
+
+    last_speaker = None
     for word in words:
-        author = "me" if word.speaker_tag == 0 else "them"
-        print(f"{author}: {word.word}")
-        # messages.append(
-        #     {
-        #         "text": " ".join([word.word for word in alternative.words]),
-        #         "is_my_message": alternative.words[0].speaker_tag == 0,
-        #     },
-        # )
+        is_final_word = len(words) == words.index(word)+1
+        print(f"len(words)={len(words)}  words.index(word)={words.index(word)}")
+        current_speaker = word.speaker_tag
+        should_add_message = is_final_word or (last_speaker != None and last_speaker != current_speaker)
+        if should_add_message:
+            messages.append(
+                {
+                    "text": my_message if (last_speaker == 0) else their_message,
+                    "is_my_message": is_my_word(word),
+                },
+            )
+
+        if is_my_word(word):
+            my_message += f"{word.word} "
+        else:
+            their_message += f"{word.word} "
+
+        last_speaker = word.speaker_tag
 
     return {"messages": messages}
 
