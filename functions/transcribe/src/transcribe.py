@@ -24,6 +24,12 @@ def get_author(word: WordInfo) -> str:
     return "me" if is_my_word(word) else "them"
 
 
+def is_end_of_message(last_speaker, current_speaker, num_words, word_index) -> bool:
+    is_final_word = num_words == word_index + 1
+    is_new_speaker = last_speaker != current_speaker and last_speaker != None and current_speaker != None
+    return is_final_word or is_new_speaker
+
+
 def transcribe_data(audio_data: str) -> TranscribeResponse:
     client = SpeechClient()
     audio = RecognitionAudio(content=audio_data)
@@ -45,31 +51,37 @@ def transcribe_data(audio_data: str) -> TranscribeResponse:
 
     # First is usually the best
     best_result: SpeechRecognitionAlternative = response.results[0].alternatives[0]
-    words: list[WordInfo] = cast(WordInfo, best_result.words)
+    words: list[WordInfo] = best_result.words
 
     my_message = ""
     their_message = ""
-
     last_speaker = None
-    for word in words:
-        is_final_word = len(words) == words.index(word)+1
-        print(f"len(words)={len(words)}  words.index(word)={words.index(word)}")
-        current_speaker = word.speaker_tag
-        should_add_message = is_final_word or (last_speaker != None and last_speaker != current_speaker)
-        if should_add_message:
+    current_speaker = None
+
+    for i in range(len(words)):
+        current_speaker = words[i].speaker_tag
+
+        if is_my_word(words[i]):
+            my_message += f"{words[i].word} "
+        else:
+            their_message += f"{words[i].word} "
+
+        print("{}: {}".format(get_author(words[i]), words[i].word))
+        if is_end_of_message(
+            last_speaker=last_speaker,
+            current_speaker=current_speaker,
+            num_words=len(words),
+            word_index=i,
+        ):
+            text = their_message if (last_speaker == 1) else my_message
             messages.append(
                 {
-                    "text": my_message if (last_speaker == 0) else their_message,
-                    "is_my_message": is_my_word(word),
+                    "text": text.strip(),
+                    "is_my_message": is_my_word(words[i]),
                 },
             )
 
-        if is_my_word(word):
-            my_message += f"{word.word} "
-        else:
-            their_message += f"{word.word} "
-
-        last_speaker = word.speaker_tag
+        last_speaker = words[i].speaker_tag
 
     return {"messages": messages}
 
