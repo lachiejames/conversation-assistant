@@ -5,6 +5,9 @@ from openai import Completion
 from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, GPT3Params
 from ..utils import is_not_empty, validate_completion_response
 
+# Current limit on davinci-v2 requests
+GPT3_MAX_TOKENS = 4000
+
 
 def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
     """Prevents GPT3 from returning a full conversation instead of just 1 message"""
@@ -23,6 +26,11 @@ def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
     return ["Me:", "Them:"]
 
 
+def calculate_max_tokens(prompt: str) -> int:
+    """Maximises the potential length of suggestions and input messages"""
+    return GPT3_MAX_TOKENS - len(prompt)
+
+
 def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[str], uid: str) -> GPT3CompletionResponse:
     """Depends on OPENAI_API_KEY environment variable"""
 
@@ -32,7 +40,7 @@ def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[
         api_key=os.getenv("OPENAI_API_KEY"),
         temperature=gpt3_params["temperature"],
         n=gpt3_params["n"],
-        max_tokens=gpt3_params["max_tokens"],
+        max_tokens=calculate_max_tokens(prompt),
         best_of=gpt3_params["best_of"],
         frequency_penalty=gpt3_params["frequency_penalty"],
         presence_penalty=gpt3_params["presence_penalty"],
