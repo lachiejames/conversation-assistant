@@ -7,7 +7,7 @@ resource "google_storage_bucket" "bucket" {
 data "archive_file" "source" {
   type        = "zip"
   source_dir  = "../functions/generate_suggestions"
-  output_path = "/tmp/function.zip"
+  output_path = "generate_suggestions.zip"
 }
 
 resource "google_storage_bucket_object" "object" {
