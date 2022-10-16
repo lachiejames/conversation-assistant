@@ -11,7 +11,7 @@ env:
 
 jobs:
   backup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: GCP Auth
         uses: google-github-actions/auth@v0
