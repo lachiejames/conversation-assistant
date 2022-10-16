@@ -16,7 +16,7 @@ env:
 
 jobs:
   deploy:
-    runs-on: macos-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 20
     steps:
       - name: checkout
