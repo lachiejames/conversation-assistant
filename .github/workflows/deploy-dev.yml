@@ -2,7 +2,7 @@ name: Deploy to Dev
 
 on:
   push:
-    branches: [master, fix/fix-terraform]
+    branches: [master]
   workflow_dispatch:
 
 env:
@@ -41,7 +41,7 @@ jobs:
       - name: Set Python Version
         uses: actions/setup-python@v4
         with:
-          python-version: "3.9.13"
+          python-version: "3.9"
 
       - name: Install Pipenv
         working-directory: ${{ env.PATH_TO_FUNCTION }}
@@ -55,11 +55,6 @@ jobs:
       - name: Export requirements.txt
         working-directory: ${{ env.PATH_TO_FUNCTION }}
         run: pipenv run export-requirements > requirements.txt
-
-      - name: Terraform install
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.2.5
 
       - name: Terraform setup
         working-directory: ${{ env.PATH_TO_INFRA }}
