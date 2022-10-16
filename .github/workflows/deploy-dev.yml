@@ -45,7 +45,7 @@ jobs:
 
       - name: Install Pipenv
         working-directory: ${{ env.PATH_TO_FUNCTION }}
-        run: pip3 install pipenv
+        run: pip3 install pipenv==2022.9.8
 
       - name: Install Dependencies
         working-directory: ${{ env.PATH_TO_FUNCTION }}
