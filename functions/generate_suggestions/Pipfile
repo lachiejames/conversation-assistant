@@ -31,4 +31,4 @@ test = "python -m pytest src --cov=./src --cov-fail-under=90 --cov-branch --cov-
 teste2e = "python -m pytest e2e"
 
 [requires]
-python_version = "3.9.11"
+python_version = "3.9.13"
