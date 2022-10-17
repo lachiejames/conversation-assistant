@@ -8,3 +8,9 @@ resource "google_storage_bucket_object" "simple_gmail" {
   source = "../assets/generate_suggestions/advanced-gmail.gif"
   bucket = google_storage_bucket.bucket_android_assets.name
 }
+
+resource "google_storage_default_object_access_control" "public" {
+  bucket = google_storage_bucket.bucket_android_assets.name
+  role   = "READER"
+  entity = "allUsers"
+}
