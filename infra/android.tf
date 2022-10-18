@@ -3,15 +3,10 @@ resource "google_storage_bucket" "bucket_android_assets" {
   location = "US"
 }
 
-resource "google_storage_default_object_access_control" "public" {
+resource "google_storage_bucket_iam_binding" "binding" {
   bucket = google_storage_bucket.bucket_android_assets.name
-  role   = "READER"
-  entity = "allUsers"
-}
-
-resource "google_storage_bucket_iam_policy" "policy" {
-  bucket      = google_storage_bucket.default.name
-  policy_data = data.google_iam_policy.admin.policy_data
+  role    = "roles/storage.objectViewer"
+  members = "allUsers"
 }
 
 # TODO: Figure out how to convert all of this to a for loop
