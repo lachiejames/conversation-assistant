@@ -4,9 +4,9 @@ resource "google_storage_bucket" "bucket_android_assets" {
 }
 
 resource "google_storage_bucket_iam_binding" "binding" {
-  bucket = google_storage_bucket.bucket_android_assets.name
+  bucket  = google_storage_bucket.bucket_android_assets.name
   role    = "roles/storage.objectViewer"
-  members = "allUsers"
+  members = ["allUsers"]
 }
 
 # TODO: Figure out how to convert all of this to a for loop
