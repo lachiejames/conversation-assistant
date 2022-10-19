@@ -11,19 +11,28 @@ resource "google_storage_bucket_iam_binding" "binding" {
 
 # TODO: Figure out how to convert all of this to a for loop
 
-data "archive_file" "android_assets" {
-  type        = "zip"
-  source_dir  = "../assets/generate_suggestions"
-  output_path = "/tmp/android_assets.zip"
-}
+# data "archive_file" "android_assets" {
+#   type        = "zip"
+#   source_dir  = "../assets/generate_suggestions"
+#   output_path = "/tmp/android_assets.zip"
+# }
+
+# resource "google_storage_bucket_object" "android_assets" {
+#   # Forces function redeployment whenever `terraform apply` runs, ensuring it uses the latest code
+#   name = "android_assets.${data.archive_file.android_assets.output_md5}.zip"
+
+#   content_type = "application/zip"
+#   source       = data.archive_file.android_assets.output_path
+#   bucket       = google_storage_bucket.bucket_android_assets.name
+# }
+
 
 resource "google_storage_bucket_object" "android_assets" {
-  # Forces function redeployment whenever `terraform apply` runs, ensuring it uses the latest code
-  name = "android_assets.${data.archive_file.android_assets.output_md5}.zip"
-
-  content_type = "application/zip"
-  source       = data.archive_file.android_assets.output_path
-  bucket       = google_storage_bucket.bucket_android_assets.name
+  for_each = fileset("../assets/generate_suggestions/", "*")
+  bucket   = google_storage_bucket.bucket_android_assets.name
+  key      = each.value
+  source   = "../assets/generate_suggestions/${each.value}"
+  etag     = filemd5("../assets/generate_suggestions/${each.value}")
 }
 
 # resource "google_storage_bucket_object" "simple_gmail" {
