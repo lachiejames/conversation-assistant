@@ -29,10 +29,9 @@ resource "google_storage_bucket_iam_binding" "binding" {
 
 resource "google_storage_bucket_object" "android_assets" {
   for_each = fileset("../assets/generate_suggestions/", "*")
+  name      = each.value
   bucket   = google_storage_bucket.bucket_android_assets.name
-  key      = each.value
   source   = "../assets/generate_suggestions/${each.value}"
-  etag     = filemd5("../assets/generate_suggestions/${each.value}")
 }
 
 # resource "google_storage_bucket_object" "simple_gmail" {
