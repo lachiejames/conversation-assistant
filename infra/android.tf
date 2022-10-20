@@ -9,10 +9,13 @@ resource "google_storage_bucket_iam_binding" "binding" {
   members = ["allUsers"]
 }
 
-resource "google_storage_bucket_object" "android_assets" {
-  for_each = fileset("${path.module}/../assets/generate_suggestions", "*.gif")
+# For some reason these files are corrupted upon deployment, and instead of a gif I get a 132 byte text file
+# So for now, I'll just upload the files manually
+# resource "google_storage_bucket_object" "android_assets" {
+#   for_each = fileset("${path.module}/../assets/generate_suggestions", "*.gif")
 
-  name   = "generate_suggestions/${each.key}"
-  source = "${path.module}/../assets/generate_suggestions/${each.key}"
-  bucket = google_storage_bucket.bucket_android_assets.name
-}
+#   name   = "generate_suggestions/${each.key}"
+#   content_type = "image/gif"
+#   source = "${path.module}/../assets/generate_suggestions/${each.key}"
+#   bucket = google_storage_bucket.bucket_android_assets.name
+# }
