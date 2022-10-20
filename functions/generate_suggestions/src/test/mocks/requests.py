@@ -32,6 +32,7 @@ MOCK_REQUEST: GenerateSuggestionsRequest = {
             "their_name": "Stacey",
             "their_relationship_to_me": "Friend",
             "tone_of_chat": "Casual",
+            "message_to_rephrase": "Well hot diggity dog!",
         },
         "gpt3_params": {
             "engine": "text-davinci-002",
