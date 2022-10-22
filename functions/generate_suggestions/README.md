@@ -123,3 +123,64 @@ To debug tests locally with [Test Explorer](littlefoxteam.vscode-python-test-ada
   "python.formatting.provider": "black",
 }
 ```
+
+# AaAaAa
+
+I'm thinking of 2 different things.
+
+1. An extra fine-tune option for saying what key points need to be addressed in the message
+
+2. An extra panel for rephrasing a message, which doesn't involve adding previous messages
+
+But do I need 2 different screens for this?
+
+Things to consider:
+
+- How likely are each of these things to be used?
+
+  - A fine-tune option seems important because the suggestions don't know what the answer is going to be.  E.g. if the messages say "hey bro, wanna come out?" the suggestions will randomly say yes/no/other, which is annoying because you have to just cycle through them until you get something remotely similar to what you want.  So yes this seems important.
+
+  - A panel seems useful too because you don't always want to add a bunch of messages to get a suggestion for what to say.  E.g. 'hey what's up' along with 'friends', 'flirty' could be rephrased as 'hey gorgeous'
+
+So it seems like both of these things are useful.  But should they exist as 2 separate things?
+
+I'm thinking they shouldn't because it's just an extra fine-tuning step when generating a suggestion really.  It's useful to be able to rephrase something without adding messages though, and you often won't have to if it's like that example before.
+
+So what's the outcome?
+
+These 2 things should be combined as 1
+
+But how should it be implemented?
+
+# solution 1 - Extra fine-tuning input
+
+Same number of panels, fine-tuning panel has an extra input called 'message to rephrase'
+
+You still generate a suggestion as normal
+
+This seems like the easiest way to implement, but it's going to be a bit confusing.  How do people understand that there is an extra rephrase capability for this app?
+
+Should there be a button next to this text box so that it can generate a rephrase using the inputs on the fine-tuning page?
+
+Should I have an extra set of tutorials for rephrasing?
+
+# solution 2 - Extra panel
+
+Rephrase panel has a 'message to rephrase' input.  But shouldn't the fine-tuning inputs be here as well?  I don't want to have to duplicate them.
+
+# Solution 3 - Extra suggestion button
+
+There could be a rephrase button in addition to the generate suggestions button
+
+Should there be a CTA on one of these pages that enables rephrase capabilities?  argh, I need a coffee and a cone.
+
+## I'm thinking option 1
+
+Message to rephrase is another input on the fine-tune window
+
+There are no extra buttons
+
+When message to rephrase is populated, it shows up as the last 'my message' on the message list
+
+It has to look different somehow, so that it's obvious that it's going to be rephrased.
+
