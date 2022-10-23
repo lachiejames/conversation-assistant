@@ -200,10 +200,7 @@ Chad Johnson:"""
     assert prompt == expected_prompt
 
 
-
-
-
-def test_construct_prompt__when_no_profile_params_given__then_return_omit_extras() -> None:
+def test_construct_prompt__when_no_profile_params_given__then_omit_extras() -> None:
     request = EMPTY_REQUEST_WITH_NAMES.copy()
     request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
     request["settings"]["conversation_params"]["tone_of_chat"] = "Serious"
@@ -240,8 +237,7 @@ Chad Johnson:"""
     assert prompt == expected_prompt
 
 
-
-def test_construct_prompt__when_no_profile_params_or_names_given__then_return_omit_extras_and_names() -> None:
+def test_construct_prompt__when_no_profile_params_or_names_given__then_omit_extras_and_names() -> None:
     request = EMPTY_REQUEST.copy()
     request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
     request["settings"]["conversation_params"]["tone_of_chat"] = "Serious"
@@ -278,45 +274,10 @@ Me:"""
     assert prompt == expected_prompt
 
 
-
-
-
-def test_construct_prompt__when_no_names_and_messages_given__then_return_expected_string() -> None:
-    prompt = construct_prompt(MOCK_REQUEST_NO_NAMES, input_lang=DEFAULT_LANG)
-    expected_prompt = """The following is a Casual conversation that I had with my Friend.
-I am 27 years old.
-My pronouns are he/him.
-I live in Camberwell, Victoria, Australia.
-My occupation is Software Engineer.
-My hobbies include coding, hanging out with my dog.
-People describe me as a cool guy who always knows the right thing to say.
-
-Friend: Hey Chad!
-
-Me: What's crackin babydoll
-
-Friend: I think I'm pregnant...
-
-Me:"""
-    assert prompt == expected_prompt
-
-
-def test_construct_prompt__when_no_names_and_no_messages_given__then_return_expected_string() -> None:
-    prompt = construct_prompt(MOCK_REQUEST_NO_NAMES_NO_MESSAGES, input_lang=DEFAULT_LANG)
-    expected_prompt = """The following is a Casual conversation that I had with my Friend.
-I am 27 years old.
-My pronouns are he/him.
-I live in Camberwell, Victoria, Australia.
-My occupation is Software Engineer.
-My hobbies include coding, hanging out with my dog.
-People describe me as a cool guy who always knows the right thing to say.
-
-Me:"""
-    assert prompt == expected_prompt
-
-
 def test_construct_prompt__when_nothing_given__then_return_expected_string() -> None:
-    prompt = construct_prompt(MOCK_REQUEST_NOTHING, input_lang=DEFAULT_LANG)
+    request = EMPTY_REQUEST.copy()
+
+    prompt = construct_prompt(request, input_lang=DEFAULT_LANG)
     expected_prompt = """The following is a conversation that I had.
 
 Me:"""
@@ -324,12 +285,37 @@ Me:"""
 
 
 @patch("src.prompt.main.translate_text")
-def test_construct_prompt__when_names_and_messages_given_and_lang_not_english__then_translate_intro_and_extra(
+def test_construct_prompt__when_all_params_given_and_lang_not_english__then_translate_intro_and_extra(
     translate_text_spy: MagicMock,
 ) -> None:
+    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request["settings"]["profile_params"]["age"] = "27"
+    request["settings"]["profile_params"]["pronouns"] = "he/him"
+    request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
+    request["settings"]["profile_params"]["occupation"] = "Software Engineer"
+    request["settings"]["profile_params"]["hobbies"] = "coding, hanging out with my dog"
+    request["settings"]["profile_params"]["self_description"] = "a cool guy who always knows the right thing to say"
+    request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
+    request["settings"]["conversation_params"]["tone_of_chat"] = "Serious"
+    request["settings"]["conversation_params"]["message_to_rephrase"] = "Damn that's crazy"
+    request["previous_messages"] = [
+        {
+            "text": "Hey Chad!",
+            "is_my_message": False,
+        },
+        {
+            "text": "What's crackin babydoll",
+            "is_my_message": True,
+        },
+        {
+            "text": "I think I'm pregnant...",
+            "is_my_message": False,
+        },
+    ]
+
     alt_lang = "it"
-    construct_prompt(MOCK_REQUEST, input_lang=alt_lang)
-    expected_translate_input = """The following is a Casual conversation between Chad Johnson and Stacey, who is Chad Johnson's Friend.
+    construct_prompt(request, input_lang=alt_lang)
+    expected_translate_input = """The following is a Serious conversation between Chad Johnson and Stacey, who is Chad Johnson's Friend.
 Chad Johnson is 27 years old.
 Chad Johnson's pronouns are he/him.
 Chad Johnson lives in Camberwell, Victoria, Australia.
@@ -341,12 +327,23 @@ People describe Chad Johnson as a cool guy who always knows the right thing to s
 
 
 @patch("src.prompt.main.translate_text")
-def test_construct_prompt__when_names_and_no_messages_given__then_translate_intro_and_extra(
+def test_construct_prompt__when_no_messages_given_and_lang_not_english__then_translate_intro_and_extra(
     translate_text_spy: MagicMock,
 ) -> None:
+    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request["settings"]["profile_params"]["age"] = "27"
+    request["settings"]["profile_params"]["pronouns"] = "he/him"
+    request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
+    request["settings"]["profile_params"]["occupation"] = "Software Engineer"
+    request["settings"]["profile_params"]["hobbies"] = "coding, hanging out with my dog"
+    request["settings"]["profile_params"]["self_description"] = "a cool guy who always knows the right thing to say"
+    request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
+    request["settings"]["conversation_params"]["tone_of_chat"] = "Serious"
+    request["settings"]["conversation_params"]["message_to_rephrase"] = "Damn that's crazy"
+
     alt_lang = "it"
-    construct_prompt(MOCK_REQUEST_NO_MESSAGES, input_lang=alt_lang)
-    expected_translate_input = """The following is a Casual conversation between Chad Johnson and Stacey, who is Chad Johnson's Friend.
+    construct_prompt(request, input_lang=alt_lang)
+    expected_translate_input = """The following is a Serious conversation between Chad Johnson and Stacey, who is Chad Johnson's Friend.
 Chad Johnson is 27 years old.
 Chad Johnson's pronouns are he/him.
 Chad Johnson lives in Camberwell, Victoria, Australia.
@@ -358,29 +355,23 @@ People describe Chad Johnson as a cool guy who always knows the right thing to s
 
 
 @patch("src.prompt.main.translate_text")
-def test_construct_prompt__when_no_names_and_messages_given__then_translate_intro_and_extra(
+def test_construct_prompt__when_no_messages_or_names_given_and_lang_not_english__then_translate_intro_and_extra(
     translate_text_spy: MagicMock,
 ) -> None:
-    alt_lang = "it"
-    construct_prompt(MOCK_REQUEST_NO_NAMES, input_lang=alt_lang)
-    expected_translate_input = """The following is a Casual conversation that I had with my Friend.
-I am 27 years old.
-My pronouns are he/him.
-I live in Camberwell, Victoria, Australia.
-My occupation is Software Engineer.
-My hobbies include coding, hanging out with my dog.
-People describe me as a cool guy who always knows the right thing to say.
-"""
-    translate_text_spy.assert_called_once_with(expected_translate_input, alt_lang)
+    request = EMPTY_REQUEST.copy()
+    request["settings"]["profile_params"]["age"] = "27"
+    request["settings"]["profile_params"]["pronouns"] = "he/him"
+    request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
+    request["settings"]["profile_params"]["occupation"] = "Software Engineer"
+    request["settings"]["profile_params"]["hobbies"] = "coding, hanging out with my dog"
+    request["settings"]["profile_params"]["self_description"] = "a cool guy who always knows the right thing to say"
+    request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
+    request["settings"]["conversation_params"]["tone_of_chat"] = "Serious"
+    request["settings"]["conversation_params"]["message_to_rephrase"] = "Damn that's crazy"
 
-
-@patch("src.prompt.main.translate_text")
-def test_construct_prompt__when_no_names_and_no_messages_given__then_translate_intro_and_extra(
-    translate_text_spy: MagicMock,
-) -> None:
     alt_lang = "it"
-    construct_prompt(MOCK_REQUEST_NO_NAMES_NO_MESSAGES, input_lang=alt_lang)
-    expected_translate_input = """The following is a Casual conversation that I had with my Friend.
+    construct_prompt(request, input_lang=alt_lang)
+    expected_translate_input = """The following is a Serious conversation that I had with my Friend.
 I am 27 years old.
 My pronouns are he/him.
 I live in Camberwell, Victoria, Australia.
@@ -395,8 +386,10 @@ People describe me as a cool guy who always knows the right thing to say.
 def test_construct_prompt__when_nothing_given__then_translate_intro_and_extra(
     translate_text_spy: MagicMock,
 ) -> None:
+    request = EMPTY_REQUEST.copy()
+
     alt_lang = "it"
-    construct_prompt(MOCK_REQUEST_NOTHING, input_lang=alt_lang)
+    construct_prompt(request, input_lang=alt_lang)
     expected_translate_input = """The following is a conversation that I had.
 """
     translate_text_spy.assert_called_once_with(expected_translate_input, alt_lang)
