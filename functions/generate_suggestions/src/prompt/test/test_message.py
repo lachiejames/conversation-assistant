@@ -1,9 +1,11 @@
+import copy
+
 from ...test.mocks import EMPTY_REQUEST, EMPTY_REQUEST_WITH_NAMES
 from ..message import render_message_template
 
 
 def test_render_message_template__when_names_and_relationship_and_messages_given__then_return_messages_with_names() -> None:
-    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
     request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
     request["previous_messages"] = [
         {
@@ -32,7 +34,7 @@ Stacey: I think I'm pregnant...
 
 
 def test_render_message_template__when_relationship_and_messages_but_no_names_given__then_return_messages_with_relationship() -> None:
-    request = EMPTY_REQUEST.copy()
+    request = copy.deepcopy(EMPTY_REQUEST)
     request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
     request["previous_messages"] = [
         {
@@ -61,7 +63,7 @@ Friend: I think I'm pregnant...
 
 
 def test_render_message_template__when_messages_but_no_names_no_relationship_given__then_return_messages_with_no_names() -> None:
-    request = EMPTY_REQUEST.copy()
+    request = copy.deepcopy(EMPTY_REQUEST)
     request["previous_messages"] = [
         {
             "text": "Hey Chad!",
@@ -89,7 +91,7 @@ Them: I think I'm pregnant...
 
 
 def test_render_message_template__when_names_and_relationship_but_no_messages_given__then_return_nothing() -> None:
-    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
     request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
 
     result = render_message_template(request)
@@ -98,7 +100,7 @@ def test_render_message_template__when_names_and_relationship_but_no_messages_gi
 
 
 def test_render_message_template__when_nothing_given__then_return_nothing() -> None:
-    request = EMPTY_REQUEST.copy()
+    request = copy.deepcopy(EMPTY_REQUEST)
 
     result = render_message_template(request)
     expected_result = ""

@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 from jsonschema import ValidationError
 
-from ...test.mocks import MOCK_GPT3_COMPLETION_RESPONSE, EMPTY_REQUEST
+from ...test.mocks import EMPTY_REQUEST, MOCK_GPT3_COMPLETION_RESPONSE
 from ..validators import validate_completion_response, validate_request
 
 

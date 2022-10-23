@@ -10,7 +10,7 @@ def select_suggestion_template(path_prefix: str, should_rephrase: bool) -> str:
 
 
 def render_suggestion_template(request: GenerateSuggestionsRequest) -> str:
-    message_to_rephrase = request["settings"]["conversation_params"].get("message_to_rephrase","")
+    message_to_rephrase = request["settings"]["conversation_params"].get("message_to_rephrase", "")
     selected_template = select_suggestion_template(
         path_prefix=f"{choose_path_prefix(request)}/suggestion",
         should_rephrase=bool(message_to_rephrase),

@@ -1,9 +1,11 @@
+import copy
+
 from ...test.mocks import EMPTY_REQUEST, EMPTY_REQUEST_WITH_NAMES
 from ..extra import render_extra_template
 
 
 def test_render_extra_template__when_all_extras_given__then_return_string_with_all_extras() -> None:
-    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
     request["settings"]["profile_params"]["age"] = "27"
     request["settings"]["profile_params"]["pronouns"] = "he/him"
     request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
@@ -23,7 +25,7 @@ People describe Chad Johnson as a cool guy who always knows the right thing to s
 
 
 def test_render_extra_template__when_no_names_given__then_return_string_with_no_names() -> None:
-    request = EMPTY_REQUEST.copy()
+    request = copy.deepcopy(EMPTY_REQUEST)
     request["settings"]["profile_params"]["age"] = "27"
     request["settings"]["profile_params"]["pronouns"] = "he/him"
     request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
@@ -43,7 +45,7 @@ People describe me as a cool guy who always knows the right thing to say.
 
 
 def test_render_extra_template__when_nothing_given__then_return_string_with_no_params() -> None:
-    request = EMPTY_REQUEST.copy()
+    request = copy.deepcopy(EMPTY_REQUEST)
 
     result = render_extra_template(request)
     expected_result = ""

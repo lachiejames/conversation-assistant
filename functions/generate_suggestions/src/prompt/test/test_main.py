@@ -1,3 +1,4 @@
+import copy
 from unittest.mock import MagicMock, patch
 
 from ...test.mocks import EMPTY_REQUEST, EMPTY_REQUEST_WITH_NAMES
@@ -6,7 +7,7 @@ from ..main import construct_prompt
 
 
 def test_construct_prompt__when_all_params_given__then_return_everything() -> None:
-    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
     request["settings"]["profile_params"]["age"] = "27"
     request["settings"]["profile_params"]["pronouns"] = "he/him"
     request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
@@ -55,7 +56,7 @@ Chad Johnson:"""
 
 
 def test_construct_prompt__when_all_params_except_names_given__then_omit_names() -> None:
-    request = EMPTY_REQUEST.copy()
+    request = copy.deepcopy(EMPTY_REQUEST)
     request["settings"]["profile_params"]["age"] = "27"
     request["settings"]["profile_params"]["pronouns"] = "he/him"
     request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
@@ -104,7 +105,7 @@ Me:"""
 
 
 def test_construct_prompt__when_all_params_except_rephrase_given__then_omit_comment() -> None:
-    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
     request["settings"]["profile_params"]["age"] = "27"
     request["settings"]["profile_params"]["pronouns"] = "he/him"
     request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
@@ -148,7 +149,7 @@ Chad Johnson:"""
 
 
 def test_construct_prompt__when_all_params_except_messages_given__then_omit_messages() -> None:
-    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
     request["settings"]["profile_params"]["age"] = "27"
     request["settings"]["profile_params"]["pronouns"] = "he/him"
     request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
@@ -177,7 +178,7 @@ Chad Johnson:"""
 
 
 def test_construct_prompt__when_all_params_except_messages_and_rephrase_given__then_omit_messages_and_comment() -> None:
-    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
     request["settings"]["profile_params"]["age"] = "27"
     request["settings"]["profile_params"]["pronouns"] = "he/him"
     request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
@@ -201,7 +202,7 @@ Chad Johnson:"""
 
 
 def test_construct_prompt__when_no_profile_params_given__then_omit_extras() -> None:
-    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
     request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
     request["settings"]["conversation_params"]["tone_of_chat"] = "Serious"
     request["settings"]["conversation_params"]["message_to_rephrase"] = "Damn that's crazy"
@@ -238,7 +239,7 @@ Chad Johnson:"""
 
 
 def test_construct_prompt__when_no_profile_params_or_names_given__then_omit_extras_and_names() -> None:
-    request = EMPTY_REQUEST.copy()
+    request = copy.deepcopy(EMPTY_REQUEST)
     request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
     request["settings"]["conversation_params"]["tone_of_chat"] = "Serious"
     request["settings"]["conversation_params"]["message_to_rephrase"] = "Damn that's crazy"
@@ -275,7 +276,7 @@ Me:"""
 
 
 def test_construct_prompt__when_nothing_given__then_return_expected_string() -> None:
-    request = EMPTY_REQUEST.copy()
+    request = copy.deepcopy(EMPTY_REQUEST)
 
     prompt = construct_prompt(request, input_lang=DEFAULT_LANG)
     expected_prompt = """The following is a conversation that I had.
@@ -288,7 +289,7 @@ Me:"""
 def test_construct_prompt__when_all_params_given_and_lang_not_english__then_translate_intro_and_extra(
     translate_text_spy: MagicMock,
 ) -> None:
-    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
     request["settings"]["profile_params"]["age"] = "27"
     request["settings"]["profile_params"]["pronouns"] = "he/him"
     request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
@@ -330,7 +331,7 @@ People describe Chad Johnson as a cool guy who always knows the right thing to s
 def test_construct_prompt__when_no_messages_given_and_lang_not_english__then_translate_intro_and_extra(
     translate_text_spy: MagicMock,
 ) -> None:
-    request = EMPTY_REQUEST_WITH_NAMES.copy()
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
     request["settings"]["profile_params"]["age"] = "27"
     request["settings"]["profile_params"]["pronouns"] = "he/him"
     request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
@@ -358,7 +359,7 @@ People describe Chad Johnson as a cool guy who always knows the right thing to s
 def test_construct_prompt__when_no_messages_or_names_given_and_lang_not_english__then_translate_intro_and_extra(
     translate_text_spy: MagicMock,
 ) -> None:
-    request = EMPTY_REQUEST.copy()
+    request = copy.deepcopy(EMPTY_REQUEST)
     request["settings"]["profile_params"]["age"] = "27"
     request["settings"]["profile_params"]["pronouns"] = "he/him"
     request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
@@ -386,7 +387,7 @@ People describe me as a cool guy who always knows the right thing to say.
 def test_construct_prompt__when_nothing_given__then_translate_intro_and_extra(
     translate_text_spy: MagicMock,
 ) -> None:
-    request = EMPTY_REQUEST.copy()
+    request = copy.deepcopy(EMPTY_REQUEST)
 
     alt_lang = "it"
     construct_prompt(request, input_lang=alt_lang)

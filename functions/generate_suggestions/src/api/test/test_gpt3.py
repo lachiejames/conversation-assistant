@@ -1,37 +1,38 @@
+import copy
 from unittest.mock import MagicMock, patch
 
 import pytest
 from jsonschema import ValidationError
 
+from src.test.mocks.requests import EMPTY_REQUEST_WITH_NAMES
+
 from ...models import GPT3Params
-from ...test.mocks import MOCK_GPT3_COMPLETION_RESPONSE, MOCK_PROMPT, EMPTY_REQUEST
+from ...test.mocks import EMPTY_REQUEST, MOCK_GPT3_COMPLETION_RESPONSE, MOCK_PROMPT
 from ..gpt3 import fetch_completion, get_stop_indicator
 
 MOCK_STOP_INDICATOR = ["Chad Johnson: ", "Stacey: "]
-MOCK_USER_ID = EMPTY_REQUEST["uid"]
+MOCK_USER_ID = "1234567890"
 
 
-def test_get_stop_indicator__returns_2_indicators() -> None:
-    stop_indicator = get_stop_indicator(request=EMPTY_REQUEST)
-
-    assert len(stop_indicator) == 2
-
-
-def test_get_stop_indicator__when_names_given__then_returns_both_names() -> None:
-    stop_indicator = get_stop_indicator(request=EMPTY_REQUEST)
-
+def test_get_stop_indicator__when_names_and_relationship_given__then_includes_them() -> None:
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
+    stop_indicator = get_stop_indicator(request)
     assert stop_indicator == ["Chad Johnson:", "Stacey:"]
 
 
-def test_get_stop_indicator__when_no_names_given__then_returns_me_and_relationship() -> None:
-    stop_indicator = get_stop_indicator(request=EMPTY_REQUEST_NO_NAMES)
+def test_get_stop_indicator__when_relationship_but_no_names_given__then_includes_them() -> None:
+    request = copy.deepcopy(EMPTY_REQUEST)
+    request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
+    request["settings"]["conversation_params"]["tone_of_chat"] = "Professional"
 
+    stop_indicator = get_stop_indicator(request)
     assert stop_indicator == ["Me:", "Friend:"]
 
 
 def test_get_stop_indicator__when_nothing_given__then_returns_me_and_relationship() -> None:
-    stop_indicator = get_stop_indicator(request=EMPTY_REQUEST_NOTHING)
+    request = copy.deepcopy(EMPTY_REQUEST)
 
+    stop_indicator = get_stop_indicator(request)
     assert stop_indicator == ["Me:", "Them:"]
 
 

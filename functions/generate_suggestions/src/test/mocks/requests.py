@@ -2,7 +2,6 @@ from typing import cast
 
 from ...models import GenerateSuggestionsRequest
 
-
 EMPTY_REQUEST: GenerateSuggestionsRequest = {
     "uid": "",
     "previous_messages": [],
