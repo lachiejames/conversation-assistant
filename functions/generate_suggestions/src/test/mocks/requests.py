@@ -1,4 +1,4 @@
-from typing import cast
+import copy
 
 from ...models import GenerateSuggestionsRequest
 
@@ -34,20 +34,6 @@ EMPTY_REQUEST: GenerateSuggestionsRequest = {
 }
 
 
-EMPTY_REQUEST_WITH_NAMES: GenerateSuggestionsRequest = cast(
-    GenerateSuggestionsRequest,
-    EMPTY_REQUEST
-    | {
-        "settings": EMPTY_REQUEST["settings"]
-        | {
-            "profile_params": EMPTY_REQUEST["settings"]["profile_params"]
-            | {
-                "name": "Chad Johnson",
-            },
-            "conversation_params": EMPTY_REQUEST["settings"]["conversation_params"]
-            | {
-                "their_name": "Stacey",
-            },
-        }
-    },
-)
+EMPTY_REQUEST_WITH_NAMES = copy.deepcopy(EMPTY_REQUEST)
+EMPTY_REQUEST_WITH_NAMES["settings"]["profile_params"]["name"] = "Chad Johnson"
+EMPTY_REQUEST_WITH_NAMES["settings"]["conversation_params"]["their_name"] = "Stacey"
