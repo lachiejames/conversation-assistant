@@ -1,3 +1,4 @@
+from typing import Optional
 from typing_extensions import TypedDict
 
 from .message import Message
@@ -8,7 +9,9 @@ ConversationParams = TypedDict(
         "their_name": str,
         "their_relationship_to_me": str,
         "tone_of_chat": str,
-        "message_to_rephrase": str,
+
+        # Marked as optional to prevent breaking changes for Android users who haven't updated to the latest version of the app.
+        "message_to_rephrase": Optional[str], 
     },
 )
 

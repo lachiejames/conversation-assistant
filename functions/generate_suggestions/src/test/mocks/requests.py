@@ -126,6 +126,7 @@ MOCK_REQUEST_NOTHING: GenerateSuggestionsRequest = cast(
                     "their_name": "",
                     "their_relationship_to_me": "",
                     "tone_of_chat": "",
+                    "message_to_rephrase": "",
                 },
             },
         }

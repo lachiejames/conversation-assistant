@@ -72,6 +72,9 @@
           },
           "tone_of_chat": {
             "type": "string"
+          },
+          "message_to_rephrase": {
+            "type": "string"
           }
         }
       },

@@ -21,6 +21,6 @@ def render_template(request: GenerateSuggestionsRequest, template: str) -> str:
         their_name=request["settings"]["conversation_params"]["their_name"],
         their_relationship_to_me=request["settings"]["conversation_params"]["their_relationship_to_me"],
         tone_of_chat=request["settings"]["conversation_params"]["tone_of_chat"],
-        message_to_rephrase=request["settings"]["conversation_params"]["message_to_rephrase"],
+        message_to_rephrase=request["settings"]["conversation_params"].get("message_to_rephrase", ""),
         previous_messages=request["previous_messages"],
     )
