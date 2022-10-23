@@ -10,7 +10,8 @@
     "conversation_params": {
       "their_name": "Richard",
       "their_relationship_to_me": "Boss",
-      "tone_of_chat": "Professional"
+      "tone_of_chat": "Professional",
+      "message_to_rephrase": "I've mentally checked out of this job and will probably quit soon"
     },
     "profile_params": {
       "name": "Chad Johnson",

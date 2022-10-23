@@ -23,7 +23,8 @@
       "location": "Camberwell, Melbourne",
       "occupation": "Software Dev",
       "hobbies": "App development, playing with my dog Willow",
-      "self_description": "A bit of a joker"
+      "self_description": "A bit of a joker",
+      "message_to_rephrase": ""
     },
     "gpt3_params": {
       "engine": "text-davinci-002",

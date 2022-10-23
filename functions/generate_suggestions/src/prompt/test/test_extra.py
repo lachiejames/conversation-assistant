@@ -1,9 +1,19 @@
-from ...test.mocks import MOCK_REQUEST, MOCK_REQUEST_NO_NAMES, MOCK_REQUEST_NOTHING
+import copy
+
+from ...test.mocks import EMPTY_REQUEST, EMPTY_REQUEST_WITH_NAMES
 from ..extra import render_extra_template
 
 
 def test_render_extra_template__when_all_extras_given__then_return_string_with_all_extras() -> None:
-    result = render_extra_template(MOCK_REQUEST)
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
+    request["settings"]["profile_params"]["age"] = "27"
+    request["settings"]["profile_params"]["pronouns"] = "he/him"
+    request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
+    request["settings"]["profile_params"]["occupation"] = "Software Engineer"
+    request["settings"]["profile_params"]["hobbies"] = "coding, hanging out with my dog"
+    request["settings"]["profile_params"]["self_description"] = "a cool guy who always knows the right thing to say"
+
+    result = render_extra_template(request)
     expected_result = """Chad Johnson is 27 years old.
 Chad Johnson's pronouns are he/him.
 Chad Johnson lives in Camberwell, Victoria, Australia.
@@ -15,7 +25,15 @@ People describe Chad Johnson as a cool guy who always knows the right thing to s
 
 
 def test_render_extra_template__when_no_names_given__then_return_string_with_no_names() -> None:
-    result = render_extra_template(MOCK_REQUEST_NO_NAMES)
+    request = copy.deepcopy(EMPTY_REQUEST)
+    request["settings"]["profile_params"]["age"] = "27"
+    request["settings"]["profile_params"]["pronouns"] = "he/him"
+    request["settings"]["profile_params"]["location"] = "Camberwell, Victoria, Australia"
+    request["settings"]["profile_params"]["occupation"] = "Software Engineer"
+    request["settings"]["profile_params"]["hobbies"] = "coding, hanging out with my dog"
+    request["settings"]["profile_params"]["self_description"] = "a cool guy who always knows the right thing to say"
+
+    result = render_extra_template(request)
     expected_result = """I am 27 years old.
 My pronouns are he/him.
 I live in Camberwell, Victoria, Australia.
@@ -27,6 +45,8 @@ People describe me as a cool guy who always knows the right thing to say.
 
 
 def test_render_extra_template__when_nothing_given__then_return_string_with_no_params() -> None:
-    result = render_extra_template(MOCK_REQUEST_NOTHING)
+    request = copy.deepcopy(EMPTY_REQUEST)
+
+    result = render_extra_template(request)
     expected_result = ""
     assert result == expected_result

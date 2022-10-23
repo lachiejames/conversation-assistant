@@ -1,15 +1,28 @@
-from ...test.mocks import (
-    MOCK_REQUEST,
-    MOCK_REQUEST_NO_MESSAGES,
-    MOCK_REQUEST_NO_NAMES,
-    MOCK_REQUEST_NO_NAMES_NO_RELATIONSHIP,
-    MOCK_REQUEST_NOTHING,
-)
+import copy
+
+from ...test.mocks import EMPTY_REQUEST, EMPTY_REQUEST_WITH_NAMES
 from ..message import render_message_template
 
 
-def test_render_message_template__when_names_and_messages_given__then_return_string_with_names() -> None:
-    result = render_message_template(MOCK_REQUEST)
+def test_render_message_template__when_names_and_relationship_and_messages_given__then_return_messages_with_names() -> None:
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
+    request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
+    request["previous_messages"] = [
+        {
+            "text": "Hey Chad!",
+            "is_my_message": False,
+        },
+        {
+            "text": "What's crackin babydoll",
+            "is_my_message": True,
+        },
+        {
+            "text": "I think I'm pregnant...",
+            "is_my_message": False,
+        },
+    ]
+
+    result = render_message_template(request)
     expected_result = """
 Stacey: Hey Chad!
 
@@ -20,14 +33,25 @@ Stacey: I think I'm pregnant...
     assert result == expected_result
 
 
-def test_render_message_template__when_names_and_no_messages_given__then_return_expected_string() -> None:
-    result = render_message_template(MOCK_REQUEST_NO_MESSAGES)
-    expected_result = ""
-    assert result == expected_result
+def test_render_message_template__when_relationship_and_messages_but_no_names_given__then_return_messages_with_relationship() -> None:
+    request = copy.deepcopy(EMPTY_REQUEST)
+    request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
+    request["previous_messages"] = [
+        {
+            "text": "Hey Chad!",
+            "is_my_message": False,
+        },
+        {
+            "text": "What's crackin babydoll",
+            "is_my_message": True,
+        },
+        {
+            "text": "I think I'm pregnant...",
+            "is_my_message": False,
+        },
+    ]
 
-
-def test_render_message_template__when_no_names_and_messages_given__then_return_expected_string() -> None:
-    result = render_message_template(MOCK_REQUEST_NO_NAMES)
+    result = render_message_template(request)
     expected_result = """
 Friend: Hey Chad!
 
@@ -38,8 +62,24 @@ Friend: I think I'm pregnant...
     assert result == expected_result
 
 
-def test_render_message_template__when_no_names_and_no_relationship_and_messages_given__then_return_expected_string() -> None:
-    result = render_message_template(MOCK_REQUEST_NO_NAMES_NO_RELATIONSHIP)
+def test_render_message_template__when_messages_but_no_names_no_relationship_given__then_return_messages_with_no_names() -> None:
+    request = copy.deepcopy(EMPTY_REQUEST)
+    request["previous_messages"] = [
+        {
+            "text": "Hey Chad!",
+            "is_my_message": False,
+        },
+        {
+            "text": "What's crackin babydoll",
+            "is_my_message": True,
+        },
+        {
+            "text": "I think I'm pregnant...",
+            "is_my_message": False,
+        },
+    ]
+
+    result = render_message_template(request)
     expected_result = """
 Them: Hey Chad!
 
@@ -50,7 +90,18 @@ Them: I think I'm pregnant...
     assert result == expected_result
 
 
-def test_render_message_template__when_nothing_given__then_return_expected_string() -> None:
-    result = render_message_template(MOCK_REQUEST_NOTHING)
+def test_render_message_template__when_names_and_relationship_but_no_messages_given__then_return_nothing() -> None:
+    request = copy.deepcopy(EMPTY_REQUEST_WITH_NAMES)
+    request["settings"]["conversation_params"]["their_relationship_to_me"] = "Friend"
+
+    result = render_message_template(request)
+    expected_result = ""
+    assert result == expected_result
+
+
+def test_render_message_template__when_nothing_given__then_return_nothing() -> None:
+    request = copy.deepcopy(EMPTY_REQUEST)
+
+    result = render_message_template(request)
     expected_result = ""
     assert result == expected_result
