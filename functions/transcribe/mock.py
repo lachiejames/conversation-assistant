@@ -1,21 +1,4 @@
-# Conversation Assistant
-
-Helping you find the right words.
-
-Whats the logic going to be here?
-
-What I want:
-
-```
-{
-    messages: [{text:"oi m8", isMyMessage:false}]
-}
-```
-
-What I have to work with:
-
-```
-[
+MOCK_RESPONSE = [
     {
         "alternatives": {
             "transcript": "What's going on",
@@ -41,6 +24,17 @@ What I have to work with:
                 },
                 "word": "going",
             },
+            "words": {
+                "start_time": {
+                    "seconds": 1,
+                    "nanos": 900000000,
+                },
+                "end_time": {
+                    "seconds": 1,
+                    "nanos": 900000000,
+                },
+                "word": "on",
+            },
         },
         "result_end_time": {
             "seconds": 8,
@@ -49,5 +43,3 @@ What I have to work with:
         "language_code": "en-us",
     }
 ]
-
-```
