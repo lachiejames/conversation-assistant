@@ -3,6 +3,7 @@ import os
 from typing import Any, Union
 
 from jsonschema import validate
+from openai.types.chat import ChatCompletion
 
 from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse
 
@@ -31,12 +32,12 @@ def validate_request(request_body: Union[Any, None]) -> None:
         validate(request_body, schema)
 
 
-def validate_completion_response(response: GPT3CompletionResponse) -> None:
+def validate_completion_response(response: ChatCompletion) -> None:
     path_to_schema: str = get_path_to_schema("gpt3_completion_response.json")
 
     with open(path_to_schema, "r", encoding="utf-8") as schema_file:
         schema: Any = json.load(schema_file)
-        validate(response, schema)
+        validate(response.to_dict(), schema)
 
 
 def is_not_empty(field: str) -> bool:

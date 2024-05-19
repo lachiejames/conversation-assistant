@@ -1,12 +1,19 @@
 import os
+from typing import Any, cast
 
-from openai import Completion
+from openai import OpenAI
+from openai.types.chat import ChatCompletion
 
 from ..models import GenerateSuggestionsRequest, GPT3CompletionResponse, GPT3Params
 from ..utils import is_not_empty, validate_completion_response
 
-# Current limit on davinci-v2 requests
+# Current limit on gpt-4o requests
 GPT3_MAX_TOKENS = 4000
+
+# Initialise OpenAI client
+client = OpenAI(
+    api_key=os.environ.get("OPENAI_API_KEY"),
+)
 
 
 def get_stop_indicator(request: GenerateSuggestionsRequest) -> list[str]:
@@ -34,19 +41,24 @@ def calculate_max_tokens(prompt: str) -> int:
 def fetch_completion(prompt: str, gpt3_params: GPT3Params, stop_indicator: list[str], uid: str) -> GPT3CompletionResponse:
     """Depends on OPENAI_API_KEY environment variable"""
 
-    response: GPT3CompletionResponse = Completion.create(
-        engine=gpt3_params["engine"],
-        prompt=prompt,
-        api_key=os.getenv("OPENAI_API_KEY"),
+    response: ChatCompletion = client.chat.completions.create(
+        messages=[
+            {
+                "role": "system",
+                "content": prompt,
+            }
+        ],
+        model="gpt-4o",
         temperature=gpt3_params["temperature"],
         n=gpt3_params["n"],
         max_tokens=calculate_max_tokens(prompt),
-        best_of=gpt3_params["best_of"],
         frequency_penalty=gpt3_params["frequency_penalty"],
         presence_penalty=gpt3_params["presence_penalty"],
         stop=stop_indicator,
     )
 
+    # Validate the response is a valid GPT3CompletionResponse
     validate_completion_response(response)
 
-    return response
+    # Cast the dict version of the response to GPT3CompletionResponse
+    return cast(GPT3CompletionResponse, response.to_dict())

@@ -3,7 +3,11 @@ from typing import Any
 import pytest
 from jsonschema import ValidationError
 
-from ...test.mocks import EMPTY_REQUEST, MOCK_GPT3_COMPLETION_RESPONSE
+from ...test.mocks import (
+    EMPTY_REQUEST,
+    MOCK_GPT3_COMPLETION_RESPONSE,
+    MockMalformedResponse,
+)
 from ..validators import validate_completion_response, validate_request
 
 
@@ -23,7 +27,7 @@ def test_validate_completion_response__when_event_is_valid__then_succeeds() -> N
 
 
 def test_validate_completion_response__when_event_is_invalid__then_raises_validation_error() -> None:
-    invalid_event: Any = {"this": "will fail"}
+    invalid_event: Any = MockMalformedResponse()
 
     with pytest.raises(ValidationError):
         validate_completion_response(invalid_event)
