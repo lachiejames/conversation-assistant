@@ -13,5 +13,9 @@ MOCK_SUGGESTIONS_ITALIAN: list[Suggestion] = [
 
 MOCK_RESPONSE: GenerateSuggestionsResponse = {
     "suggestions": MOCK_SUGGESTIONS,
-    "gpt3_usage": MOCK_GPT3_COMPLETION_RESPONSE["usage"],
+    "gpt3_usage": {
+        "completion_tokens": 7,
+        "prompt_tokens": 135,
+        "total_tokens": 142,
+    },
 }

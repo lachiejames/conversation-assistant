@@ -22,7 +22,7 @@ EMPTY_REQUEST: GenerateSuggestionsRequest = {
             "message_to_rephrase": "",
         },
         "gpt3_params": {
-            "engine": "text-davinci-002",
+            "engine": "gpt-4o",
             "n": 1,
             "temperature": 1.0,
             "max_tokens": 50,

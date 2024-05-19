@@ -5,26 +5,33 @@
   "properties": {
     "choices": {
       "type": "array",
-      "items": [
-        {
-          "type": "object",
-          "required": ["finish_reason", "index", "logprobs", "text"],
-          "properties": {
-            "finish_reason": {
-              "type": "string"
-            },
-            "index": {
-              "type": "integer"
-            },
-            "logprobs": {
-              "type": "null"
-            },
-            "text": {
-              "type": "string"
+      "items": {
+        "type": "object",
+        "required": ["finish_reason", "index", "logprobs", "message"],
+        "properties": {
+          "finish_reason": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer"
+          },
+          "logprobs": {
+            "type": "null"
+          },
+          "message": {
+            "type": "object",
+            "required": ["content", "role"],
+            "properties": {
+              "content": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              }
             }
           }
         }
-      ]
+      }
     },
     "created": {
       "type": "integer"
@@ -37,6 +44,24 @@
     },
     "object": {
       "type": "string"
+    },
+    "system_fingerprint": {
+      "type": "string"
+    },
+    "usage": {
+      "type": "object",
+      "required": ["completion_tokens", "prompt_tokens", "total_tokens"],
+      "properties": {
+        "completion_tokens": {
+          "type": "integer"
+        },
+        "prompt_tokens": {
+          "type": "integer"
+        },
+        "total_tokens": {
+          "type": "integer"
+        }
+      }
     }
   }
 }
